@@ -1,0 +1,8 @@
+{
+  "name": "Shisha Rent Kolkata | Premium Hookah Rental & Event Services",
+  "description": "Luxury hookah rentals, 15+ exotic flavour brands, professional bartenders, cooks & event catering in Kolkata. Book online or chat on WhatsApp.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}

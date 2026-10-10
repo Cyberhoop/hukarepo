@@ -1,0 +1,797 @@
+{
+  "paymentConfig": {
+    "id": "active_config",
+    "upiId": "shisharent.kolkata@okhdfcbank",
+    "payeeName": "Shisha Rent Private Limited",
+    "qrImageUrl": "/uploads/qr/active_qr_test.png",
+    "qrStoragePath": "qr/active_qr_test.png",
+    "isActive": true,
+    "codEnabled": true,
+    "instructions": "Scan with any UPI App (GPay, PhonePe, Paytm, BHIM). Share transaction screenshot on WhatsApp for instant priority confirmation.",
+    "updatedAt": "2026-10-10T17:32:21.422Z",
+    "updatedBy": "admin@shisharent.in"
+  },
+  "products": [
+    {
+      "id": "flavour-al-fakir",
+      "name": "Al Fakir",
+      "category": "flavours",
+      "categoryLabel": "Flavour Brands / Varieties",
+      "type": "Flavour Brand",
+      "description": "Renowned classic shisha flavour known for authentic notes, smooth buzz, and rich smoke clouds.",
+      "rentalOrSale": "Available on Request",
+      "inStock": true
+    },
+    {
+      "id": "flavour-al-fuse",
+      "name": "Al Fuse",
+      "category": "flavours",
+      "categoryLabel": "Flavour Brands / Varieties",
+      "type": "Flavour Brand",
+      "description": "Vibrant modern blend crafted for refreshing fusion mixes and long-lasting session sessions.",
+      "rentalOrSale": "Available on Request",
+      "inStock": true
+    },
+    {
+      "id": "flavour-aladdin",
+      "name": "Aladdin",
+      "category": "flavours",
+      "categoryLabel": "Flavour Brands / Varieties",
+      "type": "Flavour Brand",
+      "description": "Exotic Middle-Eastern herbal shisha recipe featuring sweet citrus and chilled mint tones.",
+      "rentalOrSale": "Available on Request",
+      "inStock": true
+    },
+    {
+      "id": "flavour-afreen",
+      "name": "Afreen",
+      "category": "flavours",
+      "categoryLabel": "Flavour Brands / Varieties",
+      "type": "Flavour Brand",
+      "description": "Signature rich flavour with deep aromatic notes, consistent heat tolerance, and premium leaf cut.",
+      "rentalOrSale": "Available on Request",
+      "inStock": true
+    },
+    {
+      "id": "flavour-al-fazila",
+      "name": "Al Fazila",
+      "category": "flavours",
+      "categoryLabel": "Flavour Brands / Varieties",
+      "type": "Flavour Brand",
+      "description": "Traditional aromatic blend delivering dense velvet smoke and balanced sweetness.",
+      "rentalOrSale": "Available on Request",
+      "inStock": true
+    },
+    {
+      "id": "flavour-afzal",
+      "name": "Afzal",
+      "category": "flavours",
+      "categoryLabel": "Flavour Brands / Varieties",
+      "type": "Flavour Brand",
+      "description": "World-famous paan, mint, and fruity blends loved for signature Indian shisha perfection.",
+      "rentalOrSale": "Available on Request",
+      "inStock": true
+    },
+    {
+      "id": "flavour-aroma",
+      "name": "Aroma",
+      "category": "flavours",
+      "categoryLabel": "Flavour Brands / Varieties",
+      "type": "Flavour Brand",
+      "description": "Fragrant boutique blend designed for smooth aftertastes and refreshing room ambiance.",
+      "rentalOrSale": "Available on Request",
+      "inStock": true
+    },
+    {
+      "id": "flavour-royal",
+      "name": "Royal",
+      "category": "flavours",
+      "categoryLabel": "Flavour Brands / Varieties",
+      "type": "Flavour Brand",
+      "description": "High-grade luxury tobacco & molasses blend offering full-bodied flavor from first pull to last.",
+      "rentalOrSale": "Available on Request",
+      "inStock": true
+    },
+    {
+      "id": "flavour-ayaan",
+      "name": "Ayaan",
+      "category": "flavours",
+      "categoryLabel": "Flavour Brands / Varieties",
+      "type": "Flavour Brand",
+      "description": "Crisp and fruit-forward shisha molasses, perfect for festive parties and mixed bowls.",
+      "rentalOrSale": "Available on Request",
+      "inStock": true
+    },
+    {
+      "id": "flavour-keva",
+      "name": "Keva",
+      "category": "flavours",
+      "categoryLabel": "Flavour Brands / Varieties",
+      "type": "Flavour Brand",
+      "description": "Delicate floral and berry profile with gentle cooling sensations for relaxed evenings.",
+      "rentalOrSale": "Available on Request",
+      "inStock": true
+    },
+    {
+      "id": "flavour-makai",
+      "name": "Makai",
+      "category": "flavours",
+      "categoryLabel": "Flavour Brands / Varieties",
+      "type": "Flavour Brand",
+      "description": "Distinctive sweet exotic blend curated for hookah connoisseurs seeking rare aromas.",
+      "rentalOrSale": "Available on Request",
+      "inStock": true
+    },
+    {
+      "id": "flavour-maya",
+      "name": "Maya",
+      "category": "flavours",
+      "categoryLabel": "Flavour Brands / Varieties",
+      "type": "Flavour Brand",
+      "description": "Premium molasses cut engineered for effortless heat management and zero harshness.",
+      "rentalOrSale": "Available on Request",
+      "inStock": true
+    },
+    {
+      "id": "flavour-exotic",
+      "name": "Exotic",
+      "category": "flavours",
+      "categoryLabel": "Flavour Brands / Varieties",
+      "type": "Flavour Brand",
+      "description": "Tropical punch and passion fruit combination creating thick, aromatic white clouds.",
+      "rentalOrSale": "Available on Request",
+      "inStock": true
+    },
+    {
+      "id": "flavour-harval",
+      "name": "Harval",
+      "category": "flavours",
+      "categoryLabel": "Flavour Brands / Varieties",
+      "type": "Flavour Brand",
+      "description": "100% tobacco-free herbal shisha base formulated with organic tea leaves and sugarcane molasses.",
+      "rentalOrSale": "Available on Request",
+      "inStock": true
+    },
+    {
+      "id": "flavour-al-akbar",
+      "name": "Al Akbar",
+      "category": "flavours",
+      "categoryLabel": "Flavour Brands / Varieties",
+      "type": "Flavour Brand",
+      "description": "Rich royal blend inspired by heritage spices and dark berry undertones.",
+      "rentalOrSale": "Available on Request",
+      "inStock": true
+    },
+    {
+      "id": "hookah-standard",
+      "name": "Hookah",
+      "category": "hookah-bases",
+      "categoryLabel": "Hookah & Base Options",
+      "type": "Hookah Model",
+      "description": "Classic high-grade hookah apparatus equipped with stainless steel stem and balanced downstem.",
+      "rentalOrSale": "Available for Rental & Setup",
+      "inStock": true
+    },
+    {
+      "id": "hookah-maya",
+      "name": "Maya Hookah",
+      "category": "hookah-bases",
+      "categoryLabel": "Hookah & Base Options",
+      "type": "Hookah Model",
+      "description": "Designer crystal glass and anodized aluminum hookah engineered for ultra-smooth draw.",
+      "rentalOrSale": "Available for Rental & Setup",
+      "inStock": true
+    },
+    {
+      "id": "hookah-coco-aaya",
+      "name": "Coco Aaya Hookah",
+      "category": "hookah-bases",
+      "categoryLabel": "Hookah & Base Options",
+      "type": "Hookah Model",
+      "description": "Heavyweight modern masterpiece with diffuser technology and high-stability footprint.",
+      "rentalOrSale": "Available for Rental & Setup",
+      "inStock": true
+    },
+    {
+      "id": "hookah-afreen",
+      "name": "Afreen Hookah",
+      "category": "hookah-bases",
+      "categoryLabel": "Hookah & Base Options",
+      "type": "Hookah Model",
+      "description": "Opulent brass and carved detailing hookah, ideal for weddings and VIP private gatherings.",
+      "rentalOrSale": "Available for Rental & Setup",
+      "inStock": true
+    },
+    {
+      "id": "base-maya",
+      "name": "Maya Hookah Base",
+      "category": "hookah-bases",
+      "categoryLabel": "Hookah & Base Options",
+      "type": "Base Vessel",
+      "description": "Extra thick bohemian glass base engineered for Maya series with watertight seal.",
+      "rentalOrSale": "Available on Request",
+      "inStock": true
+    },
+    {
+      "id": "base-coco-aaya",
+      "name": "Coco Aaya Hookah Base",
+      "category": "hookah-bases",
+      "categoryLabel": "Hookah & Base Options",
+      "type": "Base Vessel",
+      "description": "Wide conical glass vase providing rock-solid stability and maximum smoke cooling chamber.",
+      "rentalOrSale": "Available on Request",
+      "inStock": true
+    },
+    {
+      "id": "base-afreen",
+      "name": "Afreen Hookah Base",
+      "category": "hookah-bases",
+      "categoryLabel": "Hookah & Base Options",
+      "type": "Base Vessel",
+      "description": "Intricately patterned artisan glass base with ruby red and gold leaf accents.",
+      "rentalOrSale": "Available on Request",
+      "inStock": true
+    },
+    {
+      "id": "hookah-stand",
+      "name": "Hookah Stand",
+      "category": "hookah-bases",
+      "categoryLabel": "Hookah & Base Options",
+      "type": "Hardware / Stand",
+      "description": "Anti-tilt protective metal stand that prevents accidental knocks during lively parties.",
+      "rentalOrSale": "Available on Request",
+      "inStock": true
+    },
+    {
+      "id": "hookah-pot",
+      "name": "Hookah Pot",
+      "category": "hookah-bases",
+      "categoryLabel": "Hookah & Base Options",
+      "type": "Component",
+      "description": "Standard replacement water chamber pot with reinforced glass walls.",
+      "rentalOrSale": "Available on Request",
+      "inStock": true
+    },
+    {
+      "id": "chilam-silicone",
+      "name": "Silicone Chilam",
+      "category": "chilam",
+      "categoryLabel": "Chilam Options",
+      "type": "Chilam Bowl",
+      "description": "Unbreakable food-grade silicone bowl compatible with Lotus heat management devices.",
+      "rentalOrSale": "Available on Request",
+      "inStock": true
+    },
+    {
+      "id": "chilam-mud",
+      "name": "Mud / Mitti Chilam",
+      "category": "chilam",
+      "categoryLabel": "Chilam Options",
+      "type": "Chilam Bowl",
+      "description": "Authentic porous clay bowl delivering the quintessential traditional Indian shisha taste.",
+      "rentalOrSale": "Available on Request",
+      "inStock": true
+    },
+    {
+      "id": "chilam-rubber",
+      "name": "Chilam Rubber",
+      "category": "chilam",
+      "categoryLabel": "Chilam Options",
+      "type": "Grommet / Seal",
+      "description": "Heat-resistant silicone grommet for an airtight seal between stem and chilam bowl.",
+      "rentalOrSale": "Consumable & Accessory",
+      "inStock": true
+    },
+    {
+      "id": "pipe-maya",
+      "name": "Maya Hookah Pipe",
+      "category": "pipes",
+      "categoryLabel": "Hookah Pipe Options",
+      "type": "Hose & Handle",
+      "description": "Ergonomic soft-touch silicone hose with matte aluminum wand tailored for Maya hookahs.",
+      "rentalOrSale": "Available on Request",
+      "inStock": true
+    },
+    {
+      "id": "pipe-afreen",
+      "name": "Afreen Hookah Pipe",
+      "category": "pipes",
+      "categoryLabel": "Hookah Pipe Options",
+      "type": "Hose & Handle",
+      "description": "Traditional woven braided hose with elongated regal wooden handle and velvet sleeve.",
+      "rentalOrSale": "Available on Request",
+      "inStock": true
+    },
+    {
+      "id": "pipe-coco-aaya",
+      "name": "Coco Aaya Hookah Pipe",
+      "category": "pipes",
+      "categoryLabel": "Hookah Pipe Options",
+      "type": "Hose & Handle",
+      "description": "Wide-bore silicone hose designed for effortless unrestricted airflow and rapid cleaning.",
+      "rentalOrSale": "Available on Request",
+      "inStock": true
+    },
+    {
+      "id": "pipe-disposable",
+      "name": "Disposable Pipe",
+      "category": "pipes",
+      "categoryLabel": "Hookah Pipe Options",
+      "type": "Hose & Handle",
+      "description": "Individually wrapped single-use plastic hose for 100% hygienic party events.",
+      "rentalOrSale": "Consumable & Accessory",
+      "inStock": true
+    },
+    {
+      "id": "pipe-silicone",
+      "name": "Silicone Pipe",
+      "category": "pipes",
+      "categoryLabel": "Hookah Pipe Options",
+      "type": "Hose & Handle",
+      "description": "Medical-grade washable silicone hose that never retains ghost flavours or odors.",
+      "rentalOrSale": "Available on Request",
+      "inStock": true
+    },
+    {
+      "id": "pipe-rubber",
+      "name": "Pipe Rubber",
+      "category": "pipes",
+      "categoryLabel": "Hookah Pipe Options",
+      "type": "Grommet / Seal",
+      "description": "Flexible tapered seal ensuring airtight hose adapter connection.",
+      "rentalOrSale": "Consumable & Accessory",
+      "inStock": true
+    },
+    {
+      "id": "acc-heater-burner",
+      "name": "Heater Burner",
+      "category": "coal-accessories",
+      "categoryLabel": "Heating, Coal & Accessories",
+      "type": "Heating Device",
+      "description": "Electric spiral coil burner for fast, uniform ignition of coconut coals in 5 minutes.",
+      "rentalOrSale": "Available on Request",
+      "inStock": true
+    },
+    {
+      "id": "acc-big-filter",
+      "name": "Big Filter",
+      "category": "coal-accessories",
+      "categoryLabel": "Heating, Coal & Accessories",
+      "type": "Diffuser / Filter",
+      "description": "Downstem noise-reducing filter for whisper-quiet pull and micro-bubble filtration.",
+      "rentalOrSale": "Available on Request",
+      "inStock": true
+    },
+    {
+      "id": "acc-charcoal",
+      "name": "Charcoal",
+      "category": "coal-accessories",
+      "categoryLabel": "Heating, Coal & Accessories",
+      "type": "Fuel / Coal",
+      "description": "High-density hard wood charcoal providing steady warmth without chemical odors.",
+      "rentalOrSale": "Consumable & Accessory",
+      "inStock": true
+    },
+    {
+      "id": "acc-coconut-coal",
+      "name": "Coconut Coal",
+      "category": "coal-accessories",
+      "categoryLabel": "Heating, Coal & Accessories",
+      "type": "Fuel / Coal",
+      "description": "100% natural compressed coconut shell cubes with low ash, 90+ minutes burn time.",
+      "rentalOrSale": "Consumable & Accessory",
+      "inStock": true
+    },
+    {
+      "id": "acc-magic-coal",
+      "name": "Magic Coal",
+      "category": "coal-accessories",
+      "categoryLabel": "Heating, Coal & Accessories",
+      "type": "Fuel / Coal",
+      "description": "Quick-lighting circular coal disks ready in seconds with standard lighter flame.",
+      "rentalOrSale": "Consumable & Accessory",
+      "inStock": true
+    },
+    {
+      "id": "acc-tong",
+      "name": "Tong",
+      "category": "coal-accessories",
+      "categoryLabel": "Heating, Coal & Accessories",
+      "type": "Tool",
+      "description": "Stainless steel serrated tongs for safe gripping, rotating and ash-tapping.",
+      "rentalOrSale": "Consumable & Accessory",
+      "inStock": true
+    },
+    {
+      "id": "acc-pot-rubber",
+      "name": "Pot Rubber",
+      "category": "coal-accessories",
+      "categoryLabel": "Heating, Coal & Accessories",
+      "type": "Grommet / Seal",
+      "description": "Heavy duty rubber gasket for locking base pot to stem securely.",
+      "rentalOrSale": "Consumable & Accessory",
+      "inStock": true
+    },
+    {
+      "id": "acc-stand-rubber",
+      "name": "Stand Rubber",
+      "category": "coal-accessories",
+      "categoryLabel": "Heating, Coal & Accessories",
+      "type": "Grommet / Seal",
+      "description": "Anti-slip rubber feet padding for metal hookah stands.",
+      "rentalOrSale": "Consumable & Accessory",
+      "inStock": true
+    },
+    {
+      "id": "acc-hookah-base-rubber",
+      "name": "Hookah Base Rubber",
+      "category": "coal-accessories",
+      "categoryLabel": "Heating, Coal & Accessories",
+      "type": "Grommet / Seal",
+      "description": "Precision base seal engineered to prevent leaks and stabilize tall hookahs.",
+      "rentalOrSale": "Consumable & Accessory",
+      "inStock": true
+    },
+    {
+      "id": "sr-hookah",
+      "name": "SR Hookah",
+      "category": "sr-products",
+      "categoryLabel": "SR Products / Range",
+      "type": "Signature Collection",
+      "description": "Flagship Shisha Rent luxury hookah custom-built for high-end events and lounges.",
+      "rentalOrSale": "Available for Rental & Setup",
+      "inStock": true
+    },
+    {
+      "id": "sr-shisha",
+      "name": "SR Shisha",
+      "category": "sr-products",
+      "categoryLabel": "SR Products / Range",
+      "type": "Signature Collection",
+      "description": "Curated complete shisha package including specialized stem, base, and airflow valve.",
+      "rentalOrSale": "Available for Rental & Setup",
+      "inStock": true
+    },
+    {
+      "id": "sr-herbal",
+      "name": "SR Herbal",
+      "category": "sr-products",
+      "categoryLabel": "SR Products / Range",
+      "type": "Signature Collection",
+      "description": "Proprietary non-tobacco herbal molasses collection with natural fruit extracts.",
+      "rentalOrSale": "Available on Request",
+      "inStock": true
+    },
+    {
+      "id": "sr-regular",
+      "name": "SR Regular",
+      "category": "sr-products",
+      "categoryLabel": "SR Products / Range",
+      "type": "Signature Collection",
+      "description": "Everyday crowd-pleaser setup delivering reliable smooth sessions at optimal value.",
+      "rentalOrSale": "Available on Request",
+      "inStock": true
+    },
+    {
+      "id": "sr-special",
+      "name": "SR Special",
+      "category": "sr-products",
+      "categoryLabel": "SR Products / Range",
+      "type": "Signature Collection",
+      "description": "Enhanced setup with dual-hose support, ice tip chamber, and custom fruit bowl prep.",
+      "rentalOrSale": "Available for Rental & Setup",
+      "inStock": true
+    },
+    {
+      "id": "sr-premium",
+      "name": "SR Premium",
+      "category": "sr-products",
+      "categoryLabel": "SR Products / Range",
+      "type": "Signature Collection",
+      "description": "VIP grade gold-trimmed hookah setup with full accessory kit and dedicated coals.",
+      "rentalOrSale": "Available for Rental & Setup",
+      "inStock": true
+    },
+    {
+      "id": "sr-basics",
+      "name": "SR Basics",
+      "category": "sr-products",
+      "categoryLabel": "SR Products / Range",
+      "type": "Signature Collection",
+      "description": "Compact and convenient essential starter kit for home chill sessions and quick setups.",
+      "rentalOrSale": "Available on Request",
+      "inStock": true
+    }
+  ],
+  "bookings": [
+    {
+      "id": "TEST-BK-1791653541423",
+      "domain": "shisharent.in",
+      "customerName": "Priya Sengupta",
+      "customerPhone": "+91 98305 11982",
+      "eventDate": "2026-10-15",
+      "eventTime": "21:00",
+      "deliveryArea": "Park Street",
+      "customAddress": "Flat 3B, Queens Court",
+      "potCount": "2",
+      "requestedItems": [
+        {
+          "id": "flavour-royal",
+          "name": "Royal",
+          "category": "flavours",
+          "categoryLabel": "Flavour Brands / Varieties",
+          "type": "Flavour Brand",
+          "description": "High-grade luxury tobacco & molasses blend offering full-bodied flavor from first pull to last.",
+          "rentalOrSale": "Available on Request",
+          "inStock": true
+        },
+        {
+          "id": "hookah-maya",
+          "name": "Maya Hookah",
+          "category": "hookah-bases",
+          "categoryLabel": "Hookah & Base Options",
+          "type": "Hookah Model",
+          "description": "Designer crystal glass and anodized aluminum hookah engineered for ultra-smooth draw.",
+          "rentalOrSale": "Available for Rental & Setup",
+          "inStock": true
+        }
+      ],
+      "includeBartender": true,
+      "includeCook": false,
+      "specialInstructions": "Terrace garden setup",
+      "paymentMethod": "qr",
+      "paymentStatus": "verified",
+      "bookingStatus": "confirmed",
+      "termsAccepted": true,
+      "createdAt": "2026-10-10T17:32:21.423Z",
+      "updatedAt": "2026-10-10T17:32:21.425Z",
+      "substitutionOffered": {
+        "unavailableItem": "Al Fakir",
+        "offeredItem": "Royal",
+        "reason": "Batch curing in progress"
+      },
+      "substitutionCustomerConfirmed": true,
+      "substitutionActionAt": "2026-10-10T17:32:21.424Z",
+      "substitutionNote": "Customer approved Royal instead of Al Fakir via web portal",
+      "transactionReference": "UPI/20261015/HDFC7721",
+      "paymentProofUrl": "/uploads/payments/test_receipt.png"
+    },
+    {
+      "id": "TEST-BK-1791652064572",
+      "domain": "shisharent.in",
+      "customerName": "Priya Sengupta",
+      "customerPhone": "+91 98305 11982",
+      "eventDate": "2026-10-15",
+      "eventTime": "21:00",
+      "deliveryArea": "Park Street",
+      "customAddress": "Flat 3B, Queens Court",
+      "potCount": "2",
+      "requestedItems": [
+        {
+          "id": "flavour-royal",
+          "name": "Royal",
+          "category": "flavours",
+          "categoryLabel": "Flavour Brands / Varieties",
+          "type": "Flavour Brand",
+          "description": "High-grade luxury tobacco & molasses blend offering full-bodied flavor from first pull to last.",
+          "rentalOrSale": "Available on Request",
+          "inStock": true
+        },
+        {
+          "id": "hookah-maya",
+          "name": "Maya Hookah",
+          "category": "hookah-bases",
+          "categoryLabel": "Hookah & Base Options",
+          "type": "Hookah Model",
+          "description": "Designer crystal glass and anodized aluminum hookah engineered for ultra-smooth draw.",
+          "rentalOrSale": "Available for Rental & Setup",
+          "inStock": true
+        }
+      ],
+      "includeBartender": true,
+      "includeCook": false,
+      "specialInstructions": "Terrace garden setup",
+      "paymentMethod": "qr",
+      "paymentStatus": "verified",
+      "bookingStatus": "confirmed",
+      "termsAccepted": true,
+      "createdAt": "2026-10-10T17:07:44.572Z",
+      "updatedAt": "2026-10-10T17:07:44.573Z",
+      "substitutionOffered": {
+        "unavailableItem": "Al Fakir",
+        "offeredItem": "Royal",
+        "reason": "Batch curing in progress"
+      },
+      "substitutionCustomerConfirmed": true,
+      "substitutionActionAt": "2026-10-10T17:07:44.573Z",
+      "substitutionNote": "Customer approved Royal instead of Al Fakir via web portal",
+      "transactionReference": "UPI/20261015/HDFC7721",
+      "paymentProofUrl": "/uploads/payments/test_receipt.png"
+    },
+    {
+      "id": "SR-KOL-1001",
+      "domain": "shisharent.in",
+      "customerName": "Aman Singhania",
+      "customerPhone": "+91 98301 22419",
+      "eventDate": "2026-10-12",
+      "eventTime": "20:00",
+      "deliveryArea": "Salt Lake Sector 5",
+      "customAddress": "Infinity Benchmark Tower B, Rooftop Terrace",
+      "potCount": "3",
+      "requestedItems": [
+        {
+          "id": "flavour-al-fakir",
+          "name": "Al Fakir",
+          "category": "flavours",
+          "categoryLabel": "Flavour Brands / Varieties",
+          "type": "Flavour Brand",
+          "description": "Renowned classic shisha flavour known for authentic notes, smooth buzz, and rich smoke clouds.",
+          "rentalOrSale": "Available on Request",
+          "inStock": true
+        },
+        {
+          "id": "flavour-royal",
+          "name": "Royal",
+          "category": "flavours",
+          "categoryLabel": "Flavour Brands / Varieties",
+          "type": "Flavour Brand",
+          "description": "High-grade luxury tobacco & molasses blend offering full-bodied flavor from first pull to last.",
+          "rentalOrSale": "Available on Request",
+          "inStock": true
+        },
+        {
+          "id": "hookah-maya",
+          "name": "Maya Hookah",
+          "category": "hookah-bases",
+          "categoryLabel": "Hookah & Base Options",
+          "type": "Hookah Model",
+          "description": "Designer crystal glass and anodized aluminum hookah engineered for ultra-smooth draw.",
+          "rentalOrSale": "Available for Rental & Setup",
+          "inStock": true
+        },
+        {
+          "id": "chilam-mud",
+          "name": "Mud / Mitti Chilam",
+          "category": "chilam",
+          "categoryLabel": "Chilam Options",
+          "type": "Chilam Bowl",
+          "description": "Authentic porous clay bowl delivering the quintessential traditional Indian shisha taste.",
+          "rentalOrSale": "Available on Request",
+          "inStock": true
+        },
+        {
+          "id": "acc-coconut-coal",
+          "name": "Coconut Coal",
+          "category": "coal-accessories",
+          "categoryLabel": "Heating, Coal & Accessories",
+          "type": "Fuel / Coal",
+          "description": "100% natural compressed coconut shell cubes with low ash, 90+ minutes burn time.",
+          "rentalOrSale": "Consumable & Accessory",
+          "inStock": true
+        }
+      ],
+      "includeBartender": true,
+      "includeCook": false,
+      "specialInstructions": "Please deliver coals pre-cut with extra tongs.",
+      "paymentMethod": "qr",
+      "paymentStatus": "verified",
+      "transactionReference": "UPI/261012984102/AXIS",
+      "bookingStatus": "confirmed",
+      "termsAccepted": true,
+      "createdAt": "2026-10-10T12:07:44.569Z",
+      "updatedAt": "2026-10-10T15:07:44.569Z"
+    },
+    {
+      "id": "SR-KOL-1002",
+      "domain": "shisharent.com",
+      "customerName": "Rhea Sen",
+      "customerPhone": "+91 98310 88204",
+      "eventDate": "2026-10-13",
+      "eventTime": "18:30",
+      "deliveryArea": "Alipore",
+      "customAddress": "Burdwan Road, Residence 4A",
+      "potCount": "2",
+      "requestedItems": [
+        {
+          "id": "hookah-coco-aaya",
+          "name": "Coco Aaya Hookah",
+          "category": "hookah-bases",
+          "categoryLabel": "Hookah & Base Options",
+          "type": "Hookah Model",
+          "description": "Heavyweight modern masterpiece with diffuser technology and high-stability footprint.",
+          "rentalOrSale": "Available for Rental & Setup",
+          "inStock": true
+        },
+        {
+          "id": "flavour-afzal",
+          "name": "Afzal",
+          "category": "flavours",
+          "categoryLabel": "Flavour Brands / Varieties",
+          "type": "Flavour Brand",
+          "description": "World-famous paan, mint, and fruity blends loved for signature Indian shisha perfection.",
+          "rentalOrSale": "Available on Request",
+          "inStock": true
+        },
+        {
+          "id": "chilam-silicone",
+          "name": "Silicone Chilam",
+          "category": "chilam",
+          "categoryLabel": "Chilam Options",
+          "type": "Chilam Bowl",
+          "description": "Unbreakable food-grade silicone bowl compatible with Lotus heat management devices.",
+          "rentalOrSale": "Available on Request",
+          "inStock": true
+        },
+        {
+          "id": "acc-heater-burner",
+          "name": "Heater Burner",
+          "category": "coal-accessories",
+          "categoryLabel": "Heating, Coal & Accessories",
+          "type": "Heating Device",
+          "description": "Electric spiral coil burner for fast, uniform ignition of coconut coals in 5 minutes.",
+          "rentalOrSale": "Available on Request",
+          "inStock": true
+        }
+      ],
+      "includeBartender": false,
+      "includeCook": false,
+      "paymentMethod": "cod",
+      "paymentStatus": "pending",
+      "bookingStatus": "pending",
+      "termsAccepted": true,
+      "createdAt": "2026-10-10T15:07:44.569Z",
+      "updatedAt": "2026-10-10T15:07:44.569Z"
+    }
+  ],
+  "termsAcceptances": [
+    {
+      "id": "term-1791653541423-55xt",
+      "bookingId": "TEST-BK-1791653541423",
+      "customerName": "Priya Sengupta",
+      "customerPhone": "+91 98305 11982",
+      "domain": "shisharent.in",
+      "termsVersion": "2026-v1.0",
+      "policySnippet": "Customer booking ke time apni requirement ke according Flavour Brand, Hookah, Hookah Base, Chilam, Hookah Pipe, Coal, Heater Burner, Big Filter, Tong ya other available accessories request kar sakta hai.",
+      "customerIp": "103.220.14.88",
+      "userAgent": "Mozilla/5.0 Test Suite",
+      "acceptedAt": "2026-10-10T17:32:21.423Z"
+    },
+    {
+      "id": "term-1791652064572-lgu4",
+      "bookingId": "TEST-BK-1791652064572",
+      "customerName": "Priya Sengupta",
+      "customerPhone": "+91 98305 11982",
+      "domain": "shisharent.in",
+      "termsVersion": "2026-v1.0",
+      "policySnippet": "Customer booking ke time apni requirement ke according Flavour Brand, Hookah, Hookah Base, Chilam, Hookah Pipe, Coal, Heater Burner, Big Filter, Tong ya other available accessories request kar sakta hai.",
+      "customerIp": "103.220.14.88",
+      "userAgent": "Mozilla/5.0 Test Suite",
+      "acceptedAt": "2026-10-10T17:07:44.572Z"
+    },
+    {
+      "id": "term-init-01",
+      "bookingId": "SR-KOL-1001",
+      "customerName": "Aman Singhania",
+      "customerPhone": "+91 98301 22419",
+      "domain": "shisharent.in",
+      "termsVersion": "2026-v1.0",
+      "policySnippet": "Customer booking ke time apni requirement ke according Flavour Brand request kar sakta hai...",
+      "customerIp": "103.220.14.88",
+      "userAgent": "Mozilla/5.0 Chrome/130.0",
+      "acceptedAt": "2026-10-10T12:07:44.569Z"
+    },
+    {
+      "id": "term-init-02",
+      "bookingId": "SR-KOL-1002",
+      "customerName": "Rhea Sen",
+      "customerPhone": "+91 98310 88204",
+      "domain": "shisharent.com",
+      "termsVersion": "2026-v1.0",
+      "policySnippet": "Customer booking ke time apni requirement ke according Flavour Brand request kar sakta hai...",
+      "customerIp": "103.220.14.92",
+      "userAgent": "Mozilla/5.0 Safari/18.0",
+      "acceptedAt": "2026-10-10T15:07:44.569Z"
+    }
+  ],
+  "auditLogs": []
+}
