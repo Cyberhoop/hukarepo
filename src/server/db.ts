@@ -1,7 +1,9 @@
 import fs from 'fs';
 import path from 'path';
-import { createClient, SupabaseClient } from '@supabase/supabase-js';
-import { ALL_PRODUCTS, ProductItem } from '../data/productsData';
+import { createClient } from '@supabase/supabase-js';
+import type { SupabaseClient } from '@supabase/supabase-js';
+import { ALL_PRODUCTS } from '../data/productsData.ts';
+import type { ProductItem } from '../data/productsData.ts';
 
 // Supabase client instance (server-side with service role or anon key)
 const supabaseUrl = process.env.SUPABASE_URL || process.env.VITE_SUPABASE_URL || '';
@@ -165,10 +167,383 @@ export interface AdminCredentials {
   updatedAt: string;
 }
 
+export interface ContactConfig {
+  phone: string;
+  secondaryPhone: string;
+  whatsappNumber: string;
+  whatsappUrl: string;
+  email: string;
+  address: string;
+  city: string;
+  areasServed: string;
+  hours: string;
+  instagramUrl: string;
+  facebookUrl: string;
+  googleMapsUrl: string;
+  updatedAt: string;
+  updatedBy: string;
+}
+
+export interface GalleryItem {
+  id: string;
+  title: string;
+  subtitle: string;
+  src: string;
+  category: 'parties' | 'weddings' | 'hookahs' | 'cocktails';
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface PageSeoConfig {
+  pageId: 'home' | 'products' | 'services' | 'about' | 'gallery' | 'track' | 'contact' | 'account';
+  pageLabel: string;
+  path: string;
+  title: string;
+  description: string;
+  focusKeyword: string;
+  keywords: string;
+  ogTitle: string;
+  ogDescription: string;
+  ogImage: string;
+  canonicalPath: string;
+  robotsIndex: boolean;
+  robotsFollow: boolean;
+  priority: number;
+  changefreq: 'daily' | 'weekly' | 'monthly';
+}
+
+export interface SeoConfig {
+  siteName: string;
+  titleSeparator: string;
+  siteTagline: string;
+  defaultTitle: string;
+  defaultDescription: string;
+  globalFocusKeyword: string;
+  globalKeywords: string;
+  canonicalDomain: string;
+  ogSiteName: string;
+  ogType: string;
+  defaultOgImage: string;
+  twitterCard: 'summary_large_image' | 'summary';
+  twitterHandle: string;
+  robotsIndex: boolean;
+  robotsFollow: boolean;
+  googleSiteVerification: string;
+  bingSiteVerification: string;
+  googleAnalyticsId: string;
+  schemaBusinessType: string;
+  schemaBusinessName: string;
+  schemaDescription: string;
+  schemaPriceRange: string;
+  schemaOpeningHours: string;
+  schemaTelephone: string;
+  schemaEmail: string;
+  schemaStreetAddress: string;
+  schemaLocality: string;
+  schemaRegion: string;
+  schemaPostalCode: string;
+  schemaGeoLat: string;
+  schemaGeoLng: string;
+  schemaAreaServed: string;
+  schemaRatingValue: string;
+  schemaReviewCount: string;
+  customRobotsTxt: string;
+  pages: Record<string, PageSeoConfig>;
+  updatedAt: string;
+  updatedBy: string;
+}
+
+export const DEFAULT_SEO_CONFIG: SeoConfig = {
+  siteName: 'Shisha Rent Kolkata',
+  titleSeparator: '|',
+  siteTagline: 'Premium Hookah Rental, Pre-Filled Chillums & Event Catering in Kolkata',
+  defaultTitle: 'Shisha Rent Kolkata | Premium Hookah Rental & Event Services',
+  defaultDescription:
+    'Luxury hookah rentals, 15+ exotic flavour brands, pre-filled chillum home delivery, professional bartenders, cooks & VIP event catering across Kolkata. Book online or on WhatsApp.',
+  globalFocusKeyword: 'Hookah Rental Kolkata',
+  globalKeywords:
+    'Shisha Rent Kolkata, Hookah Rental Kolkata, Hookah Home Delivery Salt Lake, Party Hookah Catering Kolkata, Pre-filled Chillum Delivery Kolkata, Al Fakher Afzal Hookah Kolkata, Rent Hookah New Town Park Street, Wedding Hookah Bar Catering Kolkata',
+  canonicalDomain: 'https://shisharent.in',
+  ogSiteName: 'Shisha Rent Kolkata',
+  ogType: 'website',
+  defaultOgImage: '/src/assets/images/hero_luxury_hookah_1791648599431.jpg',
+  twitterCard: 'summary_large_image',
+  twitterHandle: '@shisharentkolkata',
+  robotsIndex: true,
+  robotsFollow: true,
+  googleSiteVerification: '',
+  bingSiteVerification: '',
+  googleAnalyticsId: '',
+  schemaBusinessType: 'LocalBusiness',
+  schemaBusinessName: 'Shisha Rent Kolkata',
+  schemaDescription:
+    'Luxury hookah rentals, 15+ exotic flavour brands, pre-filled chillums, professional bartenders, cooks & event catering across Kolkata.',
+  schemaPriceRange: '₹499 - ₹9999',
+  schemaOpeningHours: 'Mo-Su 11:00-03:00',
+  schemaTelephone: '+91-9876543210',
+  schemaEmail: 'bookings@shisharent.in',
+  schemaStreetAddress: 'Park Street & Salt Lake Sector V Concierge Hubs',
+  schemaLocality: 'Kolkata',
+  schemaRegion: 'West Bengal',
+  schemaPostalCode: '700016',
+  schemaGeoLat: '22.5514',
+  schemaGeoLng: '88.3528',
+  schemaAreaServed: 'Salt Lake, New Town, Park Street, Ballygunge, Alipore, Howrah, Behala, Kolkata',
+  schemaRatingValue: '4.9',
+  schemaReviewCount: '428',
+  customRobotsTxt: `User-agent: *\nAllow: /\nDisallow: /api/\n`,
+  pages: {
+    home: {
+      pageId: 'home',
+      pageLabel: 'Home Page',
+      path: '/',
+      title: 'Shisha Rent Kolkata | Premium Hookah Rental & Home Delivery',
+      description:
+        'Order luxury hookah rentals, pre-filled chillums (₹600), 15+ exotic flavours (Al Fakher, Afzal, Kolkata Meetha Paan), and live bartender catering across Kolkata in 45 mins.',
+      focusKeyword: 'Hookah Rental Kolkata',
+      keywords:
+        'Hookah Rental Kolkata, Shisha Rent Kolkata, Hookah Home Delivery Kolkata, Pre-filled Chillum Kolkata, Salt Lake Hookah Delivery, Park Street Shisha Lounge Catering',
+      ogTitle: 'Shisha Rent Kolkata | #1 Luxury Hookah Rental & Event Catering',
+      ogDescription:
+        'Get sanitized bohemian glass hookahs, pre-filled chillums, organic coconut coal, and private party bartenders delivered anywhere in Kolkata.',
+      ogImage: '/src/assets/images/hero_luxury_hookah_1791648599431.jpg',
+      canonicalPath: '/',
+      robotsIndex: true,
+      robotsFollow: true,
+      priority: 1.0,
+      changefreq: 'daily',
+    },
+    products: {
+      pageId: 'products',
+      pageLabel: 'Products & Flavours Catalog',
+      path: '/products',
+      title: 'Hookah Flavours, Bases & Pre-Filled Chillum Menu | Shisha Rent Kolkata',
+      description:
+        'Browse 40+ authentic hookah flavours (Al Fakher, Afzal, Adalya), Maya bohemian glass bases, clay & silicon chillums, coconut charcoal, and party rental packages in Kolkata.',
+      focusKeyword: 'Hookah Flavours Kolkata',
+      keywords:
+        'Hookah Flavours Kolkata, Buy Hookah Chillum Kolkata, Al Fakher Double Apple Kolkata, Kolkata Meetha Paan Flavour, Maya Hookah Rental Price Kolkata',
+      ogTitle: '40+ Exotic Hookah Flavours & Designer Bases | Shisha Rent Kolkata',
+      ogDescription:
+        'Customize your pre-filled chillum or rent complete German stainless steel and Bohemian crystal hookah setups in Kolkata.',
+      ogImage: '/src/assets/images/category_flavours_1791648613614.jpg',
+      canonicalPath: '/products',
+      robotsIndex: true,
+      robotsFollow: true,
+      priority: 0.9,
+      changefreq: 'daily',
+    },
+    services: {
+      pageId: 'services',
+      pageLabel: 'VIP Event & Wedding Services',
+      path: '/services',
+      title: 'Wedding Shisha Bar, Private Bartenders & Party Catering | Shisha Rent Kolkata',
+      description:
+        'Hire dedicated shisha sommeliers, flair bartenders, mixologists, and live party chefs for weddings, sangeet nights, rooftop birthdays, and corporate events in Kolkata.',
+      focusKeyword: 'Wedding Hookah Catering Kolkata',
+      keywords:
+        'Wedding Hookah Catering Kolkata, Hire Bartender for House Party Kolkata, Sangeet Shisha Bar Setup Kolkata, Corporate Event Hookah Service Kolkata',
+      ogTitle: 'Luxury Wedding Shisha Lounges & Private Bartenders in Kolkata',
+      ogDescription:
+        'Turnkey hookah bars, unlimited coal rotation attendants, and craft cocktail bartenders for Kolkata house parties and weddings.',
+      ogImage: '/src/assets/images/quote_cocktail_drink_1791648736985.jpg',
+      canonicalPath: '/services',
+      robotsIndex: true,
+      robotsFollow: true,
+      priority: 0.9,
+      changefreq: 'weekly',
+    },
+    gallery: {
+      pageId: 'gallery',
+      pageLabel: 'Gallery & Event Portfolio',
+      path: '/gallery',
+      title: 'Live Party Setups & Luxury Hookah Gallery | Shisha Rent Kolkata',
+      description:
+        'Explore real photos from our VIP penthouse parties in Park Street, wedding sangeet hookah bars in New Town, and custom fruit-base shisha setups across Kolkata.',
+      focusKeyword: 'Hookah Party Setup Kolkata',
+      keywords:
+        'Hookah Party Setup Kolkata, Shisha Lounge Photos Kolkata, Luxury Hookah Catering Portfolio, Event Setup Gallery Kolkata',
+      ogTitle: 'Gallery & Atmosphere | Shisha Rent Kolkata VIP Events',
+      ogDescription:
+        'See how Shisha Rent Kolkata transforms house parties, farmhouses, and wedding venues with designer hookahs and mixology bars.',
+      ogImage: '/src/assets/images/category_sr_products_1791648725022.jpg',
+      canonicalPath: '/gallery',
+      robotsIndex: true,
+      robotsFollow: true,
+      priority: 0.8,
+      changefreq: 'weekly',
+    },
+    about: {
+      pageId: 'about',
+      pageLabel: 'About Us & Hygiene Standards',
+      path: '/about',
+      title: 'About Shisha Rent Kolkata | Medical-Grade Sanitized Hookah Concierge',
+      description:
+        'Learn how Shisha Rent Kolkata delivers 100% autoclaved hookahs, sealed disposable mouth tips, and genuine imported molasses across Salt Lake, New Town, Park Street & Alipore.',
+      focusKeyword: 'Shisha Rent Kolkata',
+      keywords:
+        'About Shisha Rent Kolkata, Sanitized Hookah Rental Kolkata, Best Hookah Service Kolkata, Premium Hookah Concierge West Bengal',
+      ogTitle: 'About Shisha Rent Kolkata | Luxury Hospitality & Hygiene First',
+      ogDescription:
+        'Kolkata’s trusted nocturnal hospitality brand serving 500+ private events with hospital-grade sanitized shisha hardware.',
+      ogImage: '/src/assets/images/category_hookah_bases_1791648627967.jpg',
+      canonicalPath: '/about',
+      robotsIndex: true,
+      robotsFollow: true,
+      priority: 0.7,
+      changefreq: 'monthly',
+    },
+    contact: {
+      pageId: 'contact',
+      pageLabel: 'Contact & 24/7 Dispatch Hubs',
+      path: '/contact',
+      title: 'Contact Shisha Rent Kolkata | 45-Min Express Hookah Delivery Helpline',
+      description:
+        'Call or WhatsApp Shisha Rent Kolkata for instant home delivery in Salt Lake, New Town, Park Street, Ballygunge & Alipore. Open daily till 3:00 AM for late-night bookings.',
+      focusKeyword: 'Contact Shisha Rent Kolkata',
+      keywords:
+        'Shisha Rent Kolkata Phone Number, Hookah Delivery Near Me Kolkata, Late Night Hookah Delivery Salt Lake, Book Hookah WhatsApp Kolkata',
+      ogTitle: 'Contact Shisha Rent Kolkata | Instant WhatsApp & Phone Booking',
+      ogDescription:
+        'Reach our Park Street & Salt Lake Sector V dispatch hubs for 45-minute express hookah and chillum delivery across Kolkata.',
+      ogImage: '/src/assets/images/hero_luxury_hookah_1791648599431.jpg',
+      canonicalPath: '/contact',
+      robotsIndex: true,
+      robotsFollow: true,
+      priority: 0.8,
+      changefreq: 'monthly',
+    },
+    track: {
+      pageId: 'track',
+      pageLabel: 'Live Order & Dispatch Tracker',
+      path: '/track',
+      title: 'Track Your Hookah Order & Delivery Status | Shisha Rent Kolkata',
+      description:
+        'Track your live Shisha Rent Kolkata booking ID, verify online UPI QR payments, or approve flavour substitutions in real time.',
+      focusKeyword: 'Track Shisha Rent Order',
+      keywords: 'Track Hookah Order Kolkata, Shisha Rent Booking Status, SR-KOL Order Tracker',
+      ogTitle: 'Live Order Tracker | Shisha Rent Kolkata',
+      ogDescription: 'Enter your booking ID or phone number to check live dispatch status for your Kolkata hookah rental.',
+      ogImage: '/src/assets/images/hero_luxury_hookah_1791648599431.jpg',
+      canonicalPath: '/track',
+      robotsIndex: true,
+      robotsFollow: true,
+      priority: 0.6,
+      changefreq: 'monthly',
+    },
+    account: {
+      pageId: 'account',
+      pageLabel: 'Customer Account Portal',
+      path: '/account',
+      title: 'My Account & Saved Bookings | Shisha Rent Kolkata',
+      description: 'Manage your saved Kolkata delivery addresses, past hookah rentals, and 1-click reorders.',
+      focusKeyword: 'Shisha Rent Customer Account',
+      keywords: 'Shisha Rent Login, My Hookah Orders Kolkata',
+      ogTitle: 'Customer Portal | Shisha Rent Kolkata',
+      ogDescription: 'Sign in to view your hookah rental history and reorder your favourite flavours in 1 click.',
+      ogImage: '/src/assets/images/hero_luxury_hookah_1791648599431.jpg',
+      canonicalPath: '/account',
+      robotsIndex: false,
+      robotsFollow: true,
+      priority: 0.4,
+      changefreq: 'monthly',
+    },
+  },
+  updatedAt: new Date().toISOString(),
+  updatedBy: 'system_init',
+};
+
+export const DEFAULT_GALLERY_ITEMS: GalleryItem[] = [
+  {
+    id: 'gal-1',
+    title: 'VIP Lounge Setup with Exotic Fruit Garnishes',
+    subtitle: 'Park Street Penthouse Terrace',
+    src: '/src/assets/images/hero_luxury_hookah_1791648599431.jpg',
+    category: 'parties',
+    createdAt: '2026-10-01T10:00:00.000Z',
+    updatedAt: '2026-10-01T10:00:00.000Z',
+  },
+  {
+    id: 'gal-2',
+    title: 'Artisanal Smoked Cocktails & Shisha Pairing',
+    subtitle: 'Flair Mixologist Catering at Alipore Villa',
+    src: '/src/assets/images/quote_cocktail_drink_1791648736985.jpg',
+    category: 'cocktails',
+    createdAt: '2026-10-01T10:01:00.000Z',
+    updatedAt: '2026-10-01T10:01:00.000Z',
+  },
+  {
+    id: 'gal-3',
+    title: 'SR Signature Series Custom Hardware',
+    subtitle: 'VIP Packaging & German Stainless Steel',
+    src: '/src/assets/images/category_sr_products_1791648725022.jpg',
+    category: 'hookahs',
+    createdAt: '2026-10-01T10:02:00.000Z',
+    updatedAt: '2026-10-01T10:02:00.000Z',
+  },
+  {
+    id: 'gal-4',
+    title: 'Bohemian Cut-Glass Bases & Heavy Stems',
+    subtitle: 'Maya Designer Hookahs in Crystal Clear',
+    src: '/src/assets/images/category_hookah_bases_1791648627967.jpg',
+    category: 'hookahs',
+    createdAt: '2026-10-01T10:03:00.000Z',
+    updatedAt: '2026-10-01T10:03:00.000Z',
+  },
+  {
+    id: 'gal-5',
+    title: 'Glazed Clay Chilam & Heat Management',
+    subtitle: 'Even Heat Distribution & Clean Smoke',
+    src: '/src/assets/images/category_chilam_bowls_1791648639938.jpg',
+    category: 'hookahs',
+    createdAt: '2026-10-01T10:04:00.000Z',
+    updatedAt: '2026-10-01T10:04:00.000Z',
+  },
+  {
+    id: 'gal-6',
+    title: 'Exotic Fruit & Mint Molasses Collection',
+    subtitle: '15+ International Brands Ready for Mixing',
+    src: '/src/assets/images/category_flavours_1791648613614.jpg',
+    category: 'hookahs',
+    createdAt: '2026-10-01T10:05:00.000Z',
+    updatedAt: '2026-10-01T10:05:00.000Z',
+  },
+  {
+    id: 'gal-7',
+    title: 'Sangeet Cocktail Lounge Installation',
+    subtitle: 'New Town Banquet Multi-Pot Bar',
+    src: '/src/assets/images/hero_luxury_hookah_1791648599431.jpg',
+    category: 'weddings',
+    createdAt: '2026-10-01T10:06:00.000Z',
+    updatedAt: '2026-10-01T10:06:00.000Z',
+  },
+  {
+    id: 'gal-8',
+    title: 'Food-Grade Silicone Hoses & Steel Handles',
+    subtitle: 'Sanitized and Autoclaved Equipment',
+    src: '/src/assets/images/category_pipes_hoses_1791648651378.jpg',
+    category: 'hookahs',
+    createdAt: '2026-10-01T10:07:00.000Z',
+    updatedAt: '2026-10-01T10:07:00.000Z',
+  },
+  {
+    id: 'gal-9',
+    title: 'Organic Coconut Shell Charcoal Ignition',
+    subtitle: 'Odorless, Clean-Burning Cubes',
+    src: '/src/assets/images/category_coal_accessories_1791648710860.jpg',
+    category: 'parties',
+    createdAt: '2026-10-01T10:08:00.000Z',
+    updatedAt: '2026-10-01T10:08:00.000Z',
+  },
+];
+
 export interface DatabaseState {
   adminCredentials: AdminCredentials;
   paymentConfig: PaymentConfig;
+  contactConfig: ContactConfig;
+  seoConfig: SeoConfig;
   products: ProductItem[];
+  gallery: GalleryItem[];
   bookings: BookingRecord[];
   termsAcceptances: TermsAcceptanceRecord[];
   auditLogs: AdminAuditLog[];
@@ -197,7 +572,25 @@ function getInitialState(): DatabaseState {
       updatedAt: new Date().toISOString(),
       updatedBy: 'system_init',
     },
+    contactConfig: {
+      phone: '+91 98765 43210',
+      secondaryPhone: '+91 98301 22419',
+      whatsappNumber: '+91 98765 43210',
+      whatsappUrl: 'https://wa.me/919876543210',
+      email: 'bookings@shisharent.in',
+      address: 'Park Street & Salt Lake Sector V Concierge Hubs, Kolkata',
+      city: 'Kolkata',
+      areasServed: 'Salt Lake, New Town, Park Street, Ballygunge, Alipore, Howrah, Behala & all across Kolkata',
+      hours: 'Open Daily · 11:00 AM to 3:00 AM (Late Night Service)',
+      instagramUrl: 'https://instagram.com/shisharentkolkata',
+      facebookUrl: 'https://facebook.com/shisharentkolkata',
+      googleMapsUrl: 'https://maps.google.com/?q=Park+Street+Kolkata',
+      updatedAt: new Date().toISOString(),
+      updatedBy: 'system_init',
+    },
+    seoConfig: JSON.parse(JSON.stringify(DEFAULT_SEO_CONFIG)),
     products: ALL_PRODUCTS,
+    gallery: DEFAULT_GALLERY_ITEMS,
     bookings: [
       {
         id: 'SR-KOL-1001',
@@ -323,25 +716,59 @@ export function initDatabase(): void {
       if (!dbState.adminCredentials || !dbState.adminCredentials.email) {
         dbState.adminCredentials = getInitialState().adminCredentials;
       }
+      if (!dbState.contactConfig || !dbState.contactConfig.phone) {
+        dbState.contactConfig = getInitialState().contactConfig;
+      } else {
+        dbState.contactConfig = {
+          ...getInitialState().contactConfig,
+          ...dbState.contactConfig,
+        };
+      }
       if (!Array.isArray(dbState.users)) {
         dbState.users = getInitialState().users;
       }
       if (!Array.isArray(dbState.cookieConsents)) {
         dbState.cookieConsents = [];
       }
+      if (!Array.isArray(dbState.gallery)) {
+        dbState.gallery = DEFAULT_GALLERY_ITEMS;
+      }
+      if (!dbState.seoConfig || !dbState.seoConfig.siteName) {
+        dbState.seoConfig = JSON.parse(JSON.stringify(DEFAULT_SEO_CONFIG));
+      } else {
+        const mergedPages: Record<string, PageSeoConfig> = {
+          ...DEFAULT_SEO_CONFIG.pages,
+        };
+        if (dbState.seoConfig.pages && typeof dbState.seoConfig.pages === 'object') {
+          Object.keys(DEFAULT_SEO_CONFIG.pages).forEach((key) => {
+            mergedPages[key] = {
+              ...DEFAULT_SEO_CONFIG.pages[key],
+              ...(dbState.seoConfig.pages[key] || {}),
+            };
+          });
+        }
+        dbState.seoConfig = {
+          ...DEFAULT_SEO_CONFIG,
+          ...dbState.seoConfig,
+          pages: mergedPages,
+        };
+      }
 
-      // Ensure all products have complete fields (images, price, rating, brand, specs)
+      // Ensure all products have complete fields (images, price, rating, brand, specs) and preserve admin-added custom products
       if (Array.isArray(dbState.products)) {
         const defaultMap = new Map(ALL_PRODUCTS.map((p) => [p.id, p]));
-        dbState.products = dbState.products.map((p) => {
+        const existingIds = new Set(dbState.products.map((p) => p.id));
+
+        const normalizedExisting = dbState.products.map((p) => {
           const def = defaultMap.get(p.id);
           return {
             ...(def || {}),
             ...p,
             brand: p.brand || def?.brand || 'Shisha Rent Kolkata',
             price: typeof p.price === 'number' ? p.price : (def?.price ?? 499),
-            rating: typeof p.rating === 'number' ? p.rating : (def?.rating ?? 4.9),
-            reviewsCount: typeof p.reviewsCount === 'number' ? p.reviewsCount : (def?.reviewsCount ?? 50),
+            rentalRate: p.rentalRate || def?.rentalRate || `₹${typeof p.price === 'number' ? p.price : 499} / session`,
+            rating: typeof p.rating === 'number' ? p.rating : (def?.rating ?? 5.0),
+            reviewsCount: typeof p.reviewsCount === 'number' ? p.reviewsCount : (def?.reviewsCount ?? 12),
             images: Array.isArray(p.images) && p.images.length > 0
               ? p.images
               : (def?.images || ['/src/assets/images/hero_luxury_hookah_1791648599431.jpg']),
@@ -350,6 +777,10 @@ export function initDatabase(): void {
               : (def?.specs || { Origin: 'Authentic Luxury Grade', KolkataDelivery: 'Express 45-60 min' }),
           };
         });
+
+        // Append any missing default catalog products that were added in code updates
+        const missingDefaults = ALL_PRODUCTS.filter((p) => !existingIds.has(p.id));
+        dbState.products = [...normalizedExisting, ...missingDefaults];
       } else {
         dbState.products = ALL_PRODUCTS;
       }
@@ -396,6 +827,37 @@ export function updateAdminCredentials(updates: Partial<AdminCredentials>): Admi
   };
   saveDatabase();
   return dbState.adminCredentials;
+}
+
+export function formatWhatsAppUrl(rawNumber: string): string {
+  const digits = (rawNumber || '').replace(/\D/g, '');
+  if (!digits) return 'https://wa.me/919876543210';
+  const normalized = digits.length === 10 ? `91${digits}` : digits;
+  return `https://wa.me/${normalized}`;
+}
+
+export function updateContactConfig(config: Partial<ContactConfig>, adminUser: string): ContactConfig {
+  const nextWhatsappNumber =
+    config.whatsappNumber !== undefined
+      ? config.whatsappNumber
+      : dbState.contactConfig?.whatsappNumber || config.phone || dbState.contactConfig?.phone || '+91 98765 43210';
+
+  const nextWhatsappUrl =
+    config.whatsappUrl && config.whatsappUrl.startsWith('http')
+      ? config.whatsappUrl
+      : formatWhatsAppUrl(nextWhatsappNumber);
+
+  dbState.contactConfig = {
+    ...getInitialState().contactConfig,
+    ...(dbState.contactConfig || {}),
+    ...config,
+    whatsappNumber: nextWhatsappNumber,
+    whatsappUrl: nextWhatsappUrl,
+    updatedAt: new Date().toISOString(),
+    updatedBy: adminUser,
+  };
+  saveDatabase();
+  return dbState.contactConfig;
 }
 
 export function updatePaymentConfig(config: Partial<PaymentConfig>, adminUser: string): PaymentConfig {
@@ -696,4 +1158,75 @@ export function saveCookieConsent(record: CookieConsentRecord): CookieConsentRec
   saveDatabase();
   return record;
 }
+
+export function addGalleryItem(item: GalleryItem): GalleryItem {
+  if (!Array.isArray(dbState.gallery)) {
+    dbState.gallery = [...DEFAULT_GALLERY_ITEMS];
+  }
+  dbState.gallery.unshift(item);
+  saveDatabase();
+  return item;
+}
+
+export function updateGalleryItem(id: string, updates: Partial<GalleryItem>): GalleryItem | null {
+  if (!Array.isArray(dbState.gallery)) {
+    dbState.gallery = [...DEFAULT_GALLERY_ITEMS];
+  }
+  const index = dbState.gallery.findIndex((g) => g.id === id);
+  if (index === -1) return null;
+
+  dbState.gallery[index] = {
+    ...dbState.gallery[index],
+    ...updates,
+    updatedAt: new Date().toISOString(),
+  };
+  saveDatabase();
+  return dbState.gallery[index];
+}
+
+export function deleteGalleryItem(id: string): boolean {
+  if (!Array.isArray(dbState.gallery)) {
+    dbState.gallery = [...DEFAULT_GALLERY_ITEMS];
+  }
+  const index = dbState.gallery.findIndex((g) => g.id === id);
+  if (index === -1) return false;
+
+  dbState.gallery.splice(index, 1);
+  saveDatabase();
+  return true;
+}
+
+export function updateSeoConfig(updates: Partial<SeoConfig>, adminUser: string): SeoConfig {
+  const current = dbState.seoConfig || JSON.parse(JSON.stringify(DEFAULT_SEO_CONFIG));
+  const mergedPages: Record<string, PageSeoConfig> = {
+    ...DEFAULT_SEO_CONFIG.pages,
+    ...(current.pages || {}),
+  };
+
+  if (updates.pages && typeof updates.pages === 'object') {
+    Object.keys(updates.pages).forEach((pageKey) => {
+      if (mergedPages[pageKey]) {
+        mergedPages[pageKey] = {
+          ...mergedPages[pageKey],
+          ...updates.pages![pageKey],
+        };
+      } else {
+        mergedPages[pageKey] = updates.pages![pageKey];
+      }
+    });
+  }
+
+  dbState.seoConfig = {
+    ...DEFAULT_SEO_CONFIG,
+    ...current,
+    ...updates,
+    pages: mergedPages,
+    updatedAt: new Date().toISOString(),
+    updatedBy: adminUser,
+  };
+
+  saveDatabase();
+  return dbState.seoConfig;
+}
+
 

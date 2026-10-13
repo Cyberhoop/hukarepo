@@ -13,7 +13,7 @@ import {
   MessageCircle,
 } from 'lucide-react';
 import { useNavigation } from '../context/NavigationContext';
-import { CONTACT_INFO } from '../data/productsData';
+import { useContact } from '../context/ContactContext';
 
 interface ServicesPageProps {
   onOpenBooking: () => void;
@@ -21,6 +21,7 @@ interface ServicesPageProps {
 
 export const ServicesPage: React.FC<ServicesPageProps> = ({ onOpenBooking }) => {
   const { navigateTo } = useNavigation();
+  const { getWhatsAppLink } = useContact();
 
   const servicesList = [
     {
@@ -241,7 +242,7 @@ export const ServicesPage: React.FC<ServicesPageProps> = ({ onOpenBooking }) => 
               Submit Custom Request
             </button>
             <a
-              href={CONTACT_INFO.whatsappUrl}
+              href={getWhatsAppLink()}
               target="_blank"
               rel="noopener noreferrer"
               className="px-5 py-3 rounded-xl bg-neutral-900 hover:bg-neutral-800 border border-neutral-700 text-emerald-400 text-xs font-semibold flex items-center gap-2 transition-colors"

@@ -13,6 +13,92 @@ export interface PaymentConfig {
   updatedBy: string;
 }
 
+export interface ContactConfig {
+  phone: string;
+  secondaryPhone: string;
+  whatsappNumber: string;
+  whatsappUrl: string;
+  email: string;
+  address: string;
+  city: string;
+  areasServed: string;
+  hours: string;
+  instagramUrl: string;
+  facebookUrl: string;
+  googleMapsUrl: string;
+  updatedAt: string;
+  updatedBy: string;
+}
+
+export interface GalleryItem {
+  id: string;
+  title: string;
+  subtitle: string;
+  src: string;
+  category: 'parties' | 'weddings' | 'hookahs' | 'cocktails';
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface PageSeoConfig {
+  pageId: 'home' | 'products' | 'services' | 'about' | 'gallery' | 'track' | 'contact' | 'account';
+  pageLabel: string;
+  path: string;
+  title: string;
+  description: string;
+  focusKeyword: string;
+  keywords: string;
+  ogTitle: string;
+  ogDescription: string;
+  ogImage: string;
+  canonicalPath: string;
+  robotsIndex: boolean;
+  robotsFollow: boolean;
+  priority: number;
+  changefreq: 'daily' | 'weekly' | 'monthly';
+}
+
+export interface SeoConfig {
+  siteName: string;
+  titleSeparator: string;
+  siteTagline: string;
+  defaultTitle: string;
+  defaultDescription: string;
+  globalFocusKeyword: string;
+  globalKeywords: string;
+  canonicalDomain: string;
+  ogSiteName: string;
+  ogType: string;
+  defaultOgImage: string;
+  twitterCard: 'summary_large_image' | 'summary';
+  twitterHandle: string;
+  robotsIndex: boolean;
+  robotsFollow: boolean;
+  googleSiteVerification: string;
+  bingSiteVerification: string;
+  googleAnalyticsId: string;
+  schemaBusinessType: string;
+  schemaBusinessName: string;
+  schemaDescription: string;
+  schemaPriceRange: string;
+  schemaOpeningHours: string;
+  schemaTelephone: string;
+  schemaEmail: string;
+  schemaStreetAddress: string;
+  schemaLocality: string;
+  schemaRegion: string;
+  schemaPostalCode: string;
+  schemaGeoLat: string;
+  schemaGeoLng: string;
+  schemaAreaServed: string;
+  schemaRatingValue: string;
+  schemaReviewCount: string;
+  customRobotsTxt: string;
+  pages: Record<string, PageSeoConfig>;
+  updatedAt: string;
+  updatedBy: string;
+}
+
 export interface Booking {
   id: string;
   domain: string;
@@ -130,6 +216,56 @@ export const api = {
     return res.json();
   },
 
+  // Active Website Contact Settings
+  async getContactSettings(): Promise<{ success: boolean; data: ContactConfig }> {
+    const res = await fetch('/api/contact-settings');
+    return res.json();
+  },
+
+  // Admin Update Website Contact Settings
+  async updateContactSettings(data: Partial<ContactConfig>, adminEmail?: string) {
+    const res = await fetch('/api/admin/contact-settings', {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${getAdminToken()}`,
+      },
+      body: JSON.stringify({ ...data, adminEmail }),
+    });
+    return res.json();
+  },
+
+  // Active SEO Settings (Global + Per-Page + Schema.org)
+  async getSeoSettings(): Promise<{ success: boolean; data: SeoConfig }> {
+    const res = await fetch('/api/seo-settings');
+    return res.json();
+  },
+
+  // Admin Update SEO Settings
+  async updateSeoSettings(seoConfig: Partial<SeoConfig>, adminEmail?: string) {
+    const res = await fetch('/api/admin/seo-settings', {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${getAdminToken()}`,
+      },
+      body: JSON.stringify({ seoConfig, adminEmail }),
+    });
+    return res.json();
+  },
+
+  // Admin Upload OpenGraph / Social Share Image
+  async uploadOgImage(formData: FormData) {
+    const res = await fetch('/api/admin/upload-og-image', {
+      method: 'POST',
+      headers: {
+        Authorization: `Bearer ${getAdminToken()}`,
+      },
+      body: formData,
+    });
+    return res.json();
+  },
+
   // Admin Upload Actual QR Image
   async uploadQrImage(formData: FormData) {
     const res = await fetch('/api/upload-qr', {
@@ -210,6 +346,57 @@ export const api = {
         Authorization: `Bearer ${getAdminToken()}`,
       },
       body: formData,
+    });
+    return res.json();
+  },
+
+  // Gallery Portfolio
+  async getGallery(): Promise<{ success: boolean; data: GalleryItem[] }> {
+    const res = await fetch('/api/gallery');
+    return res.json();
+  },
+
+  async uploadGalleryImage(formData: FormData) {
+    const res = await fetch('/api/upload-gallery-image', {
+      method: 'POST',
+      headers: {
+        Authorization: `Bearer ${getAdminToken()}`,
+      },
+      body: formData,
+    });
+    return res.json();
+  },
+
+  async createGalleryItem(itemData: Partial<GalleryItem>, adminEmail?: string) {
+    const res = await fetch('/api/gallery', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${getAdminToken()}`,
+      },
+      body: JSON.stringify({ ...itemData, adminEmail }),
+    });
+    return res.json();
+  },
+
+  async updateGalleryItem(id: string, updates: Partial<GalleryItem>, adminEmail?: string) {
+    const res = await fetch(`/api/gallery/${id}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${getAdminToken()}`,
+      },
+      body: JSON.stringify({ ...updates, adminEmail }),
+    });
+    return res.json();
+  },
+
+  async deleteGalleryItem(id: string, adminEmail?: string) {
+    const res = await fetch(`/api/gallery/${id}?adminEmail=${encodeURIComponent(adminEmail || 'admin')}`, {
+      method: 'DELETE',
+      headers: {
+        Authorization: `Bearer ${getAdminToken()}`,
+      },
     });
     return res.json();
   },

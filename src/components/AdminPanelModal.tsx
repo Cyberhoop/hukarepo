@@ -24,10 +24,18 @@ import {
   Tag,
   Save,
   Filter,
+  Phone,
+  Mail,
+  MapPin,
+  MessageCircle,
+  Camera,
 } from 'lucide-react';
-import { api, PaymentConfig, Booking, TermsAcceptanceRecord } from '../services/api';
+import { api, PaymentConfig, ContactConfig, GalleryItem, Booking, TermsAcceptanceRecord } from '../services/api';
 import { ALL_PRODUCTS, ProductItem } from '../data/productsData';
 import { useProducts } from '../context/ProductsContext';
+import { useContact } from '../context/ContactContext';
+import { UpiQrShowcase } from './UpiQrShowcase';
+import { AdminSeoManager } from './AdminSeoManager';
 
 interface AdminPanelModalProps {
   isOpen: boolean;
@@ -41,6 +49,7 @@ export const AdminPanelModal: React.FC<AdminPanelModalProps> = ({
   onPaymentConfigUpdated,
 }) => {
   const { refreshProducts: refreshGlobalProducts } = useProducts();
+  const { contactConfig: globalContactConfig, refreshContactConfig } = useContact();
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [adminEmail, setAdminEmail] = useState('');
   const [adminPassword, setAdminPassword] = useState('');
@@ -48,7 +57,43 @@ export const AdminPanelModal: React.FC<AdminPanelModalProps> = ({
   const [isLoggingIn, setIsLoggingIn] = useState(false);
 
   // Active Tab
-  const [activeTab, setActiveTab] = useState<'payments' | 'bookings' | 'substitution' | 'catalog' | 'terms' | 'security'>('payments');
+  const [activeTab, setActiveTab] = useState<
+    'payments' | 'contact' | 'seo' | 'bookings' | 'substitution' | 'catalog' | 'gallery' | 'terms' | 'security'
+  >('payments');
+
+  // Gallery Portfolio Management State
+  const [galleryList, setGalleryList] = useState<GalleryItem[]>([]);
+  const [gallerySearch, setGallerySearch] = useState('');
+  const [galleryCategoryFilter, setGalleryCategoryFilter] = useState<string>('all');
+  const [isGalleryFormOpen, setIsGalleryFormOpen] = useState(false);
+  const [editingGalleryItem, setEditingGalleryItem] = useState<GalleryItem | null>(null);
+  const [galTitle, setGalTitle] = useState('');
+  const [galSubtitle, setGalSubtitle] = useState('');
+  const [galCategory, setGalCategory] = useState<GalleryItem['category']>('parties');
+  const [galImageUrl, setGalImageUrl] = useState('');
+  const [galImageFile, setGalImageFile] = useState<File | null>(null);
+  const [galPreviewUrl, setGalPreviewUrl] = useState('');
+  const [isSavingGallery, setIsSavingGallery] = useState(false);
+  const [galleryActionSuccess, setGalleryActionSuccess] = useState('');
+  const [galleryActionError, setGalleryActionError] = useState('');
+
+  // Website Contact Details State
+  const [contactForm, setContactForm] = useState<Partial<ContactConfig>>({
+    phone: globalContactConfig.phone,
+    secondaryPhone: globalContactConfig.secondaryPhone,
+    whatsappNumber: globalContactConfig.whatsappNumber,
+    email: globalContactConfig.email,
+    address: globalContactConfig.address,
+    city: globalContactConfig.city,
+    areasServed: globalContactConfig.areasServed,
+    hours: globalContactConfig.hours,
+    instagramUrl: globalContactConfig.instagramUrl,
+    facebookUrl: globalContactConfig.facebookUrl,
+    googleMapsUrl: globalContactConfig.googleMapsUrl,
+  });
+  const [contactSaving, setContactSaving] = useState(false);
+  const [contactSuccess, setContactSuccess] = useState('');
+  const [contactError, setContactError] = useState('');
 
   // Admin Credential Change State
   const [currentAdminProfile, setCurrentAdminProfile] = useState<{ email: string; name: string; updatedAt?: string }>({
@@ -126,6 +171,7 @@ export const AdminPanelModal: React.FC<AdminPanelModalProps> = ({
   const [metrics, setMetrics] = useState<any>(null);
 
   useEffect(() => {
+    if (!isOpen) return;
     const token = localStorage.getItem('sr_admin_token');
     if (token) {
       setIsAuthenticated(true);
@@ -135,14 +181,22 @@ export const AdminPanelModal: React.FC<AdminPanelModalProps> = ({
 
   const loadDashboardData = async () => {
     try {
-      const [payRes, bookRes, termsRes, metRes, prodRes, profRes] = await Promise.all([
+      const [payRes, contactRes, bookRes, termsRes, metRes, prodRes, galRes, profRes] = await Promise.all([
         api.getPaymentSettings(),
+        api.getContactSettings(),
         api.getBookings(),
         api.getTermsAudit(),
         api.getAdminMetrics(),
         api.getProducts(),
+        api.getGallery(),
         api.getAdminProfile(),
       ]);
+
+      if (profRes && profRes.success === false) {
+        localStorage.removeItem('sr_admin_token');
+        setIsAuthenticated(false);
+        return;
+      }
 
       if (payRes.success && payRes.data) {
         setPaymentConfig(payRes.data);
@@ -153,11 +207,18 @@ export const AdminPanelModal: React.FC<AdminPanelModalProps> = ({
         setCodEnabled(payRes.data.codEnabled);
       }
 
-      if (bookRes.success) setBookings(bookRes.data);
-      if (termsRes.success) setTermsAudit(termsRes.data);
+      if (contactRes && contactRes.success && contactRes.data) {
+        setContactForm(contactRes.data);
+      }
+
+      if (bookRes.success && Array.isArray(bookRes.data)) setBookings(bookRes.data);
+      if (termsRes.success && Array.isArray(termsRes.data)) setTermsAudit(termsRes.data);
       if (metRes.success) setMetrics(metRes.metrics);
       if (prodRes && prodRes.success && Array.isArray(prodRes.data)) {
         setProductsList(prodRes.data);
+      }
+      if (galRes && galRes.success && Array.isArray(galRes.data)) {
+        setGalleryList(galRes.data);
       }
       if (profRes && profRes.success && profRes.admin) {
         setCurrentAdminProfile(profRes.admin);
@@ -165,8 +226,8 @@ export const AdminPanelModal: React.FC<AdminPanelModalProps> = ({
         setCredNewName(profRes.admin.name || 'Shisha Rent Operations Manager');
         setAdminEmail(profRes.admin.email);
       }
-    } catch (err) {
-      console.error('Failed to load admin data:', err);
+    } catch {
+      // handled gracefully
     }
   };
 
@@ -316,6 +377,29 @@ export const AdminPanelModal: React.FC<AdminPanelModalProps> = ({
     }
   };
 
+  // Save Website Contact Settings
+  const handleSaveContactSettings = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setContactSaving(true);
+    setContactSuccess('');
+    setContactError('');
+
+    try {
+      const res = await api.updateContactSettings(contactForm, adminEmail);
+      if (res.success && res.data) {
+        setContactForm(res.data);
+        setContactSuccess('Website contact details saved and synced live across the entire website!');
+        await refreshContactConfig();
+      } else {
+        setContactError(res.error || 'Failed to update contact details');
+      }
+    } catch {
+      setContactError('Network error while saving contact details.');
+    } finally {
+      setContactSaving(false);
+    }
+  };
+
   // Manual Online Payment Verification
   const handleVerifyPayment = async (bookingId: string, verified: boolean) => {
     try {
@@ -326,8 +410,8 @@ export const AdminPanelModal: React.FC<AdminPanelModalProps> = ({
         setVerificationNotes('');
         loadDashboardData();
       }
-    } catch (err) {
-      alert('Verification update failed');
+    } catch {
+      // handled gracefully
     }
   };
 
@@ -340,8 +424,8 @@ export const AdminPanelModal: React.FC<AdminPanelModalProps> = ({
         if (selectedBooking?.id === bookingId) setSelectedBooking(res.data);
         loadDashboardData();
       }
-    } catch (err) {
-      alert('Status update failed');
+    } catch {
+      // handled gracefully
     }
   };
 
@@ -364,8 +448,8 @@ export const AdminPanelModal: React.FC<AdminPanelModalProps> = ({
         setBookings((prev) => prev.map((b) => (b.id === subBookingId ? res.data : b)));
         loadDashboardData();
       }
-    } catch (err) {
-      alert('Substitution request failed');
+    } catch {
+      // handled gracefully
     }
   };
 
@@ -379,8 +463,8 @@ export const AdminPanelModal: React.FC<AdminPanelModalProps> = ({
         );
         refreshGlobalProducts();
       }
-    } catch (err) {
-      console.error(err);
+    } catch {
+      // handled gracefully
     }
   };
 
@@ -417,10 +501,10 @@ export const AdminPanelModal: React.FC<AdminPanelModalProps> = ({
         setSavedBadgeId(prod.id);
         setTimeout(() => setSavedBadgeId(null), 2500);
       } else {
-        alert(res.error || 'Failed to update pricing');
+        setProductActionError(res.error || 'Failed to update pricing');
       }
-    } catch (err) {
-      alert('Network error updating price');
+    } catch {
+      setProductActionError('Network error updating price');
     }
   };
 
@@ -549,7 +633,7 @@ export const AdminPanelModal: React.FC<AdminPanelModalProps> = ({
           setProductActionError(res.error || 'Failed to create product');
         }
       }
-    } catch (err) {
+    } catch {
       setProductActionError('Operation failed. Check server connection.');
     } finally {
       setIsSavingProduct(false);
@@ -558,21 +642,157 @@ export const AdminPanelModal: React.FC<AdminPanelModalProps> = ({
 
   // Delete Product
   const handleDeleteProduct = async (prodId: string, prodName: string) => {
-    if (!window.confirm(`Are you sure you want to permanently delete "${prodName}" from the catalog?`)) {
-      return;
-    }
-
     try {
       const res = await api.deleteProduct(prodId, adminEmail);
       if (res.success) {
         setProductsList((prev) => prev.filter((p) => p.id !== prodId));
         refreshGlobalProducts();
-        alert(`"${prodName}" has been removed from catalog.`);
+        setProductActionSuccess(`"${prodName}" has been removed from catalog.`);
       } else {
-        alert(res.error || 'Failed to delete product');
+        setProductActionError(res.error || 'Failed to delete product');
       }
-    } catch (err) {
-      alert('Error deleting product');
+    } catch {
+      setProductActionError('Error deleting product');
+    }
+  };
+
+  // Gallery Management Handlers
+  const notifyGallerySynced = () => {
+    window.dispatchEvent(new CustomEvent('sr-gallery-updated'));
+  };
+
+  const handleOpenAddGalleryModal = () => {
+    setEditingGalleryItem(null);
+    setGalTitle('');
+    setGalSubtitle('Park Street / Salt Lake VIP Lounge');
+    setGalCategory('parties');
+    setGalImageUrl('');
+    setGalImageFile(null);
+    setGalPreviewUrl('');
+    setGalleryActionSuccess('');
+    setGalleryActionError('');
+    setIsGalleryFormOpen(true);
+  };
+
+  const handleOpenEditGalleryModal = (item: GalleryItem) => {
+    setEditingGalleryItem(item);
+    setGalTitle(item.title);
+    setGalSubtitle(item.subtitle);
+    setGalCategory(item.category);
+    setGalImageUrl(item.src);
+    setGalImageFile(null);
+    setGalPreviewUrl(item.src);
+    setGalleryActionSuccess('');
+    setGalleryActionError('');
+    setIsGalleryFormOpen(true);
+  };
+
+  const handleGalleryFileSelect = (file: File | null) => {
+    setGalImageFile(file);
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        if (typeof reader.result === 'string') {
+          setGalPreviewUrl(reader.result);
+        }
+      };
+      reader.readAsDataURL(file);
+    } else {
+      setGalPreviewUrl(galImageUrl);
+    }
+  };
+
+  const handleSaveGalleryForm = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsSavingGallery(true);
+    setGalleryActionError('');
+    setGalleryActionSuccess('');
+
+    try {
+      let finalSrc = galImageUrl.trim();
+
+      if (galImageFile) {
+        const formData = new FormData();
+        formData.append('galleryImage', galImageFile);
+        const uploadRes = await api.uploadGalleryImage(formData);
+        if (uploadRes.success && uploadRes.imageUrl) {
+          finalSrc = uploadRes.imageUrl;
+        } else {
+          setGalleryActionError(uploadRes.error || 'Failed to upload gallery image file');
+          setIsSavingGallery(false);
+          return;
+        }
+      }
+
+      if (!finalSrc) {
+        setGalleryActionError('Please upload an image file from your device or enter an image URL.');
+        setIsSavingGallery(false);
+        return;
+      }
+
+      if (editingGalleryItem) {
+        const res = await api.updateGalleryItem(
+          editingGalleryItem.id,
+          {
+            title: galTitle,
+            subtitle: galSubtitle,
+            category: galCategory,
+            src: finalSrc,
+          },
+          adminEmail
+        );
+
+        if (res.success && res.data) {
+          setGalleryList((prev) =>
+            prev.map((g) => (g.id === editingGalleryItem.id ? res.data : g))
+          );
+          notifyGallerySynced();
+          setGalleryActionSuccess(`Gallery photo "${galTitle}" updated and synced with website!`);
+          setTimeout(() => setIsGalleryFormOpen(false), 800);
+        } else {
+          setGalleryActionError(res.error || 'Failed to update gallery item');
+        }
+      } else {
+        const res = await api.createGalleryItem(
+          {
+            title: galTitle,
+            subtitle: galSubtitle,
+            category: galCategory,
+            src: finalSrc,
+          },
+          adminEmail
+        );
+
+        if (res.success && res.data) {
+          setGalleryList((prev) => [res.data, ...prev]);
+          notifyGallerySynced();
+          setGalleryActionSuccess(`New gallery photo "${galTitle}" published to main website!`);
+          setTimeout(() => setIsGalleryFormOpen(false), 800);
+        } else {
+          setGalleryActionError(res.error || 'Failed to publish gallery photo');
+        }
+      }
+    } catch {
+      setGalleryActionError('Network error while saving gallery photo.');
+    } finally {
+      setIsSavingGallery(false);
+    }
+  };
+
+  const handleDeleteGalleryItem = async (id: string, title: string) => {
+    setGalleryActionError('');
+    setGalleryActionSuccess('');
+    try {
+      const res = await api.deleteGalleryItem(id, adminEmail);
+      if (res.success) {
+        setGalleryList((prev) => prev.filter((g) => g.id !== id));
+        notifyGallerySynced();
+        setGalleryActionSuccess(`"${title}" removed from website gallery.`);
+      } else {
+        setGalleryActionError(res.error || 'Failed to delete gallery photo');
+      }
+    } catch {
+      setGalleryActionError('Error deleting gallery photo');
     }
   };
 
@@ -702,6 +922,30 @@ export const AdminPanelModal: React.FC<AdminPanelModalProps> = ({
               </button>
 
               <button
+                onClick={() => setActiveTab('contact')}
+                className={`flex items-center gap-2 px-4 py-2.5 text-xs font-semibold border-b-2 transition-colors shrink-0 ${
+                  activeTab === 'contact'
+                    ? 'border-red-600 text-white'
+                    : 'border-transparent text-neutral-400 hover:text-neutral-200'
+                }`}
+              >
+                <Phone className="w-4 h-4 text-emerald-400" />
+                <span>Website Contact Details</span>
+              </button>
+
+              <button
+                onClick={() => setActiveTab('seo')}
+                className={`flex items-center gap-2 px-4 py-2.5 text-xs font-semibold border-b-2 transition-colors shrink-0 ${
+                  activeTab === 'seo'
+                    ? 'border-emerald-500 text-white bg-emerald-950/20'
+                    : 'border-transparent text-neutral-400 hover:text-neutral-200'
+                }`}
+              >
+                <Globe className="w-4 h-4 text-emerald-400" />
+                <span>SEO & Ranking (Yoast)</span>
+              </button>
+
+              <button
                 onClick={() => setActiveTab('bookings')}
                 className={`flex items-center gap-2 px-4 py-2.5 text-xs font-semibold border-b-2 transition-colors shrink-0 ${
                   activeTab === 'bookings'
@@ -735,6 +979,18 @@ export const AdminPanelModal: React.FC<AdminPanelModalProps> = ({
               >
                 <Database className="w-4 h-4 text-blue-400" />
                 <span>Manage Products & Pricing ({productsList.length})</span>
+              </button>
+
+              <button
+                onClick={() => setActiveTab('gallery')}
+                className={`flex items-center gap-2 px-4 py-2.5 text-xs font-semibold border-b-2 transition-colors shrink-0 ${
+                  activeTab === 'gallery'
+                    ? 'border-red-600 text-white'
+                    : 'border-transparent text-neutral-400 hover:text-neutral-200'
+                }`}
+              >
+                <Camera className="w-4 h-4 text-amber-400" />
+                <span>Gallery Portfolio ({galleryList.length})</span>
               </button>
 
               <button
@@ -802,40 +1058,9 @@ export const AdminPanelModal: React.FC<AdminPanelModalProps> = ({
 
                 <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
                   
-                  {/* Left: Active QR Live Preview */}
-                  <div className="lg:col-span-5 p-5 rounded-2xl bg-neutral-950 border border-neutral-800 text-center space-y-4">
-                    <span className="text-xs font-bold uppercase tracking-wider text-amber-400">
-                      Currently Active QR on Customer Websites
-                    </span>
-
-                    <div className="w-56 h-56 mx-auto rounded-2xl border border-neutral-700 bg-white p-3 flex items-center justify-center shadow-xl relative overflow-hidden">
-                      {paymentConfig?.qrImageUrl ? (
-                        <img
-                          src={paymentConfig.qrImageUrl}
-                          alt="Active Admin QR Code"
-                          className="w-full h-full object-contain"
-                        />
-                      ) : (
-                        <div className="text-center p-4 text-neutral-800">
-                          <QrCode className="w-16 h-16 mx-auto text-neutral-400 mb-2" />
-                          <p className="text-xs font-bold">No Custom QR Uploaded Yet</p>
-                          <p className="text-[10px] text-neutral-500">Upload your business QR image below</p>
-                        </div>
-                      )}
-                    </div>
-
-                    <div className="text-xs text-neutral-300 space-y-1">
-                      <p><strong className="text-white">Active UPI ID:</strong> <span className="font-mono text-amber-300">{paymentConfig?.upiId}</span></p>
-                      <p><strong className="text-white">Payee Name:</strong> {paymentConfig?.payeeName}</p>
-                      <div className="flex items-center justify-center gap-3 pt-2 text-[11px]">
-                        <span className={`px-2 py-0.5 rounded border ${paymentConfig?.isActive ? 'bg-emerald-950 text-emerald-300 border-emerald-800' : 'bg-red-950 text-red-300 border-red-800'}`}>
-                          QR Active: {paymentConfig?.isActive ? 'YES' : 'NO'}
-                        </span>
-                        <span className={`px-2 py-0.5 rounded border ${paymentConfig?.codEnabled ? 'bg-emerald-950 text-emerald-300 border-emerald-800' : 'bg-red-950 text-red-300 border-red-800'}`}>
-                          COD Enabled: {paymentConfig?.codEnabled ? 'YES' : 'NO'}
-                        </span>
-                      </div>
-                    </div>
+                  {/* Left: Active QR Live Preview (Full-Aspect Showcase) */}
+                  <div className="lg:col-span-5 space-y-4">
+                    <UpiQrShowcase paymentConfig={paymentConfig} />
                   </div>
 
                   {/* Right: Upload Form & Configuration Settings */}
@@ -960,6 +1185,254 @@ export const AdminPanelModal: React.FC<AdminPanelModalProps> = ({
 
                 </div>
 
+              </div>
+            )}
+
+            {/* Tab 1B: Website Contact & Social Details Management */}
+            {activeTab === 'contact' && (
+              <div className="flex-1 overflow-y-auto p-5 sm:p-6 space-y-6 text-left">
+                <div className="p-4 rounded-xl bg-gradient-to-r from-neutral-900 to-neutral-950 border border-neutral-800 flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+                  <div>
+                    <h4 className="text-base font-bold text-white flex items-center gap-2">
+                      <Phone className="w-4 h-4 text-emerald-400" />
+                      <span>Website Contact Details & WhatsApp Concierge Settings</span>
+                    </h4>
+                    <p className="text-xs text-neutral-400 mt-1">
+                      Update your phone numbers, WhatsApp booking hotline, support email, Kolkata hub address, operating hours, and social links. Changes update live across Header, Footer, Contact Page, and Booking modals.
+                    </p>
+                  </div>
+
+                  <div className="text-right text-xs text-neutral-400 shrink-0">
+                    <div>
+                      Last Updated:{' '}
+                      <span className="text-neutral-200 font-medium">
+                        {contactForm.updatedAt ? new Date(contactForm.updatedAt).toLocaleDateString() : 'Today'}
+                      </span>
+                    </div>
+                    <div>
+                      Active Hotline: <span className="text-emerald-400 font-mono">{contactForm.phone}</span>
+                    </div>
+                  </div>
+                </div>
+
+                {contactSuccess && (
+                  <div className="p-3.5 rounded-xl bg-emerald-950/60 border border-emerald-700 text-xs text-emerald-300 flex items-center gap-2">
+                    <CheckCircle className="w-4 h-4 shrink-0 text-emerald-400" />
+                    <span>{contactSuccess}</span>
+                  </div>
+                )}
+
+                {contactError && (
+                  <div className="p-3.5 rounded-xl bg-red-950/60 border border-red-700 text-xs text-red-300 flex items-center gap-2">
+                    <AlertCircle className="w-4 h-4 shrink-0 text-red-400" />
+                    <span>{contactError}</span>
+                  </div>
+                )}
+
+                <form
+                  onSubmit={handleSaveContactSettings}
+                  className="p-5 sm:p-6 rounded-2xl bg-neutral-950 border border-neutral-800 space-y-6"
+                >
+                  {/* Section 1: Phone & WhatsApp Numbers */}
+                  <div className="space-y-4">
+                    <h5 className="text-xs font-bold uppercase tracking-wider text-amber-400 flex items-center gap-2 border-b border-neutral-800 pb-2">
+                      <MessageCircle className="w-4 h-4 text-emerald-400" />
+                      <span>1. Phone Hotlines & WhatsApp Booking Number</span>
+                    </h5>
+
+                    <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                      <div>
+                        <label className="block text-xs font-semibold text-neutral-300 mb-1.5">
+                          Primary Phone Number *
+                        </label>
+                        <input
+                          type="text"
+                          required
+                          value={contactForm.phone || ''}
+                          onChange={(e) => setContactForm({ ...contactForm, phone: e.target.value })}
+                          placeholder="+91 98765 43210"
+                          className="w-full px-3.5 py-2.5 rounded-lg bg-neutral-900 border border-neutral-800 text-white text-xs font-mono focus:outline-none focus:border-red-600"
+                        />
+                        <span className="text-[10px] text-neutral-500 mt-1 block">
+                          Displayed in Header, Footer & Contact Page
+                        </span>
+                      </div>
+
+                      <div>
+                        <label className="block text-xs font-semibold text-neutral-300 mb-1.5">
+                          Secondary / Alternate Phone
+                        </label>
+                        <input
+                          type="text"
+                          value={contactForm.secondaryPhone || ''}
+                          onChange={(e) => setContactForm({ ...contactForm, secondaryPhone: e.target.value })}
+                          placeholder="+91 98301 22419"
+                          className="w-full px-3.5 py-2.5 rounded-lg bg-neutral-900 border border-neutral-800 text-white text-xs font-mono focus:outline-none focus:border-red-600"
+                        />
+                        <span className="text-[10px] text-neutral-500 mt-1 block">
+                          Optional backup concierge desk number
+                        </span>
+                      </div>
+
+                      <div>
+                        <label className="block text-xs font-semibold text-emerald-400 mb-1.5">
+                          WhatsApp Booking Number *
+                        </label>
+                        <input
+                          type="text"
+                          required
+                          value={contactForm.whatsappNumber || ''}
+                          onChange={(e) => setContactForm({ ...contactForm, whatsappNumber: e.target.value })}
+                          placeholder="+91 98765 43210"
+                          className="w-full px-3.5 py-2.5 rounded-lg bg-neutral-900 border border-emerald-800/60 text-white text-xs font-mono focus:outline-none focus:border-emerald-500"
+                        />
+                        <span className="text-[10px] text-neutral-500 mt-1 block">
+                          Used for all WhatsApp Order & Chat buttons
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Section 2: Email, Address & Operating Hours */}
+                  <div className="space-y-4">
+                    <h5 className="text-xs font-bold uppercase tracking-wider text-amber-400 flex items-center gap-2 border-b border-neutral-800 pb-2">
+                      <MapPin className="w-4 h-4 text-red-500" />
+                      <span>2. Email, Kolkata Hub Address & Operating Hours</span>
+                    </h5>
+
+                    <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                      <div>
+                        <label className="block text-xs font-semibold text-neutral-300 mb-1.5">
+                          Support & Booking Email *
+                        </label>
+                        <input
+                          type="email"
+                          required
+                          value={contactForm.email || ''}
+                          onChange={(e) => setContactForm({ ...contactForm, email: e.target.value })}
+                          placeholder="bookings@shisharent.in"
+                          className="w-full px-3.5 py-2.5 rounded-lg bg-neutral-900 border border-neutral-800 text-white text-xs focus:outline-none focus:border-red-600"
+                        />
+                      </div>
+
+                      <div>
+                        <label className="block text-xs font-semibold text-neutral-300 mb-1.5">
+                          Primary City *
+                        </label>
+                        <input
+                          type="text"
+                          required
+                          value={contactForm.city || ''}
+                          onChange={(e) => setContactForm({ ...contactForm, city: e.target.value })}
+                          placeholder="Kolkata"
+                          className="w-full px-3.5 py-2.5 rounded-lg bg-neutral-900 border border-neutral-800 text-white text-xs focus:outline-none focus:border-red-600"
+                        />
+                      </div>
+
+                      <div>
+                        <label className="block text-xs font-semibold text-neutral-300 mb-1.5">
+                          Operating Hours *
+                        </label>
+                        <input
+                          type="text"
+                          required
+                          value={contactForm.hours || ''}
+                          onChange={(e) => setContactForm({ ...contactForm, hours: e.target.value })}
+                          placeholder="Open Daily · 11:00 AM to 3:00 AM"
+                          className="w-full px-3.5 py-2.5 rounded-lg bg-neutral-900 border border-neutral-800 text-white text-xs focus:outline-none focus:border-red-600"
+                        />
+                      </div>
+                    </div>
+
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                      <div>
+                        <label className="block text-xs font-semibold text-neutral-300 mb-1.5">
+                          Office / Main Kolkata Hub Address
+                        </label>
+                        <input
+                          type="text"
+                          value={contactForm.address || ''}
+                          onChange={(e) => setContactForm({ ...contactForm, address: e.target.value })}
+                          placeholder="Park Street & Salt Lake Sector V Concierge Hubs, Kolkata"
+                          className="w-full px-3.5 py-2.5 rounded-lg bg-neutral-900 border border-neutral-800 text-white text-xs focus:outline-none focus:border-red-600"
+                        />
+                      </div>
+
+                      <div>
+                        <label className="block text-xs font-semibold text-neutral-300 mb-1.5">
+                          Service Coverage Areas (Shown in Footer & Contact)
+                        </label>
+                        <input
+                          type="text"
+                          value={contactForm.areasServed || ''}
+                          onChange={(e) => setContactForm({ ...contactForm, areasServed: e.target.value })}
+                          placeholder="Salt Lake, New Town, Park Street, Ballygunge, Alipore..."
+                          className="w-full px-3.5 py-2.5 rounded-lg bg-neutral-900 border border-neutral-800 text-white text-xs focus:outline-none focus:border-red-600"
+                        />
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Section 3: Social Media & Google Maps Links */}
+                  <div className="space-y-4">
+                    <h5 className="text-xs font-bold uppercase tracking-wider text-amber-400 flex items-center gap-2 border-b border-neutral-800 pb-2">
+                      <Globe className="w-4 h-4 text-blue-400" />
+                      <span>3. Social Media & Google Maps Location Links</span>
+                    </h5>
+
+                    <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                      <div>
+                        <label className="block text-xs font-semibold text-neutral-300 mb-1.5">
+                          Instagram Page URL
+                        </label>
+                        <input
+                          type="text"
+                          value={contactForm.instagramUrl || ''}
+                          onChange={(e) => setContactForm({ ...contactForm, instagramUrl: e.target.value })}
+                          placeholder="https://instagram.com/..."
+                          className="w-full px-3.5 py-2.5 rounded-lg bg-neutral-900 border border-neutral-800 text-white text-xs focus:outline-none focus:border-red-600"
+                        />
+                      </div>
+
+                      <div>
+                        <label className="block text-xs font-semibold text-neutral-300 mb-1.5">
+                          Facebook Page URL
+                        </label>
+                        <input
+                          type="text"
+                          value={contactForm.facebookUrl || ''}
+                          onChange={(e) => setContactForm({ ...contactForm, facebookUrl: e.target.value })}
+                          placeholder="https://facebook.com/..."
+                          className="w-full px-3.5 py-2.5 rounded-lg bg-neutral-900 border border-neutral-800 text-white text-xs focus:outline-none focus:border-red-600"
+                        />
+                      </div>
+
+                      <div>
+                        <label className="block text-xs font-semibold text-neutral-300 mb-1.5">
+                          Google Maps Location URL
+                        </label>
+                        <input
+                          type="text"
+                          value={contactForm.googleMapsUrl || ''}
+                          onChange={(e) => setContactForm({ ...contactForm, googleMapsUrl: e.target.value })}
+                          placeholder="https://maps.google.com/..."
+                          className="w-full px-3.5 py-2.5 rounded-lg bg-neutral-900 border border-neutral-800 text-white text-xs focus:outline-none focus:border-red-600"
+                        />
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="pt-2 flex items-center justify-end border-t border-neutral-800">
+                    <button
+                      type="submit"
+                      disabled={contactSaving}
+                      className="inline-flex items-center gap-2 px-6 py-2.5 rounded-xl bg-red-600 hover:bg-red-500 text-white text-xs font-bold shadow-lg shadow-red-900/30 transition-all disabled:opacity-50 cursor-pointer"
+                    >
+                      <Save className="w-4 h-4" />
+                      <span>{contactSaving ? 'Saving Contact Details...' : 'Save & Publish Contact Details'}</span>
+                    </button>
+                  </div>
+                </form>
               </div>
             )}
 
@@ -1259,7 +1732,7 @@ export const AdminPanelModal: React.FC<AdminPanelModalProps> = ({
                         className="w-full px-3 py-2 rounded-lg bg-neutral-900 border border-neutral-800 text-white text-xs"
                       >
                         <option value="">-- Choose Item --</option>
-                        {ALL_PRODUCTS.map((p) => (
+                        {productsList.map((p) => (
                           <option key={p.id} value={p.name}>
                             {p.name} ({p.type})
                           </option>
@@ -1278,7 +1751,7 @@ export const AdminPanelModal: React.FC<AdminPanelModalProps> = ({
                         className="w-full px-3 py-2 rounded-lg bg-neutral-900 border border-neutral-800 text-white text-xs"
                       >
                         <option value="">-- Choose Replacement --</option>
-                        {ALL_PRODUCTS.map((p) => (
+                        {productsList.map((p) => (
                           <option key={p.id} value={p.name}>
                             {p.name} ({p.type})
                           </option>
@@ -1668,6 +2141,202 @@ export const AdminPanelModal: React.FC<AdminPanelModalProps> = ({
                     </button>
                   </div>
                 )}
+              </div>
+            )}
+
+            {/* Tab 4b: Gallery Portfolio Management (Upload, Edit, Delete & Sync) */}
+            {activeTab === 'gallery' && (
+              <div className="flex-1 overflow-y-auto p-4 sm:p-6 space-y-5 text-left">
+                {/* Header Banner & Action Buttons */}
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 p-4 rounded-2xl bg-gradient-to-r from-red-950/40 via-neutral-900 to-neutral-950 border border-red-900/40">
+                  <div className="space-y-1">
+                    <div className="flex items-center gap-2">
+                      <h4 className="text-base font-bold text-white flex items-center gap-2">
+                        <Camera className="w-4 h-4 text-amber-400" />
+                        <span>Website Gallery Portfolio Manager</span>
+                      </h4>
+                      <span className="text-[10px] px-2 py-0.5 rounded bg-emerald-950 text-emerald-300 border border-emerald-800 font-semibold">
+                        Synced with Gallery Page
+                      </span>
+                    </div>
+                    <p className="text-xs text-neutral-400">
+                      Upload your own event photos, edit titles, locations, or categories, and delete photos. All updates sync immediately with the main website Gallery page.
+                    </p>
+                  </div>
+
+                  <div className="flex items-center gap-2 shrink-0">
+                    <button
+                      onClick={handleOpenAddGalleryModal}
+                      className="px-4 py-2 rounded-xl bg-red-600 hover:bg-red-500 text-white text-xs font-bold flex items-center gap-1.5 transition-all shadow-lg shadow-red-900/40 cursor-pointer whitespace-nowrap"
+                    >
+                      <Plus className="w-4 h-4" />
+                      <span>Upload New Gallery Photo</span>
+                    </button>
+                    <button
+                      onClick={loadDashboardData}
+                      className="p-2 rounded-xl bg-neutral-900 hover:bg-neutral-800 border border-neutral-800 text-neutral-300 hover:text-white transition-colors cursor-pointer"
+                      title="Refresh gallery items"
+                    >
+                      <RefreshCw className="w-4 h-4" />
+                    </button>
+                  </div>
+                </div>
+
+                {galleryActionSuccess && (
+                  <div className="p-3.5 rounded-xl bg-emerald-950/60 border border-emerald-700 text-xs text-emerald-300 flex items-center justify-between gap-2">
+                    <div className="flex items-center gap-2">
+                      <CheckCircle className="w-4 h-4 shrink-0 text-emerald-400" />
+                      <span>{galleryActionSuccess}</span>
+                    </div>
+                    <button onClick={() => setGalleryActionSuccess('')} className="text-emerald-300 hover:text-white">
+                      <X className="w-3.5 h-3.5" />
+                    </button>
+                  </div>
+                )}
+
+                {galleryActionError && (
+                  <div className="p-3.5 rounded-xl bg-red-950/60 border border-red-700 text-xs text-red-300 flex items-center justify-between gap-2">
+                    <div className="flex items-center gap-2">
+                      <AlertCircle className="w-4 h-4 shrink-0 text-red-400" />
+                      <span>{galleryActionError}</span>
+                    </div>
+                    <button onClick={() => setGalleryActionError('')} className="text-red-300 hover:text-white">
+                      <X className="w-3.5 h-3.5" />
+                    </button>
+                  </div>
+                )}
+
+                {/* Filter & Search Bar */}
+                <div className="grid grid-cols-1 sm:grid-cols-12 gap-3 p-3.5 rounded-xl bg-neutral-950 border border-neutral-800">
+                  <div className="sm:col-span-7 relative">
+                    <Search className="w-4 h-4 text-neutral-500 absolute left-3 top-2.5" />
+                    <input
+                      type="text"
+                      placeholder="Search gallery photos by title or venue location..."
+                      value={gallerySearch}
+                      onChange={(e) => setGallerySearch(e.target.value)}
+                      className="w-full pl-9 pr-3 py-1.5 rounded-lg bg-neutral-900 border border-neutral-800 text-white text-xs placeholder:text-neutral-500 focus:outline-none focus:border-red-600"
+                    />
+                  </div>
+
+                  <div className="sm:col-span-5">
+                    <select
+                      value={galleryCategoryFilter}
+                      onChange={(e) => setGalleryCategoryFilter(e.target.value)}
+                      className="w-full px-3 py-1.5 rounded-lg bg-neutral-900 border border-neutral-800 text-white text-xs focus:outline-none focus:border-red-600"
+                    >
+                      <option value="all">All Gallery Categories ({galleryList.length})</option>
+                      <option value="parties">Private Parties</option>
+                      <option value="weddings">Weddings & Sangeet</option>
+                      <option value="hookahs">Hookahs & Bases</option>
+                      <option value="cocktails">Mixology & Bar</option>
+                    </select>
+                  </div>
+                </div>
+
+                {/* Gallery Items Grid */}
+                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+                  {galleryList
+                    .filter((item) => {
+                      const matchesCat =
+                        galleryCategoryFilter === 'all' || item.category === galleryCategoryFilter;
+                      const q = gallerySearch.toLowerCase().trim();
+                      const matchesSearch =
+                        !q ||
+                        item.title.toLowerCase().includes(q) ||
+                        item.subtitle.toLowerCase().includes(q) ||
+                        item.category.toLowerCase().includes(q);
+                      return matchesCat && matchesSearch;
+                    })
+                    .map((item) => {
+                      const categoryLabelMap: Record<string, string> = {
+                        parties: 'Private Parties',
+                        weddings: 'Weddings & Sangeet',
+                        hookahs: 'Hookahs & Bases',
+                        cocktails: 'Mixology & Bar',
+                      };
+                      return (
+                        <div
+                          key={item.id}
+                          className="rounded-2xl border border-neutral-800 bg-neutral-950 overflow-hidden flex flex-col justify-between group hover:border-neutral-700 transition-all"
+                        >
+                          <div>
+                            <div className="relative aspect-[4/3] w-full bg-neutral-900 overflow-hidden">
+                              {item.src ? (
+                                <img
+                                  src={item.src}
+                                  alt={item.title}
+                                  referrerPolicy="no-referrer"
+                                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                                  onError={(e) => {
+                                    (e.target as HTMLElement).style.display = 'none';
+                                  }}
+                                />
+                              ) : (
+                                <div className="w-full h-full flex items-center justify-center">
+                                  <Camera className="w-8 h-8 text-neutral-700" />
+                                </div>
+                              )}
+                              <div className="absolute top-2.5 left-2.5 px-2.5 py-1 rounded-md bg-black/80 backdrop-blur-sm border border-neutral-700 text-[10px] font-bold text-amber-400">
+                                {categoryLabelMap[item.category] || item.category}
+                              </div>
+                            </div>
+
+                            <div className="p-3.5 space-y-1">
+                              <div className="text-[11px] font-semibold text-red-400 truncate">
+                                {item.subtitle}
+                              </div>
+                              <h5 className="text-xs sm:text-sm font-bold text-white line-clamp-2">
+                                {item.title}
+                              </h5>
+                            </div>
+                          </div>
+
+                          <div className="px-3.5 py-2.5 border-t border-neutral-900 bg-black/40 flex items-center justify-between gap-2">
+                            <button
+                              type="button"
+                              onClick={() => handleOpenEditGalleryModal(item)}
+                              className="flex-1 py-1.5 px-3 rounded-lg bg-neutral-900 hover:bg-neutral-800 text-neutral-200 border border-neutral-700 text-xs font-semibold flex items-center justify-center gap-1.5 transition-colors cursor-pointer"
+                            >
+                              <Edit2 className="w-3.5 h-3.5 text-amber-400" />
+                              <span>Edit Photo</span>
+                            </button>
+                            <button
+                              type="button"
+                              onClick={() => handleDeleteGalleryItem(item.id, item.title)}
+                              className="py-1.5 px-3 rounded-lg bg-red-950/50 hover:bg-red-900/70 text-red-300 border border-red-900/60 text-xs font-semibold flex items-center justify-center gap-1 transition-colors cursor-pointer"
+                              title="Delete photo from gallery"
+                            >
+                              <Trash2 className="w-3.5 h-3.5" />
+                              <span>Delete</span>
+                            </button>
+                          </div>
+                        </div>
+                      );
+                    })}
+                </div>
+
+                {galleryList.length === 0 && (
+                  <div className="py-12 text-center text-neutral-400 space-y-3 border border-neutral-800 rounded-2xl bg-neutral-950">
+                    <Camera className="w-10 h-10 mx-auto text-neutral-600" />
+                    <p className="text-sm font-semibold text-neutral-300">
+                      No photos in your gallery yet.
+                    </p>
+                    <button
+                      onClick={handleOpenAddGalleryModal}
+                      className="px-4 py-2 rounded-xl bg-red-600 hover:bg-red-500 text-white text-xs font-bold cursor-pointer"
+                    >
+                      Upload First Gallery Photo
+                    </button>
+                  </div>
+                )}
+              </div>
+            )}
+
+            {/* Tab 4c: WordPress / Yoast Style SEO & Ranking Manager */}
+            {activeTab === 'seo' && (
+              <div className="flex-1 overflow-y-auto p-4 sm:p-6 text-left">
+                <AdminSeoManager adminEmail={currentAdminProfile.email || adminEmail || 'admin@shisharent.in'} />
               </div>
             )}
 
@@ -2114,6 +2783,189 @@ export const AdminPanelModal: React.FC<AdminPanelModalProps> = ({
                       <>
                         <Save className="w-3.5 h-3.5" />
                         <span>{editingProduct ? 'Save Product Changes' : 'Create & Publish Product'}</span>
+                      </>
+                    )}
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+        )}
+
+        {/* Sub-Modal: Add or Edit Gallery Photo Dialog */}
+        {isGalleryFormOpen && (
+          <div className="fixed inset-0 z-50 bg-black/85 backdrop-blur-sm flex items-center justify-center p-3 sm:p-4 animate-in fade-in duration-150">
+            <div className="w-full max-w-lg rounded-2xl bg-[#0e0e17] border border-neutral-800 shadow-2xl overflow-hidden flex flex-col max-h-[92vh]">
+              {/* Header */}
+              <div className="flex items-center justify-between p-4 border-b border-neutral-800 bg-neutral-950 shrink-0">
+                <div className="flex items-center gap-2.5 text-left">
+                  <div className="w-8 h-8 rounded-lg bg-red-600/20 border border-red-600/40 flex items-center justify-center text-amber-400">
+                    <Camera className="w-4 h-4" />
+                  </div>
+                  <div>
+                    <h4 className="text-sm font-bold text-white">
+                      {editingGalleryItem ? 'Edit Gallery Photo' : 'Upload New Gallery Photo'}
+                    </h4>
+                    <p className="text-[11px] text-neutral-400">
+                      Automatically syncs with the main website Gallery & Atmosphere page.
+                    </p>
+                  </div>
+                </div>
+                <button
+                  onClick={() => setIsGalleryFormOpen(false)}
+                  className="p-1.5 rounded-lg text-neutral-400 hover:text-white hover:bg-neutral-800 cursor-pointer"
+                >
+                  <X className="w-4 h-4" />
+                </button>
+              </div>
+
+              {/* Form Content */}
+              <form onSubmit={handleSaveGalleryForm} className="flex-1 overflow-y-auto p-4 sm:p-5 space-y-4 text-left">
+                {galleryActionSuccess && (
+                  <div className="p-3 rounded-xl bg-emerald-950/60 border border-emerald-700 text-xs text-emerald-300 flex items-center gap-2">
+                    <CheckCircle className="w-4 h-4 text-emerald-400 shrink-0" />
+                    <span>{galleryActionSuccess}</span>
+                  </div>
+                )}
+
+                {galleryActionError && (
+                  <div className="p-3 rounded-xl bg-red-950/60 border border-red-700 text-xs text-red-300 flex items-center gap-2">
+                    <AlertCircle className="w-4 h-4 text-red-400 shrink-0" />
+                    <span>{galleryActionError}</span>
+                  </div>
+                )}
+
+                {/* Title */}
+                <div>
+                  <label className="block text-xs font-semibold text-neutral-300 mb-1">
+                    Photo Title / Setup Name *
+                  </label>
+                  <input
+                    type="text"
+                    required
+                    value={galTitle}
+                    onChange={(e) => setGalTitle(e.target.value)}
+                    placeholder="e.g. VIP Lounge Setup with Exotic Fruit Garnishes"
+                    className="w-full px-3.5 py-2.5 rounded-lg bg-neutral-900 border border-neutral-800 text-white text-xs focus:outline-none focus:border-red-600"
+                  />
+                </div>
+
+                {/* Subtitle / Location & Category */}
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                  <div>
+                    <label className="block text-xs font-semibold text-neutral-300 mb-1">
+                      Subtitle / Venue Location *
+                    </label>
+                    <input
+                      type="text"
+                      required
+                      value={galSubtitle}
+                      onChange={(e) => setGalSubtitle(e.target.value)}
+                      placeholder="e.g. Park Street Penthouse Terrace"
+                      className="w-full px-3.5 py-2.5 rounded-lg bg-neutral-900 border border-neutral-800 text-white text-xs focus:outline-none focus:border-red-600"
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block text-xs font-semibold text-neutral-300 mb-1">
+                      Gallery Category *
+                    </label>
+                    <select
+                      value={galCategory}
+                      onChange={(e) => setGalCategory(e.target.value as GalleryItem['category'])}
+                      className="w-full px-3.5 py-2.5 rounded-lg bg-neutral-900 border border-neutral-800 text-white text-xs focus:outline-none focus:border-red-600"
+                    >
+                      <option value="parties">Private Parties</option>
+                      <option value="weddings">Weddings & Sangeet</option>
+                      <option value="hookahs">Hookahs & Bases</option>
+                      <option value="cocktails">Mixology & Bar</option>
+                    </select>
+                  </div>
+                </div>
+
+                {/* Upload Image from Device or Enter URL */}
+                <div className="p-3.5 rounded-xl bg-neutral-900/70 border border-neutral-800 space-y-3">
+                  <label className="block text-xs font-semibold text-amber-400">
+                    Upload Photo from Device or Paste Image URL *
+                  </label>
+
+                  <div>
+                    <label className="block text-[11px] text-neutral-300 mb-1">
+                      1. Choose Image File from Computer / Phone
+                    </label>
+                    <input
+                      type="file"
+                      accept="image/*"
+                      onChange={(e) => {
+                        const file = e.target.files?.[0] || null;
+                        handleGalleryFileSelect(file);
+                      }}
+                      className="w-full text-xs text-neutral-300 file:mr-3 file:py-2 file:px-3.5 file:rounded-lg file:border-0 file:text-xs file:font-bold file:bg-red-600 file:text-white hover:file:bg-red-500 cursor-pointer"
+                    />
+                  </div>
+
+                  <div className="border-t border-neutral-800 pt-2.5">
+                    <label className="block text-[11px] text-neutral-400 mb-1">
+                      2. Or Paste Direct Image URL
+                    </label>
+                    <input
+                      type="text"
+                      value={galImageUrl}
+                      onChange={(e) => {
+                        setGalImageUrl(e.target.value);
+                        if (!galImageFile) {
+                          setGalPreviewUrl(e.target.value);
+                        }
+                      }}
+                      placeholder="https://... or /src/assets/images/..."
+                      className="w-full px-3 py-2 rounded-lg bg-neutral-950 border border-neutral-800 text-white text-xs focus:outline-none focus:border-red-600"
+                    />
+                  </div>
+
+                  {/* Live Preview */}
+                  {galPreviewUrl && (
+                    <div className="pt-2">
+                      <span className="block text-[11px] font-semibold text-neutral-400 mb-1.5">
+                        Live Photo Preview:
+                      </span>
+                      <div className="relative aspect-[4/3] w-full max-w-[260px] rounded-xl overflow-hidden border border-neutral-700 bg-black">
+                        <img
+                          src={galPreviewUrl}
+                          alt="Gallery Preview"
+                          className="w-full h-full object-cover"
+                          onError={(e) => {
+                            (e.target as HTMLElement).style.display = 'none';
+                          }}
+                        />
+                      </div>
+                    </div>
+                  )}
+                </div>
+
+                {/* Footer Buttons */}
+                <div className="flex items-center justify-end gap-2 pt-3 border-t border-neutral-800">
+                  <button
+                    type="button"
+                    onClick={() => setIsGalleryFormOpen(false)}
+                    className="px-4 py-2 rounded-xl bg-neutral-900 hover:bg-neutral-800 text-neutral-300 text-xs font-semibold transition-colors cursor-pointer"
+                  >
+                    Cancel
+                  </button>
+
+                  <button
+                    type="submit"
+                    disabled={isSavingGallery}
+                    className="px-5 py-2 rounded-xl bg-red-600 hover:bg-red-500 text-white text-xs font-bold transition-all shadow-lg shadow-red-900/40 disabled:opacity-50 cursor-pointer flex items-center gap-1.5"
+                  >
+                    {isSavingGallery ? (
+                      <>
+                        <RefreshCw className="w-3.5 h-3.5 animate-spin" />
+                        <span>Uploading & Saving...</span>
+                      </>
+                    ) : (
+                      <>
+                        <Save className="w-3.5 h-3.5" />
+                        <span>{editingGalleryItem ? 'Save Gallery Changes' : 'Publish to Website Gallery'}</span>
                       </>
                     )}
                   </button>

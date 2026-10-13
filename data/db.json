@@ -3,8 +3,8 @@
     "id": "active_config",
     "upiId": "shisharent.kolkata@okhdfcbank",
     "payeeName": "Shisha Rent Private Limited",
-    "qrImageUrl": "/uploads/qr/active_qr_test.png",
-    "qrStoragePath": "qr/active_qr_test.png",
+    "qrImageUrl": "",
+    "qrStoragePath": "",
     "isActive": true,
     "codEnabled": true,
     "instructions": "Scan with any UPI App (GPay, PhonePe, Paytm, BHIM). Share transaction screenshot on WhatsApp for instant priority confirmation.",
@@ -18,9 +18,25 @@
       "category": "flavours",
       "categoryLabel": "Flavour Brands / Varieties",
       "type": "Flavour Brand",
+      "brand": "Al Fakir",
+      "price": 349,
       "description": "Renowned classic shisha flavour known for authentic notes, smooth buzz, and rich smoke clouds.",
       "rentalOrSale": "Available on Request",
-      "inStock": true
+      "inStock": true,
+      "rating": 4.9,
+      "reviewsCount": 168,
+      "isBestSeller": true,
+      "images": [
+        "/src/assets/images/category_flavours_1791648613614.jpg",
+        "/src/assets/images/hero_luxury_hookah_1791648599431.jpg"
+      ],
+      "specs": {
+        "Pack Size": "50g / 250g Tin",
+        "Tobacco Content": "0.05% Nicotine",
+        "Origin": "Ajman, UAE",
+        "Cloud Density": "Ultra Thick"
+      },
+      "rentalRate": "₹349 / session"
     },
     {
       "id": "flavour-al-fuse",
@@ -28,9 +44,23 @@
       "category": "flavours",
       "categoryLabel": "Flavour Brands / Varieties",
       "type": "Flavour Brand",
+      "brand": "Al Fuse",
+      "price": 399,
       "description": "Vibrant modern blend crafted for refreshing fusion mixes and long-lasting session sessions.",
       "rentalOrSale": "Available on Request",
-      "inStock": true
+      "inStock": true,
+      "rating": 4.8,
+      "reviewsCount": 94,
+      "images": [
+        "/src/assets/images/category_flavours_1791648613614.jpg"
+      ],
+      "specs": {
+        "Flavour Profile": "Citrus Mint Infusion",
+        "Cut": "Fine Golden Molasses",
+        "Origin": "Middle East",
+        "Burn Duration": "90+ mins"
+      },
+      "rentalRate": "₹399 / session"
     },
     {
       "id": "flavour-aladdin",
@@ -38,9 +68,23 @@
       "category": "flavours",
       "categoryLabel": "Flavour Brands / Varieties",
       "type": "Flavour Brand",
+      "brand": "Aladdin",
+      "price": 379,
       "description": "Exotic Middle-Eastern herbal shisha recipe featuring sweet citrus and chilled mint tones.",
       "rentalOrSale": "Available on Request",
-      "inStock": true
+      "inStock": true,
+      "rating": 4.7,
+      "reviewsCount": 82,
+      "images": [
+        "/src/assets/images/category_flavours_1791648613614.jpg"
+      ],
+      "specs": {
+        "Type": "Herbal Non-Tobacco",
+        "Aroma": "Sweet Bergamot & Mint",
+        "Heat Tolerance": "High",
+        "Packaging": "Airtight Vacuum Pouch"
+      },
+      "rentalRate": "₹379 / session"
     },
     {
       "id": "flavour-afreen",
@@ -48,9 +92,24 @@
       "category": "flavours",
       "categoryLabel": "Flavour Brands / Varieties",
       "type": "Flavour Brand",
+      "brand": "Afreen",
+      "price": 359,
       "description": "Signature rich flavour with deep aromatic notes, consistent heat tolerance, and premium leaf cut.",
       "rentalOrSale": "Available on Request",
-      "inStock": true
+      "inStock": true,
+      "rating": 4.8,
+      "reviewsCount": 110,
+      "isBestSeller": true,
+      "images": [
+        "/src/assets/images/category_flavours_1791648613614.jpg"
+      ],
+      "specs": {
+        "Flavour Profile": "Spiced Royal Paan",
+        "Cut": "Medium Chopped",
+        "Syrup Base": "French Glycerin",
+        "Smoke Texture": "Velvet"
+      },
+      "rentalRate": "₹359 / session"
     },
     {
       "id": "flavour-al-fazila",
@@ -58,9 +117,23 @@
       "category": "flavours",
       "categoryLabel": "Flavour Brands / Varieties",
       "type": "Flavour Brand",
+      "brand": "Al Fazila",
+      "price": 369,
       "description": "Traditional aromatic blend delivering dense velvet smoke and balanced sweetness.",
       "rentalOrSale": "Available on Request",
-      "inStock": true
+      "inStock": true,
+      "rating": 4.6,
+      "reviewsCount": 64,
+      "images": [
+        "/src/assets/images/category_flavours_1791648613614.jpg"
+      ],
+      "specs": {
+        "Flavour Profile": "Rose Saffron Sweetness",
+        "Ashing": "Minimal",
+        "Origin": "Heritage Blend",
+        "Packaging": "Gold Embossed Tin"
+      },
+      "rentalRate": "₹369 / session"
     },
     {
       "id": "flavour-afzal",
@@ -68,9 +141,24 @@
       "category": "flavours",
       "categoryLabel": "Flavour Brands / Varieties",
       "type": "Flavour Brand",
+      "brand": "Afzal",
+      "price": 329,
       "description": "World-famous paan, mint, and fruity blends loved for signature Indian shisha perfection.",
       "rentalOrSale": "Available on Request",
-      "inStock": true
+      "inStock": true,
+      "rating": 4.9,
+      "reviewsCount": 312,
+      "isBestSeller": true,
+      "images": [
+        "/src/assets/images/category_flavours_1791648613614.jpg"
+      ],
+      "specs": {
+        "Flavour Profile": "Paan Raas / Chilled Mint",
+        "Weight": "50g",
+        "Origin": "India",
+        "Popularity": "#1 In Kolkata"
+      },
+      "rentalRate": "₹329 / session"
     },
     {
       "id": "flavour-aroma",
@@ -78,9 +166,22 @@
       "category": "flavours",
       "categoryLabel": "Flavour Brands / Varieties",
       "type": "Flavour Brand",
+      "brand": "Aroma",
+      "price": 350,
       "description": "Fragrant boutique blend designed for smooth aftertastes and refreshing room ambiance.",
       "rentalOrSale": "Available on Request",
-      "inStock": true
+      "inStock": true,
+      "rating": 4.7,
+      "reviewsCount": 78,
+      "images": [
+        "/src/assets/images/category_flavours_1791648613614.jpg"
+      ],
+      "specs": {
+        "Flavour Profile": "Wild Berries Chill",
+        "Molasses": "Organic Sugarcane",
+        "Room Note": "Sweet Fresh Berries"
+      },
+      "rentalRate": "₹350 / session"
     },
     {
       "id": "flavour-royal",
@@ -88,9 +189,24 @@
       "category": "flavours",
       "categoryLabel": "Flavour Brands / Varieties",
       "type": "Flavour Brand",
+      "brand": "Royal",
+      "price": 420,
       "description": "High-grade luxury tobacco & molasses blend offering full-bodied flavor from first pull to last.",
       "rentalOrSale": "Available on Request",
-      "inStock": true
+      "inStock": true,
+      "rating": 4.9,
+      "reviewsCount": 145,
+      "isBestSeller": true,
+      "images": [
+        "/src/assets/images/category_flavours_1791648613614.jpg"
+      ],
+      "specs": {
+        "Grade": "VIP Reserve",
+        "Flavour Notes": "Spiced Dark Cherry & Vanilla",
+        "Nicotine": "0.05%",
+        "Packaging": "Tin Box"
+      },
+      "rentalRate": "₹420 / session"
     },
     {
       "id": "flavour-ayaan",
@@ -98,9 +214,22 @@
       "category": "flavours",
       "categoryLabel": "Flavour Brands / Varieties",
       "type": "Flavour Brand",
+      "brand": "Ayaan",
+      "price": 340,
       "description": "Crisp and fruit-forward shisha molasses, perfect for festive parties and mixed bowls.",
       "rentalOrSale": "Available on Request",
-      "inStock": true
+      "inStock": true,
+      "rating": 4.6,
+      "reviewsCount": 52,
+      "images": [
+        "/src/assets/images/category_flavours_1791648613614.jpg"
+      ],
+      "specs": {
+        "Flavour": "Double Green Apple",
+        "Juiciness": "High",
+        "Bowl Compatibility": "Clay / Silicone"
+      },
+      "rentalRate": "₹340 / session"
     },
     {
       "id": "flavour-keva",
@@ -108,9 +237,22 @@
       "category": "flavours",
       "categoryLabel": "Flavour Brands / Varieties",
       "type": "Flavour Brand",
+      "brand": "Keva",
+      "price": 380,
       "description": "Delicate floral and berry profile with gentle cooling sensations for relaxed evenings.",
       "rentalOrSale": "Available on Request",
-      "inStock": true
+      "inStock": true,
+      "rating": 4.8,
+      "reviewsCount": 68,
+      "images": [
+        "/src/assets/images/category_flavours_1791648613614.jpg"
+      ],
+      "specs": {
+        "Notes": "Lychee Ice Floral",
+        "Harshness": "0% Guaranteed",
+        "Packaging": "Vacuum Sealed Jar"
+      },
+      "rentalRate": "₹380 / session"
     },
     {
       "id": "flavour-makai",
@@ -118,9 +260,22 @@
       "category": "flavours",
       "categoryLabel": "Flavour Brands / Varieties",
       "type": "Flavour Brand",
+      "brand": "Makai",
+      "price": 390,
       "description": "Distinctive sweet exotic blend curated for hookah connoisseurs seeking rare aromas.",
       "rentalOrSale": "Available on Request",
-      "inStock": true
+      "inStock": true,
+      "rating": 4.7,
+      "reviewsCount": 47,
+      "images": [
+        "/src/assets/images/category_flavours_1791648613614.jpg"
+      ],
+      "specs": {
+        "Profile": "Sweet Tropical Melon",
+        "Cut Quality": "Finely Shredded Leaf",
+        "Burn Life": "80 mins"
+      },
+      "rentalRate": "₹390 / session"
     },
     {
       "id": "flavour-maya",
@@ -128,9 +283,23 @@
       "category": "flavours",
       "categoryLabel": "Flavour Brands / Varieties",
       "type": "Flavour Brand",
+      "brand": "Maya",
+      "price": 410,
       "description": "Premium molasses cut engineered for effortless heat management and zero harshness.",
       "rentalOrSale": "Available on Request",
-      "inStock": true
+      "inStock": true,
+      "rating": 4.9,
+      "reviewsCount": 138,
+      "isBestSeller": true,
+      "images": [
+        "/src/assets/images/category_flavours_1791648613614.jpg"
+      ],
+      "specs": {
+        "Series": "Maya Luxury Line",
+        "Profile": "Blueberry Mist Chill",
+        "Smoke Cloud": "Colossal"
+      },
+      "rentalRate": "₹410 / session"
     },
     {
       "id": "flavour-exotic",
@@ -138,9 +307,23 @@
       "category": "flavours",
       "categoryLabel": "Flavour Brands / Varieties",
       "type": "Flavour Brand",
+      "brand": "Exotic",
+      "price": 430,
       "description": "Tropical punch and passion fruit combination creating thick, aromatic white clouds.",
       "rentalOrSale": "Available on Request",
-      "inStock": true
+      "inStock": true,
+      "rating": 4.8,
+      "reviewsCount": 89,
+      "isNew": true,
+      "images": [
+        "/src/assets/images/category_flavours_1791648613614.jpg"
+      ],
+      "specs": {
+        "Ingredients": "Mango, Guava & Passion Fruit",
+        "Type": "Premium Blend",
+        "Moisture": "Optimum"
+      },
+      "rentalRate": "₹430 / session"
     },
     {
       "id": "flavour-harval",
@@ -148,9 +331,23 @@
       "category": "flavours",
       "categoryLabel": "Flavour Brands / Varieties",
       "type": "Flavour Brand",
+      "brand": "Harval",
+      "price": 360,
       "description": "100% tobacco-free herbal shisha base formulated with organic tea leaves and sugarcane molasses.",
       "rentalOrSale": "Available on Request",
-      "inStock": true
+      "inStock": true,
+      "rating": 4.7,
+      "reviewsCount": 96,
+      "images": [
+        "/src/assets/images/category_flavours_1791648613614.jpg"
+      ],
+      "specs": {
+        "Nicotine": "0% Nicotine",
+        "Tar": "0% Tar",
+        "Leaf": "Organic Herbal Infusion",
+        "Eco Friendly": "Yes"
+      },
+      "rentalRate": "₹360 / session"
     },
     {
       "id": "flavour-al-akbar",
@@ -158,9 +355,22 @@
       "category": "flavours",
       "categoryLabel": "Flavour Brands / Varieties",
       "type": "Flavour Brand",
+      "brand": "Al Akbar",
+      "price": 450,
       "description": "Rich royal blend inspired by heritage spices and dark berry undertones.",
       "rentalOrSale": "Available on Request",
-      "inStock": true
+      "inStock": true,
+      "rating": 4.9,
+      "reviewsCount": 112,
+      "images": [
+        "/src/assets/images/category_flavours_1791648613614.jpg"
+      ],
+      "specs": {
+        "Origin": "Dubai Heritage",
+        "Profile": "Spiced Blackberry Royal",
+        "Packaging": "Double Sealed Gold Foil"
+      },
+      "rentalRate": "₹450 / session"
     },
     {
       "id": "hookah-standard",
@@ -168,9 +378,24 @@
       "category": "hookah-bases",
       "categoryLabel": "Hookah & Base Options",
       "type": "Hookah Model",
+      "brand": "Standard Elite",
+      "price": 1899,
+      "rentalRate": "₹699 / event",
       "description": "Classic high-grade hookah apparatus equipped with stainless steel stem and balanced downstem.",
       "rentalOrSale": "Available for Rental & Setup",
-      "inStock": true
+      "inStock": true,
+      "rating": 4.7,
+      "reviewsCount": 204,
+      "images": [
+        "/src/assets/images/category_hookah_bases_1791648627967.jpg",
+        "/src/assets/images/hero_luxury_hookah_1791648599431.jpg"
+      ],
+      "specs": {
+        "Height": "55 cm",
+        "Material": "Food Grade Stainless Steel",
+        "Base": "Clear Glass Pot",
+        "Includes": "Stem, Base, Hose, Tong, Bowl"
+      }
     },
     {
       "id": "hookah-maya",
@@ -178,9 +403,25 @@
       "category": "hookah-bases",
       "categoryLabel": "Hookah & Base Options",
       "type": "Hookah Model",
+      "brand": "Maya",
+      "price": 3499,
+      "rentalRate": "₹999 / event",
       "description": "Designer crystal glass and anodized aluminum hookah engineered for ultra-smooth draw.",
       "rentalOrSale": "Available for Rental & Setup",
-      "inStock": true
+      "inStock": true,
+      "rating": 5,
+      "reviewsCount": 280,
+      "isBestSeller": true,
+      "images": [
+        "/src/assets/images/category_hookah_bases_1791648627967.jpg",
+        "/src/assets/images/hero_luxury_hookah_1791648599431.jpg"
+      ],
+      "specs": {
+        "Height": "70 cm",
+        "Stem": "Aircraft Grade Anodized Aluminum",
+        "Base": "Heavy Bohemian Crystal",
+        "Diffuser": "Integrated Silent Diffuser"
+      }
     },
     {
       "id": "hookah-coco-aaya",
@@ -188,9 +429,24 @@
       "category": "hookah-bases",
       "categoryLabel": "Hookah & Base Options",
       "type": "Hookah Model",
+      "brand": "Coco Aaya",
+      "price": 3999,
+      "rentalRate": "₹1,199 / event",
       "description": "Heavyweight modern masterpiece with diffuser technology and high-stability footprint.",
       "rentalOrSale": "Available for Rental & Setup",
-      "inStock": true
+      "inStock": true,
+      "rating": 4.9,
+      "reviewsCount": 195,
+      "isBestSeller": true,
+      "images": [
+        "/src/assets/images/category_hookah_bases_1791648627967.jpg"
+      ],
+      "specs": {
+        "Height": "75 cm",
+        "Finish": "Matte Obsidian & Gold Trim",
+        "Airflow": "Wide Bore 14mm",
+        "Chamber": "Click-Lock Airtight Seal"
+      }
     },
     {
       "id": "hookah-afreen",
@@ -198,9 +454,23 @@
       "category": "hookah-bases",
       "categoryLabel": "Hookah & Base Options",
       "type": "Hookah Model",
+      "brand": "Afreen",
+      "price": 4499,
+      "rentalRate": "₹1,299 / event",
       "description": "Opulent brass and carved detailing hookah, ideal for weddings and VIP private gatherings.",
       "rentalOrSale": "Available for Rental & Setup",
-      "inStock": true
+      "inStock": true,
+      "rating": 4.9,
+      "reviewsCount": 156,
+      "images": [
+        "/src/assets/images/category_hookah_bases_1791648627967.jpg"
+      ],
+      "specs": {
+        "Style": "Traditional Mughal Brass Carved",
+        "Weight": "4.2 kg (Anti-Tilt)",
+        "Base": "Handcut Ruby Glass",
+        "Ideal For": "Weddings & Galas"
+      }
     },
     {
       "id": "base-maya",
@@ -208,9 +478,22 @@
       "category": "hookah-bases",
       "categoryLabel": "Hookah & Base Options",
       "type": "Base Vessel",
+      "brand": "Maya",
+      "price": 1299,
       "description": "Extra thick bohemian glass base engineered for Maya series with watertight seal.",
       "rentalOrSale": "Available on Request",
-      "inStock": true
+      "inStock": true,
+      "rating": 4.8,
+      "reviewsCount": 74,
+      "images": [
+        "/src/assets/images/category_hookah_bases_1791648627967.jpg"
+      ],
+      "specs": {
+        "Glass Thickness": "12mm Tempered",
+        "Diameter": "22 cm",
+        "Fitting": "Standard 4.5cm Grommet Fitting"
+      },
+      "rentalRate": "₹1299 / session"
     },
     {
       "id": "base-coco-aaya",
@@ -218,9 +501,22 @@
       "category": "hookah-bases",
       "categoryLabel": "Hookah & Base Options",
       "type": "Base Vessel",
+      "brand": "Coco Aaya",
+      "price": 1499,
       "description": "Wide conical glass vase providing rock-solid stability and maximum smoke cooling chamber.",
       "rentalOrSale": "Available on Request",
-      "inStock": true
+      "inStock": true,
+      "rating": 4.8,
+      "reviewsCount": 62,
+      "images": [
+        "/src/assets/images/category_hookah_bases_1791648627967.jpg"
+      ],
+      "specs": {
+        "Shape": "Conical Flask Pyramid",
+        "Volume": "1800 ml Water Capacity",
+        "Bottom": "Non-Slip Etched Ring"
+      },
+      "rentalRate": "₹1499 / session"
     },
     {
       "id": "base-afreen",
@@ -228,9 +524,22 @@
       "category": "hookah-bases",
       "categoryLabel": "Hookah & Base Options",
       "type": "Base Vessel",
+      "brand": "Afreen",
+      "price": 1599,
       "description": "Intricately patterned artisan glass base with ruby red and gold leaf accents.",
       "rentalOrSale": "Available on Request",
-      "inStock": true
+      "inStock": true,
+      "rating": 4.9,
+      "reviewsCount": 88,
+      "images": [
+        "/src/assets/images/category_hookah_bases_1791648627967.jpg"
+      ],
+      "specs": {
+        "Artisan Details": "Real 24k Gold Leaf Trims",
+        "Color": "Crimson Ruby Translucent",
+        "Durability": "Thermal Shock Resistant"
+      },
+      "rentalRate": "₹1599 / session"
     },
     {
       "id": "hookah-stand",
@@ -238,9 +547,22 @@
       "category": "hookah-bases",
       "categoryLabel": "Hookah & Base Options",
       "type": "Hardware / Stand",
+      "brand": "SR Pro",
+      "price": 899,
+      "rentalRate": "₹199 / event",
       "description": "Anti-tilt protective metal stand that prevents accidental knocks during lively parties.",
       "rentalOrSale": "Available on Request",
-      "inStock": true
+      "inStock": true,
+      "rating": 4.9,
+      "reviewsCount": 140,
+      "images": [
+        "/src/assets/images/category_hookah_bases_1791648627967.jpg"
+      ],
+      "specs": {
+        "Material": "Cast Iron with Powder Coating",
+        "Ring Diameter": "26 cm Adjustable",
+        "Safety": "100% Anti-Tip Certified"
+      }
     },
     {
       "id": "hookah-pot",
@@ -248,9 +570,22 @@
       "category": "hookah-bases",
       "categoryLabel": "Hookah & Base Options",
       "type": "Component",
+      "brand": "Universal",
+      "price": 999,
       "description": "Standard replacement water chamber pot with reinforced glass walls.",
       "rentalOrSale": "Available on Request",
-      "inStock": true
+      "inStock": true,
+      "rating": 4.6,
+      "reviewsCount": 45,
+      "images": [
+        "/src/assets/images/category_hookah_bases_1791648627967.jpg"
+      ],
+      "specs": {
+        "Compatibility": "Universal Stem Adapter",
+        "Glass": "High Clarity Soda-Lime Glass",
+        "Height": "28 cm"
+      },
+      "rentalRate": "₹999 / session"
     },
     {
       "id": "chilam-silicone",
@@ -258,9 +593,24 @@
       "category": "chilam",
       "categoryLabel": "Chilam Options",
       "type": "Chilam Bowl",
+      "brand": "Gold Silicon Lotus",
+      "price": 700,
+      "rentalRate": "₹700 Pre-Filled",
       "description": "Unbreakable food-grade silicone bowl compatible with Lotus heat management devices.",
       "rentalOrSale": "Available on Request",
-      "inStock": true
+      "inStock": true,
+      "rating": 5,
+      "reviewsCount": 245,
+      "isBestSeller": true,
+      "images": [
+        "/src/assets/images/chillum_gold_silicon_1791655843076.jpg",
+        "/src/assets/images/category_chilam_bowls_1791648639938.jpg"
+      ],
+      "specs": {
+        "Temperature": "Heat Safe up to 350°C",
+        "Material": "Food Grade Silicone + Brushed Gold Lotus HMD",
+        "Capacity": "18-22g Flavour"
+      }
     },
     {
       "id": "chilam-mud",
@@ -268,9 +618,24 @@
       "category": "chilam",
       "categoryLabel": "Chilam Options",
       "type": "Chilam Bowl",
+      "brand": "Terracotta Artisan",
+      "price": 600,
+      "rentalRate": "₹600 Pre-Filled",
       "description": "Authentic porous clay bowl delivering the quintessential traditional Indian shisha taste.",
       "rentalOrSale": "Available on Request",
-      "inStock": true
+      "inStock": true,
+      "rating": 4.9,
+      "reviewsCount": 320,
+      "isBestSeller": true,
+      "images": [
+        "/src/assets/images/chillum_classic_clay_1791655831825.jpg",
+        "/src/assets/images/category_chilam_bowls_1791648639938.jpg"
+      ],
+      "specs": {
+        "Clay": "Natural Riverbed Red Terracotta",
+        "Pores": "Breathes for Even Heat Transfer",
+        "Capacity": "15-20g Flavour"
+      }
     },
     {
       "id": "chilam-rubber",
@@ -278,9 +643,22 @@
       "category": "chilam",
       "categoryLabel": "Chilam Options",
       "type": "Grommet / Seal",
+      "brand": "SR Seal",
+      "price": 79,
       "description": "Heat-resistant silicone grommet for an airtight seal between stem and chilam bowl.",
       "rentalOrSale": "Consumable & Accessory",
-      "inStock": true
+      "inStock": true,
+      "rating": 4.8,
+      "reviewsCount": 165,
+      "images": [
+        "/src/assets/images/category_chilam_bowls_1791648639938.jpg"
+      ],
+      "specs": {
+        "Material": "High Tensile Silicone",
+        "Fit": "Ribbed Universal Taper",
+        "Pack": "Set of 2"
+      },
+      "rentalRate": "₹79 / session"
     },
     {
       "id": "pipe-maya",
@@ -288,9 +666,22 @@
       "category": "pipes",
       "categoryLabel": "Hookah Pipe Options",
       "type": "Hose & Handle",
+      "brand": "Maya",
+      "price": 799,
+      "rentalRate": "₹149 / event",
       "description": "Ergonomic soft-touch silicone hose with matte aluminum wand tailored for Maya hookahs.",
       "rentalOrSale": "Available on Request",
-      "inStock": true
+      "inStock": true,
+      "rating": 4.9,
+      "reviewsCount": 130,
+      "images": [
+        "/src/assets/images/category_pipes_hoses_1791648651378.jpg"
+      ],
+      "specs": {
+        "Length": "1.8 Meters",
+        "Handle": "Matte Anodized Aluminum 30cm",
+        "Washable": "100% Dishwasher Safe Silicone"
+      }
     },
     {
       "id": "pipe-afreen",
@@ -298,9 +689,22 @@
       "category": "pipes",
       "categoryLabel": "Hookah Pipe Options",
       "type": "Hose & Handle",
+      "brand": "Afreen",
+      "price": 899,
+      "rentalRate": "₹149 / event",
       "description": "Traditional woven braided hose with elongated regal wooden handle and velvet sleeve.",
       "rentalOrSale": "Available on Request",
-      "inStock": true
+      "inStock": true,
+      "rating": 4.8,
+      "reviewsCount": 88,
+      "images": [
+        "/src/assets/images/category_pipes_hoses_1791648651378.jpg"
+      ],
+      "specs": {
+        "Length": "2.0 Meters Regal Reach",
+        "Handle": "Hand-turned Rosewood",
+        "Sleeve": "Velvet & Metallic Gold Thread"
+      }
     },
     {
       "id": "pipe-coco-aaya",
@@ -308,9 +712,22 @@
       "category": "pipes",
       "categoryLabel": "Hookah Pipe Options",
       "type": "Hose & Handle",
+      "brand": "Coco Aaya",
+      "price": 849,
+      "rentalRate": "₹149 / event",
       "description": "Wide-bore silicone hose designed for effortless unrestricted airflow and rapid cleaning.",
       "rentalOrSale": "Available on Request",
-      "inStock": true
+      "inStock": true,
+      "rating": 4.9,
+      "reviewsCount": 95,
+      "images": [
+        "/src/assets/images/category_pipes_hoses_1791648651378.jpg"
+      ],
+      "specs": {
+        "Inner Diameter": "12mm Wide Bore Airflow",
+        "Handle": "Textured Knurled Grip",
+        "Odor Retention": "Zero Ghost Flavours"
+      }
     },
     {
       "id": "pipe-disposable",
@@ -318,9 +735,23 @@
       "category": "pipes",
       "categoryLabel": "Hookah Pipe Options",
       "type": "Hose & Handle",
+      "brand": "SanitSafe",
+      "price": 149,
       "description": "Individually wrapped single-use plastic hose for 100% hygienic party events.",
       "rentalOrSale": "Consumable & Accessory",
-      "inStock": true
+      "inStock": true,
+      "rating": 4.7,
+      "reviewsCount": 340,
+      "isBestSeller": true,
+      "images": [
+        "/src/assets/images/category_pipes_hoses_1791648651378.jpg"
+      ],
+      "specs": {
+        "Packaging": "Sterilized Individual Polybag",
+        "Length": "1.5 Meters",
+        "Hygiene": "Ideal for Large Parties"
+      },
+      "rentalRate": "₹149 / session"
     },
     {
       "id": "pipe-silicone",
@@ -328,9 +759,22 @@
       "category": "pipes",
       "categoryLabel": "Hookah Pipe Options",
       "type": "Hose & Handle",
+      "brand": "SR Platinum",
+      "price": 699,
+      "rentalRate": "₹129 / event",
       "description": "Medical-grade washable silicone hose that never retains ghost flavours or odors.",
       "rentalOrSale": "Available on Request",
-      "inStock": true
+      "inStock": true,
+      "rating": 4.8,
+      "reviewsCount": 115,
+      "images": [
+        "/src/assets/images/category_pipes_hoses_1791648651378.jpg"
+      ],
+      "specs": {
+        "Material": "Platinum Cured Silicone",
+        "Flexibility": "Kink-Resistant",
+        "Cleaning": "Rinse with warm lemon water"
+      }
     },
     {
       "id": "pipe-rubber",
@@ -338,9 +782,22 @@
       "category": "pipes",
       "categoryLabel": "Hookah Pipe Options",
       "type": "Grommet / Seal",
+      "brand": "SR Seal",
+      "price": 69,
       "description": "Flexible tapered seal ensuring airtight hose adapter connection.",
       "rentalOrSale": "Consumable & Accessory",
-      "inStock": true
+      "inStock": true,
+      "rating": 4.7,
+      "reviewsCount": 80,
+      "images": [
+        "/src/assets/images/category_pipes_hoses_1791648651378.jpg"
+      ],
+      "specs": {
+        "Material": "White Food Grade Rubber",
+        "Quantity": "Set of 2",
+        "Taper": "Universal 12-16mm"
+      },
+      "rentalRate": "₹69 / session"
     },
     {
       "id": "acc-heater-burner",
@@ -348,9 +805,23 @@
       "category": "coal-accessories",
       "categoryLabel": "Heating, Coal & Accessories",
       "type": "Heating Device",
+      "brand": "CoalMaster",
+      "price": 899,
+      "rentalRate": "₹199 / event",
       "description": "Electric spiral coil burner for fast, uniform ignition of coconut coals in 5 minutes.",
       "rentalOrSale": "Available on Request",
-      "inStock": true
+      "inStock": true,
+      "rating": 4.9,
+      "reviewsCount": 260,
+      "isBestSeller": true,
+      "images": [
+        "/src/assets/images/category_coal_accessories_1791648710860.jpg"
+      ],
+      "specs": {
+        "Wattage": "600W Fast Heat Coil",
+        "Power": "220V Standard Indian Plug",
+        "Capacity": "Lights 6 Coals simultaneously"
+      }
     },
     {
       "id": "acc-big-filter",
@@ -358,9 +829,22 @@
       "category": "coal-accessories",
       "categoryLabel": "Heating, Coal & Accessories",
       "type": "Diffuser / Filter",
+      "brand": "Whisper Flow",
+      "price": 349,
       "description": "Downstem noise-reducing filter for whisper-quiet pull and micro-bubble filtration.",
       "rentalOrSale": "Available on Request",
-      "inStock": true
+      "inStock": true,
+      "rating": 4.8,
+      "reviewsCount": 75,
+      "images": [
+        "/src/assets/images/category_coal_accessories_1791648710860.jpg"
+      ],
+      "specs": {
+        "Action": "Cuts Water Noise by 80%",
+        "Material": "Food Grade Silicone",
+        "Fitting": "Stretches over all standard downstems"
+      },
+      "rentalRate": "₹349 / session"
     },
     {
       "id": "acc-charcoal",
@@ -368,9 +852,22 @@
       "category": "coal-accessories",
       "categoryLabel": "Heating, Coal & Accessories",
       "type": "Fuel / Coal",
+      "brand": "Hardwood Natural",
+      "price": 249,
       "description": "High-density hard wood charcoal providing steady warmth without chemical odors.",
       "rentalOrSale": "Consumable & Accessory",
-      "inStock": true
+      "inStock": true,
+      "rating": 4.6,
+      "reviewsCount": 88,
+      "images": [
+        "/src/assets/images/category_coal_accessories_1791648710860.jpg"
+      ],
+      "specs": {
+        "Weight": "1 Kg Box",
+        "Ash Production": "Low Brown Ash",
+        "Sparks": "Low"
+      },
+      "rentalRate": "₹249 / session"
     },
     {
       "id": "acc-coconut-coal",
@@ -378,9 +875,24 @@
       "category": "coal-accessories",
       "categoryLabel": "Heating, Coal & Accessories",
       "type": "Fuel / Coal",
+      "brand": "Coco Nara Grade",
+      "price": 499,
       "description": "100% natural compressed coconut shell cubes with low ash, 90+ minutes burn time.",
       "rentalOrSale": "Consumable & Accessory",
-      "inStock": true
+      "inStock": true,
+      "rating": 5,
+      "reviewsCount": 420,
+      "isBestSeller": true,
+      "images": [
+        "/src/assets/images/category_coal_accessories_1791648710860.jpg"
+      ],
+      "specs": {
+        "Count": "72 Cubes (1 Kg)",
+        "Burn Time": "90–120 minutes",
+        "Chemicals": "0% Sulfur / Odorless",
+        "Ash": "< 2.5% White Ash"
+      },
+      "rentalRate": "₹499 / session"
     },
     {
       "id": "acc-magic-coal",
@@ -388,9 +900,22 @@
       "category": "coal-accessories",
       "categoryLabel": "Heating, Coal & Accessories",
       "type": "Fuel / Coal",
+      "brand": "FastLight Magic",
+      "price": 199,
       "description": "Quick-lighting circular coal disks ready in seconds with standard lighter flame.",
       "rentalOrSale": "Consumable & Accessory",
-      "inStock": true
+      "inStock": true,
+      "rating": 4.7,
+      "reviewsCount": 190,
+      "images": [
+        "/src/assets/images/category_coal_accessories_1791648710860.jpg"
+      ],
+      "specs": {
+        "Ignition": "Ignites in 15 seconds with lighter",
+        "Pack": "10 Rolls (100 Disks)",
+        "Diameter": "33 mm"
+      },
+      "rentalRate": "₹199 / session"
     },
     {
       "id": "acc-tong",
@@ -398,9 +923,22 @@
       "category": "coal-accessories",
       "categoryLabel": "Heating, Coal & Accessories",
       "type": "Tool",
+      "brand": "SR Steel",
+      "price": 199,
       "description": "Stainless steel serrated tongs for safe gripping, rotating and ash-tapping.",
       "rentalOrSale": "Consumable & Accessory",
-      "inStock": true
+      "inStock": true,
+      "rating": 4.9,
+      "reviewsCount": 155,
+      "images": [
+        "/src/assets/images/category_coal_accessories_1791648710860.jpg"
+      ],
+      "specs": {
+        "Length": "22 cm Long Reach",
+        "Material": "Brushed Stainless Steel",
+        "Tip": "Serrated Teeth for Coal Hold"
+      },
+      "rentalRate": "₹199 / session"
     },
     {
       "id": "acc-pot-rubber",
@@ -408,9 +946,22 @@
       "category": "coal-accessories",
       "categoryLabel": "Heating, Coal & Accessories",
       "type": "Grommet / Seal",
+      "brand": "SR Seal",
+      "price": 89,
       "description": "Heavy duty rubber gasket for locking base pot to stem securely.",
       "rentalOrSale": "Consumable & Accessory",
-      "inStock": true
+      "inStock": true,
+      "rating": 4.7,
+      "reviewsCount": 65,
+      "images": [
+        "/src/assets/images/category_coal_accessories_1791648710860.jpg"
+      ],
+      "specs": {
+        "Material": "Heavy Duty Synthetic Rubber",
+        "Outer Diameter": "48 mm",
+        "Pack": "1 Piece"
+      },
+      "rentalRate": "₹89 / session"
     },
     {
       "id": "acc-stand-rubber",
@@ -418,9 +969,22 @@
       "category": "coal-accessories",
       "categoryLabel": "Heating, Coal & Accessories",
       "type": "Grommet / Seal",
+      "brand": "SR Guard",
+      "price": 99,
       "description": "Anti-slip rubber feet padding for metal hookah stands.",
       "rentalOrSale": "Consumable & Accessory",
-      "inStock": true
+      "inStock": true,
+      "rating": 4.8,
+      "reviewsCount": 42,
+      "images": [
+        "/src/assets/images/category_coal_accessories_1791648710860.jpg"
+      ],
+      "specs": {
+        "Pack": "Set of 4 Feet Pads",
+        "Surface": "Protects Marble & Wooden Floors",
+        "Grip": "High Friction Texture"
+      },
+      "rentalRate": "₹99 / session"
     },
     {
       "id": "acc-hookah-base-rubber",
@@ -428,9 +992,22 @@
       "category": "coal-accessories",
       "categoryLabel": "Heating, Coal & Accessories",
       "type": "Grommet / Seal",
+      "brand": "SR Seal",
+      "price": 119,
       "description": "Precision base seal engineered to prevent leaks and stabilize tall hookahs.",
       "rentalOrSale": "Consumable & Accessory",
-      "inStock": true
+      "inStock": true,
+      "rating": 4.8,
+      "reviewsCount": 71,
+      "images": [
+        "/src/assets/images/category_coal_accessories_1791648710860.jpg"
+      ],
+      "specs": {
+        "Function": "Prevents Air & Water Leaks",
+        "Thickness": "4mm Wall",
+        "Fit": "Universal Tall Hookah Bases"
+      },
+      "rentalRate": "₹119 / session"
     },
     {
       "id": "sr-hookah",
@@ -438,9 +1015,25 @@
       "category": "sr-products",
       "categoryLabel": "SR Products / Range",
       "type": "Signature Collection",
+      "brand": "Shisha Rent Kolkata",
+      "price": 4999,
+      "rentalRate": "₹1,499 / event",
       "description": "Flagship Shisha Rent luxury hookah custom-built for high-end events and lounges.",
       "rentalOrSale": "Available for Rental & Setup",
-      "inStock": true
+      "inStock": true,
+      "rating": 5,
+      "reviewsCount": 380,
+      "isBestSeller": true,
+      "images": [
+        "/src/assets/images/category_sr_products_1791648725022.jpg",
+        "/src/assets/images/hero_luxury_hookah_1791648599431.jpg"
+      ],
+      "specs": {
+        "Edition": "Kolkata VIP Signature 2026",
+        "Height": "82 cm",
+        "Base": "Heavy Dark Smoke Bohemian Glass",
+        "Includes": "Full VIP Kit, Ice Wand, Coal Burner, Tongs"
+      }
     },
     {
       "id": "sr-shisha",
@@ -448,9 +1041,23 @@
       "category": "sr-products",
       "categoryLabel": "SR Products / Range",
       "type": "Signature Collection",
+      "brand": "Shisha Rent Kolkata",
+      "price": 4299,
+      "rentalRate": "₹1,299 / event",
       "description": "Curated complete shisha package including specialized stem, base, and airflow valve.",
       "rentalOrSale": "Available for Rental & Setup",
-      "inStock": true
+      "inStock": true,
+      "rating": 4.9,
+      "reviewsCount": 210,
+      "isBestSeller": true,
+      "images": [
+        "/src/assets/images/category_sr_products_1791648725022.jpg"
+      ],
+      "specs": {
+        "Package": "Complete Turnkey Set",
+        "Airflow": "Purge 360 Degree Valve",
+        "Hose": "Soft Leather Feel Silicone"
+      }
     },
     {
       "id": "sr-herbal",
@@ -458,9 +1065,22 @@
       "category": "sr-products",
       "categoryLabel": "SR Products / Range",
       "type": "Signature Collection",
+      "brand": "Shisha Rent Kolkata",
+      "price": 449,
       "description": "Proprietary non-tobacco herbal molasses collection with natural fruit extracts.",
       "rentalOrSale": "Available on Request",
-      "inStock": true
+      "inStock": true,
+      "rating": 4.9,
+      "reviewsCount": 165,
+      "images": [
+        "/src/assets/images/category_sr_products_1791648725022.jpg"
+      ],
+      "specs": {
+        "Blend": "Rose Berry Herbal Reserve",
+        "Nicotine": "0.00% Zero Nicotine",
+        "Health Note": "Organic Tea Leaf Base"
+      },
+      "rentalRate": "₹449 / session"
     },
     {
       "id": "sr-regular",
@@ -468,9 +1088,22 @@
       "category": "sr-products",
       "categoryLabel": "SR Products / Range",
       "type": "Signature Collection",
+      "brand": "Shisha Rent Kolkata",
+      "price": 2499,
+      "rentalRate": "₹799 / event",
       "description": "Everyday crowd-pleaser setup delivering reliable smooth sessions at optimal value.",
       "rentalOrSale": "Available on Request",
-      "inStock": true
+      "inStock": true,
+      "rating": 4.8,
+      "reviewsCount": 140,
+      "images": [
+        "/src/assets/images/category_sr_products_1791648725022.jpg"
+      ],
+      "specs": {
+        "Setup": "Easy Home Chill Kit",
+        "Height": "60 cm",
+        "Includes": "Bowl, Hose, Gaskets, Coals"
+      }
     },
     {
       "id": "sr-special",
@@ -478,9 +1111,23 @@
       "category": "sr-products",
       "categoryLabel": "SR Products / Range",
       "type": "Signature Collection",
+      "brand": "Shisha Rent Kolkata",
+      "price": 5499,
+      "rentalRate": "₹1,699 / event",
       "description": "Enhanced setup with dual-hose support, ice tip chamber, and custom fruit bowl prep.",
       "rentalOrSale": "Available for Rental & Setup",
-      "inStock": true
+      "inStock": true,
+      "rating": 5,
+      "reviewsCount": 195,
+      "isBestSeller": true,
+      "images": [
+        "/src/assets/images/category_sr_products_1791648725022.jpg"
+      ],
+      "specs": {
+        "Ports": "Dual Hose Support",
+        "Chamber": "Sub-Zero Ice Freezing Wand",
+        "Bowl": "Fresh Fruit Head Ready"
+      }
     },
     {
       "id": "sr-premium",
@@ -488,9 +1135,24 @@
       "category": "sr-products",
       "categoryLabel": "SR Products / Range",
       "type": "Signature Collection",
+      "brand": "Shisha Rent Kolkata",
+      "price": 6499,
+      "rentalRate": "₹1,999 / event",
       "description": "VIP grade gold-trimmed hookah setup with full accessory kit and dedicated coals.",
       "rentalOrSale": "Available for Rental & Setup",
-      "inStock": true
+      "inStock": true,
+      "rating": 5,
+      "reviewsCount": 310,
+      "isBestSeller": true,
+      "images": [
+        "/src/assets/images/category_sr_products_1791648725022.jpg",
+        "/src/assets/images/hero_luxury_hookah_1791648599431.jpg"
+      ],
+      "specs": {
+        "Metal": "Titanium Gold PVD Coating",
+        "Base": "Bohemian Hand Carved Gold",
+        "Service": "Includes Shisha Sommelier Setup"
+      }
     },
     {
       "id": "sr-basics",
@@ -498,9 +1160,120 @@
       "category": "sr-products",
       "categoryLabel": "SR Products / Range",
       "type": "Signature Collection",
+      "brand": "Shisha Rent Kolkata",
+      "price": 1999,
+      "rentalRate": "₹599 / event",
       "description": "Compact and convenient essential starter kit for home chill sessions and quick setups.",
       "rentalOrSale": "Available on Request",
-      "inStock": true
+      "inStock": true,
+      "rating": 4.7,
+      "reviewsCount": 105,
+      "images": [
+        "/src/assets/images/category_sr_products_1791648725022.jpg"
+      ],
+      "specs": {
+        "Portability": "Compact Travel Case Included",
+        "Height": "45 cm",
+        "Ideal For": "Casual Terrace / Balcony Chill"
+      }
+    },
+    {
+      "id": "box-hard-flight-case",
+      "name": "Shockproof Hard Flight Case / Box",
+      "category": "sr-products",
+      "categoryLabel": "Box & Hard Case",
+      "type": "Hardware Protection",
+      "brand": "SR FlightArmor",
+      "price": 1499,
+      "rentalRate": "Included with VIP Sets",
+      "description": "Heavy-duty military grade protective flight case with laser-cut custom foam slots to safely transport stem, crystal base, chillum, and burner.",
+      "rentalOrSale": "Available on Request",
+      "inStock": true,
+      "rating": 5,
+      "reviewsCount": 88,
+      "isBestSeller": true,
+      "images": [
+        "/src/assets/images/box_hard_travel_case_1791655805587.jpg"
+      ],
+      "specs": {
+        "Casing": "Aluminum Reinforced Corners & Polymer Shell",
+        "Interior": "High Density Anti-Shock EVA Foam",
+        "Latches": "Dual Heavy Duty Chrome Butterfly Latches"
+      }
+    },
+    {
+      "id": "bag-combo-tactical-set",
+      "name": "Tactical Hookah Travel Bag Combo Set",
+      "category": "sr-products",
+      "categoryLabel": "Bag Combo",
+      "type": "Travel Combo",
+      "brand": "SR Tactical",
+      "price": 1999,
+      "rentalRate": "Included in Full Kits",
+      "description": "Padded tactical black nylon carry bag combo with shoulder strap. Neatly packs hookah stem, base, silicone pipe, burner, and coconut coals.",
+      "rentalOrSale": "Available for Rental & Setup",
+      "inStock": true,
+      "rating": 4.9,
+      "reviewsCount": 142,
+      "isBestSeller": true,
+      "images": [
+        "/src/assets/images/bag_combo_hookah_set_1791655818016.jpg"
+      ],
+      "specs": {
+        "Fabric": "1000D Water-Resistant Ballistic Nylon",
+        "Padding": "15mm High-Density Cushioning",
+        "Pockets": "Separate Coal & Burner Compartment"
+      }
+    },
+    {
+      "id": "flavour-dark-rose",
+      "name": "SR Dark Rose Flavour",
+      "category": "flavours",
+      "categoryLabel": "Signature Flavour Reserve",
+      "type": "Flavour Brand",
+      "brand": "SR Signature",
+      "price": 399,
+      "rentalRate": "Available in Pre-Filled Chillum",
+      "description": "Deep Damascus rose blend with velvety floral sweetness and cooling menthol exhale. Rich, soothing, and luxuriously smooth.",
+      "rentalOrSale": "Available on Request",
+      "inStock": true,
+      "rating": 5,
+      "reviewsCount": 215,
+      "isBestSeller": true,
+      "images": [
+        "/src/assets/images/flavour_paan_collection_1791655854763.jpg"
+      ],
+      "specs": {
+        "Taste Profile": "Rich Floral Damask Rose",
+        "Hardness": "7/10",
+        "Freshness": "8/10",
+        "Fruity": "0/10"
+      }
+    },
+    {
+      "id": "flavour-meetha-paan",
+      "name": "Kolkata Meetha Paan Flavour",
+      "category": "flavours",
+      "categoryLabel": "Signature Flavour Reserve",
+      "type": "Flavour Brand",
+      "brand": "SR Signature",
+      "price": 399,
+      "rentalRate": "Available in Pre-Filled Chillum",
+      "description": "Authentic Kolkata betel leaf flavour with aromatic gulkand, crushed cardamom, and sweet fennel notes. Creates dense, aromatic clouds.",
+      "rentalOrSale": "Available on Request",
+      "inStock": true,
+      "rating": 4.9,
+      "reviewsCount": 290,
+      "isBestSeller": true,
+      "images": [
+        "/src/assets/images/flavour_paan_collection_1791655854763.jpg"
+      ],
+      "specs": {
+        "Taste Profile": "Sweet Betel Leaf & Gulkand",
+        "Hardness": "6/10",
+        "Freshness": "9/10",
+        "Fruity": "3/10"
+      }
     }
   ],
   "bookings": [
@@ -793,5 +1566,48 @@
       "acceptedAt": "2026-10-10T15:07:44.569Z"
     }
   ],
-  "auditLogs": []
+  "auditLogs": [],
+  "users": [
+    {
+      "id": "usr-kol-1001",
+      "name": "Aman Singhania",
+      "email": "aman@example.com",
+      "phone": "+91 98301 22419",
+      "passwordHash": "123456",
+      "authProvider": "local",
+      "preferredFlavour": "Kolkata Meetha Paan",
+      "savedAddresses": [
+        {
+          "id": "addr-1",
+          "label": "Party Venue",
+          "area": "Salt Lake (Sector 1 - 5)",
+          "addressLine": "Infinity Benchmark Tower B, Rooftop Terrace",
+          "landmark": "Sector 5 Electronics Complex",
+          "isDefault": true
+        }
+      ],
+      "createdAt": "2026-10-08T19:53:06.122Z",
+      "updatedAt": "2026-10-10T14:53:06.122Z"
+    }
+  ],
+  "cookieConsents": [
+    {
+      "id": "cookie-1791662121598",
+      "visitorId": "vis-1791662084760-5avmb",
+      "essential": true,
+      "analytics": false,
+      "marketing": false,
+      "seoPersonalization": false,
+      "referrer": "https://aistudio.google.com/",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/154.0.0.0 Safari/537.36",
+      "ipAddress": "2409:40e0:1005:a5f8:c9a:fdc1:e7a8:ba0f, 169.254.169.126",
+      "updatedAt": "2026-10-10T19:55:21.598Z"
+    }
+  ],
+  "adminCredentials": {
+    "email": "admin@shisharent.in",
+    "passwordHash": "admin123",
+    "name": "Shisha Rent Operations Manager",
+    "updatedAt": "2026-10-10T20:21:27.958Z"
+  }
 }

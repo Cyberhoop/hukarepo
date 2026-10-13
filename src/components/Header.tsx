@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { MessageCircle, Calendar, Menu, X, Shield, Search, ShoppingBag, User } from 'lucide-react';
-import { CONTACT_INFO } from '../data/productsData';
 import { useCart } from '../context/CartContext';
 import { useNavigation, PageId } from '../context/NavigationContext';
 import { useAuth } from '../context/AuthContext';
+import { useContact } from '../context/ContactContext';
 import { BrandLogo } from './BrandLogo';
 
 interface HeaderProps {
@@ -21,6 +21,7 @@ export const Header: React.FC<HeaderProps> = ({
   const { totalItemsCount, setIsCartOpen } = useCart();
   const { currentPage, navigateTo } = useNavigation();
   const { user, openAuthModal } = useAuth();
+  const { getWhatsAppLink } = useContact();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   const navLinks: { label: string; page: PageId }[] = [
@@ -138,7 +139,7 @@ export const Header: React.FC<HeaderProps> = ({
 
             {/* WhatsApp Contact */}
             <a
-              href={CONTACT_INFO.whatsappUrl}
+              href={getWhatsAppLink()}
               target="_blank"
               rel="noopener noreferrer"
               className="hidden xl:flex items-center gap-1.5 px-3 py-2 rounded-xl bg-emerald-950/40 border border-emerald-600/40 hover:border-emerald-500/80 hover:bg-emerald-900/30 transition-all text-xs font-semibold text-emerald-300 whitespace-nowrap shrink-0"

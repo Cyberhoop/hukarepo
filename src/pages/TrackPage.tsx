@@ -14,8 +14,9 @@ import {
   X,
 } from 'lucide-react';
 import { api, Booking, PaymentConfig } from '../services/api';
-import { CONTACT_INFO } from '../data/productsData';
 import { useNavigation } from '../context/NavigationContext';
+import { useContact } from '../context/ContactContext';
+import { UpiQrShowcase } from '../components/UpiQrShowcase';
 
 interface TrackPageProps {
   paymentConfig: PaymentConfig | null;
@@ -23,6 +24,7 @@ interface TrackPageProps {
 
 export const TrackPage: React.FC<TrackPageProps> = ({ paymentConfig }) => {
   const { navigateTo } = useNavigation();
+  const { getWhatsAppLink } = useContact();
   const [searchId, setSearchId] = useState('');
   const [currentBooking, setCurrentBooking] = useState<Booking | null>(null);
   const [isLoading, setIsLoading] = useState(false);
@@ -395,36 +397,40 @@ export const TrackPage: React.FC<TrackPageProps> = ({ paymentConfig }) => {
               </div>
             </div>
 
-            {/* Upload Payment Proof if Online and Unverified */}
+            {/* Upload Payment Proof & Full-Aspect QR Display if Online and Unverified */}
             {currentBooking.paymentMethod === 'qr' &&
               currentBooking.paymentStatus !== 'verified' && (
-                <div className="p-5 rounded-xl bg-neutral-950 border border-neutral-800 space-y-3">
-                  <div className="flex items-center gap-2 text-white text-xs font-bold uppercase tracking-wider">
-                    <QrCode className="w-4 h-4 text-amber-400" />
-                    <span>Upload UPI Payment Screenshot</span>
+                <div className="p-5 rounded-xl bg-neutral-950 border border-neutral-800 space-y-4">
+                  <UpiQrShowcase paymentConfig={paymentConfig} compact />
+
+                  <div className="pt-2 border-t border-neutral-900 space-y-2.5">
+                    <div className="flex items-center gap-2 text-white text-xs font-bold uppercase tracking-wider">
+                      <QrCode className="w-4 h-4 text-amber-400" />
+                      <span>Upload UPI Payment Screenshot</span>
+                    </div>
+                    <form onSubmit={handleUploadPaymentProof} className="flex flex-col sm:flex-row gap-3">
+                      <input
+                        type="file"
+                        accept="image/*"
+                        onChange={(e) => setCustomerProofFile(e.target.files?.[0] || null)}
+                        className="text-xs text-neutral-300 file:mr-2 file:py-2 file:px-3 file:rounded-lg file:border-0 file:text-xs file:bg-neutral-800 file:text-white"
+                      />
+                      <input
+                        type="text"
+                        placeholder="Transaction Reference (UTR)..."
+                        value={txRef}
+                        onChange={(e) => setTxRef(e.target.value)}
+                        className="bg-neutral-900 border border-neutral-800 rounded-lg px-3 py-1.5 text-xs text-white font-mono"
+                      />
+                      <button
+                        type="submit"
+                        disabled={isLoading || !customerProofFile}
+                        className="px-4 py-2 rounded-lg bg-red-600 hover:bg-red-500 disabled:opacity-50 text-white font-bold text-xs cursor-pointer"
+                      >
+                        Upload Proof
+                      </button>
+                    </form>
                   </div>
-                  <form onSubmit={handleUploadPaymentProof} className="flex flex-col sm:flex-row gap-3">
-                    <input
-                      type="file"
-                      accept="image/*"
-                      onChange={(e) => setCustomerProofFile(e.target.files?.[0] || null)}
-                      className="text-xs text-neutral-300 file:mr-2 file:py-2 file:px-3 file:rounded-lg file:border-0 file:text-xs file:bg-neutral-800 file:text-white"
-                    />
-                    <input
-                      type="text"
-                      placeholder="Transaction Reference (UTR)..."
-                      value={txRef}
-                      onChange={(e) => setTxRef(e.target.value)}
-                      className="bg-neutral-900 border border-neutral-800 rounded-lg px-3 py-1.5 text-xs text-white"
-                    />
-                    <button
-                      type="submit"
-                      disabled={isLoading || !customerProofFile}
-                      className="px-4 py-2 rounded-lg bg-red-600 hover:bg-red-500 disabled:opacity-50 text-white font-bold text-xs"
-                    >
-                      Upload Proof
-                    </button>
-                  </form>
                 </div>
               )}
 
@@ -434,9 +440,9 @@ export const TrackPage: React.FC<TrackPageProps> = ({ paymentConfig }) => {
                 Need immediate update from our Kolkata dispatch desk?
               </span>
               <a
-                href={`https://wa.me/91${CONTACT_INFO.phone.replace(/[^0-9]/g, '')}?text=${encodeURIComponent(
+                href={getWhatsAppLink(
                   `Hi Shisha Rent Kolkata, checking status on my booking reference #${currentBooking.id}.`
-                )}`}
+                )}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-emerald-950/80 border border-emerald-600/50 text-emerald-300 text-xs font-semibold hover:bg-emerald-900/60 transition-colors"

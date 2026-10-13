@@ -17,10 +17,11 @@ import {
   Heart,
   Plus,
 } from 'lucide-react';
-import { PRODUCT_CATEGORIES, ProductItem, CONTACT_INFO } from '../data/productsData';
+import { PRODUCT_CATEGORIES, ProductItem } from '../data/productsData';
 import { useNavigation } from '../context/NavigationContext';
 import { useCart } from '../context/CartContext';
 import { useProducts } from '../context/ProductsContext';
+import { useContact } from '../context/ContactContext';
 import { ChillumFlavourBookingConfigurator } from '../components/ChillumFlavourBookingConfigurator';
 import { MasterCatalogSequenceSection } from '../components/MasterCatalogSequenceSection';
 
@@ -38,6 +39,7 @@ export const HomePage: React.FC<HomePageProps> = ({
   const { navigateTo } = useNavigation();
   const { addToCart } = useCart();
   const { products } = useProducts();
+  const { contactConfig, getWhatsAppLink } = useContact();
   const [selectedOccasion, setSelectedOccasion] = useState<number>(0);
   const [addedProductId, setAddedProductId] = useState<string | null>(null);
 
@@ -786,12 +788,12 @@ export const HomePage: React.FC<HomePageProps> = ({
             </button>
 
             <a
-              href={CONTACT_INFO.whatsappUrl}
+              href={getWhatsAppLink()}
               target="_blank"
               rel="noopener noreferrer"
               className="px-7 py-3.5 rounded-xl bg-emerald-950/80 hover:bg-emerald-900 border border-emerald-600/50 text-emerald-300 font-semibold text-sm transition-all"
             >
-              Chat on WhatsApp ({CONTACT_INFO.phone})
+              Chat on WhatsApp ({contactConfig.whatsappNumber || contactConfig.phone})
             </a>
           </div>
         </div>

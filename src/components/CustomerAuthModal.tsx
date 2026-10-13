@@ -114,16 +114,6 @@ export const CustomerAuthModal: React.FC = () => {
     }
   };
 
-  const handleQuickDemoAccount = async () => {
-    setErrorMsg('');
-    setIsSubmitting(true);
-    const res = await login('aman@example.com', '123456');
-    setIsSubmitting(false);
-    if (!res.success) {
-      setErrorMsg(res.error || 'Could not load demo customer');
-    }
-  };
-
   return (
     <div className="fixed inset-0 z-50 overflow-y-auto bg-black/85 backdrop-blur-md flex items-center justify-center p-3 sm:p-6 animate-in fade-in duration-200">
       <div className="relative w-full max-w-md rounded-2xl bg-[#0c0c14] border border-neutral-800 shadow-2xl overflow-hidden my-4">
@@ -364,7 +354,7 @@ export const CustomerAuthModal: React.FC = () => {
                   <input
                     type="text"
                     required
-                    placeholder="e.g. aman@example.com or 9830122419"
+                    placeholder="Enter your email or 10-digit phone number"
                     value={identifier}
                     onChange={(e) => setIdentifier(e.target.value)}
                     className="w-full pl-10 pr-3.5 py-2.5 rounded-lg bg-neutral-900 border border-neutral-800 text-white text-sm focus:outline-none focus:border-red-600"
@@ -397,21 +387,6 @@ export const CustomerAuthModal: React.FC = () => {
                 <span>{isSubmitting ? 'Signing In...' : 'Sign In to My Account'}</span>
                 <ArrowRight className="w-4 h-4" />
               </button>
-
-              {/* Quick Demo Customer Login Helper */}
-              <div className="p-3 rounded-xl bg-neutral-950 border border-neutral-800/80 flex items-center justify-between gap-2">
-                <div className="text-[11px] text-neutral-400">
-                  <span className="text-neutral-200 font-semibold block">Existing Sample Customer:</span>
-                  aman@example.com (Bookings #SR-KOL-1001)
-                </div>
-                <button
-                  type="button"
-                  onClick={handleQuickDemoAccount}
-                  className="px-3 py-1.5 rounded-lg bg-neutral-900 hover:bg-neutral-800 text-amber-400 border border-amber-500/30 text-[11px] font-semibold shrink-0 cursor-pointer"
-                >
-                  1-Click Demo Login
-                </button>
-              </div>
             </form>
           )}
 

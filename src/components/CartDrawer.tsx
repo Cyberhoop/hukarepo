@@ -13,13 +13,14 @@ import {
   Check,
 } from 'lucide-react';
 import { useCart } from '../context/CartContext';
-import { CONTACT_INFO } from '../data/productsData';
+import { useContact } from '../context/ContactContext';
 
 interface CartDrawerProps {
   onProceedToBooking: () => void;
 }
 
 export const CartDrawer: React.FC<CartDrawerProps> = ({ onProceedToBooking }) => {
+  const { getWhatsAppLink } = useContact();
   const {
     cartItems,
     isCartOpen,
@@ -80,8 +81,7 @@ ${discountAmount > 0 ? `🎟️ *Discount (${couponCode}):* -₹${discountAmount
 
 Please confirm availability and dispatch schedule for Kolkata.`;
 
-    const encoded = encodeURIComponent(msg);
-    return `https://wa.me/919876543210?text=${encoded}`;
+    return getWhatsAppLink(msg);
   };
 
   return (

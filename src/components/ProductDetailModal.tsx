@@ -13,8 +13,9 @@ import {
   ChevronRight,
   Sparkles,
 } from 'lucide-react';
-import { ProductItem, ALL_PRODUCTS, CONTACT_INFO } from '../data/productsData';
+import { ProductItem, ALL_PRODUCTS } from '../data/productsData';
 import { useCart } from '../context/CartContext';
+import { useContact } from '../context/ContactContext';
 
 interface ProductDetailModalProps {
   product: ProductItem | null;
@@ -32,6 +33,7 @@ export const ProductDetailModal: React.FC<ProductDetailModalProps> = ({
   onSelectRelatedProduct,
 }) => {
   const { addToCart, isInWishlist, toggleWishlist } = useCart();
+  const { getWhatsAppLink } = useContact();
   const [selectedImageIndex, setSelectedImageIndex] = useState(0);
   const [quantity, setQuantity] = useState(1);
   const [rentalDate, setRentalDate] = useState('');
@@ -71,7 +73,7 @@ export const ProductDetailModal: React.FC<ProductDetailModalProps> = ({
 Price: ₹${product.price} ${product.rentalRate ? `(Rental: ${product.rentalRate})` : ''}
 Stock Status: ${product.inStock ? 'In Stock' : 'Out of Stock'}
 Could you share availability for Kolkata delivery?`;
-    return `https://wa.me/919876543210?text=${encodeURIComponent(text)}`;
+    return getWhatsAppLink(text);
   };
 
   return (

@@ -9,12 +9,14 @@ import {
   Send,
   HelpCircle,
   ChevronDown,
+  ExternalLink,
 } from 'lucide-react';
-import { CONTACT_INFO } from '../data/productsData';
 import { useNavigation } from '../context/NavigationContext';
+import { useContact } from '../context/ContactContext';
 
 export const ContactPage: React.FC = () => {
   const { navigateTo } = useNavigation();
+  const { contactConfig, getWhatsAppLink } = useContact();
   const [name, setName] = useState('');
   const [phone, setPhone] = useState('');
   const [date, setDate] = useState('');
@@ -59,10 +61,14 @@ export const ContactPage: React.FC = () => {
     e.preventDefault();
     setFormSubmitted(true);
     const waText = `Hi Shisha Rent Kolkata, my name is ${name} (${phone}). I would like to inquire about ${service} for ${date || 'tonight'}. Note: ${message}`;
-    window.open(
-      `https://wa.me/91${CONTACT_INFO.phone.replace(/[^0-9]/g, '')}?text=${encodeURIComponent(waText)}`,
-      '_blank'
-    );
+    const url = getWhatsAppLink(waText);
+    const link = document.createElement('a');
+    link.href = url;
+    link.target = '_blank';
+    link.rel = 'noopener noreferrer';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
   };
 
   return (
@@ -112,26 +118,52 @@ export const ContactPage: React.FC = () => {
 
               <div className="space-y-3 text-xs">
                 <a
-                  href={`tel:+91${CONTACT_INFO.phone.replace(/[^0-9]/g, '')}`}
+                  href={`tel:${contactConfig.phone.replace(/\s+/g, '')}`}
                   className="flex items-center gap-3 p-3 rounded-xl bg-neutral-900/80 border border-neutral-800 text-neutral-300 hover:text-white hover:border-neutral-700 transition-colors"
                 >
                   <Phone className="w-4 h-4 text-red-500 shrink-0" />
                   <div>
-                    <div className="font-semibold text-white">Phone Hotline</div>
-                    <div className="text-neutral-400 tabular-nums">{CONTACT_INFO.phone}</div>
+                    <div className="font-semibold text-white">Primary Phone Hotline</div>
+                    <div className="text-neutral-400 tabular-nums">{contactConfig.phone}</div>
                   </div>
                 </a>
 
+                {contactConfig.secondaryPhone && (
+                  <a
+                    href={`tel:${contactConfig.secondaryPhone.replace(/\s+/g, '')}`}
+                    className="flex items-center gap-3 p-3 rounded-xl bg-neutral-900/80 border border-neutral-800 text-neutral-300 hover:text-white hover:border-neutral-700 transition-colors"
+                  >
+                    <Phone className="w-4 h-4 text-amber-400 shrink-0" />
+                    <div>
+                      <div className="font-semibold text-white">Secondary / Alternate Desk</div>
+                      <div className="text-neutral-400 tabular-nums">{contactConfig.secondaryPhone}</div>
+                    </div>
+                  </a>
+                )}
+
                 <a
-                  href={CONTACT_INFO.whatsappUrl}
+                  href={getWhatsAppLink()}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="flex items-center gap-3 p-3 rounded-xl bg-emerald-950/40 border border-emerald-800/40 text-emerald-300 hover:bg-emerald-900/40 transition-colors"
                 >
                   <MessageCircle className="w-4 h-4 text-emerald-400 shrink-0" />
                   <div>
-                    <div className="font-semibold text-emerald-200">WhatsApp Concierge</div>
+                    <div className="font-semibold text-emerald-200">
+                      WhatsApp Concierge ({contactConfig.whatsappNumber || contactConfig.phone})
+                    </div>
                     <div className="text-emerald-400/80">Instant booking & live photo chat</div>
+                  </div>
+                </a>
+
+                <a
+                  href={`mailto:${contactConfig.email}`}
+                  className="flex items-center gap-3 p-3 rounded-xl bg-neutral-900/80 border border-neutral-800 text-neutral-300 hover:text-white hover:border-neutral-700 transition-colors"
+                >
+                  <Mail className="w-4 h-4 text-red-500 shrink-0" />
+                  <div>
+                    <div className="font-semibold text-white">Support & Booking Email</div>
+                    <div className="text-neutral-400">{contactConfig.email}</div>
                   </div>
                 </a>
 
@@ -139,17 +171,58 @@ export const ContactPage: React.FC = () => {
                   <Clock className="w-4 h-4 text-amber-500 shrink-0" />
                   <div>
                     <div className="font-semibold text-white">Operating Hours</div>
-                    <div className="text-neutral-400">{CONTACT_INFO.hours} (Late night till 4 AM)</div>
+                    <div className="text-neutral-400">{contactConfig.hours}</div>
                   </div>
                 </div>
 
-                <div className="flex items-center gap-3 p-3 rounded-xl bg-neutral-900/80 border border-neutral-800 text-neutral-300">
-                  <MapPin className="w-4 h-4 text-red-500 shrink-0" />
+                <div className="flex items-start gap-3 p-3 rounded-xl bg-neutral-900/80 border border-neutral-800 text-neutral-300">
+                  <MapPin className="w-4 h-4 text-red-500 shrink-0 mt-0.5" />
                   <div>
-                    <div className="font-semibold text-white">Main Kolkata Hub</div>
-                    <div className="text-neutral-400">{CONTACT_INFO.city} (Central & Suburban Hubs)</div>
+                    <div className="font-semibold text-white">
+                      Main {contactConfig.city} Hub & Coverage
+                    </div>
+                    <div className="text-neutral-300">{contactConfig.address}</div>
+                    <div className="text-neutral-500 text-[11px] mt-0.5">{contactConfig.areasServed}</div>
                   </div>
                 </div>
+
+                {(contactConfig.instagramUrl || contactConfig.facebookUrl || contactConfig.googleMapsUrl) && (
+                  <div className="pt-2 flex flex-wrap items-center gap-2">
+                    {contactConfig.instagramUrl && (
+                      <a
+                        href={contactConfig.instagramUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-neutral-900 hover:bg-neutral-800 border border-neutral-800 text-xs font-semibold text-neutral-200"
+                      >
+                        <span>Instagram</span>
+                        <ExternalLink className="w-3 h-3 text-red-400" />
+                      </a>
+                    )}
+                    {contactConfig.facebookUrl && (
+                      <a
+                        href={contactConfig.facebookUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-neutral-900 hover:bg-neutral-800 border border-neutral-800 text-xs font-semibold text-neutral-200"
+                      >
+                        <span>Facebook</span>
+                        <ExternalLink className="w-3 h-3 text-blue-400" />
+                      </a>
+                    )}
+                    {contactConfig.googleMapsUrl && (
+                      <a
+                        href={contactConfig.googleMapsUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-neutral-900 hover:bg-neutral-800 border border-neutral-800 text-xs font-semibold text-amber-300"
+                      >
+                        <span>Google Maps Location</span>
+                        <ExternalLink className="w-3 h-3 text-amber-400" />
+                      </a>
+                    )}
+                  </div>
+                )}
               </div>
             </div>
 

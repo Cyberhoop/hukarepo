@@ -14,9 +14,12 @@ import {
   Upload,
   ExternalLink,
 } from 'lucide-react';
-import { ALL_PRODUCTS, CONTACT_INFO, CUSTOMER_POLICY, ProductItem } from '../data/productsData';
+import { ALL_PRODUCTS, ProductItem } from '../data/productsData';
 import { api, PaymentConfig } from '../services/api';
 import { useAuth } from '../context/AuthContext';
+import { useProducts } from '../context/ProductsContext';
+import { useContact } from '../context/ContactContext';
+import { UpiQrShowcase } from './UpiQrShowcase';
 
 interface BookingModalProps {
   isOpen: boolean;
@@ -36,6 +39,9 @@ export const BookingModal: React.FC<BookingModalProps> = ({
   onTrackOrder,
 }) => {
   const { user } = useAuth();
+  const { products: catalogProducts } = useProducts();
+  const { contactConfig, getWhatsAppLink } = useContact();
+  const activeCatalog = catalogProducts && catalogProducts.length > 0 ? catalogProducts : ALL_PRODUCTS;
   const [customerName, setCustomerName] = useState('');
   const [customerPhone, setCustomerPhone] = useState('');
   const [eventDate, setEventDate] = useState('');
@@ -109,7 +115,7 @@ export const BookingModal: React.FC<BookingModalProps> = ({
   const handleAddItemByName = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const itemId = e.target.value;
     if (!itemId) return;
-    const found = ALL_PRODUCTS.find((p) => p.id === itemId);
+    const found = activeCatalog.find((p) => p.id === itemId);
     if (found && !selectedItems.some((p) => p.id === found.id)) {
       setSelectedItems((prev) => [...prev, found]);
     }
@@ -141,7 +147,7 @@ ${includeCook ? '✓ Cook / Private Chef included' : '✗ No Cook'}
 
 📌 *Availability Rule Confirmed:* I have read that requested brands are subject to availability and will be confirmed prior to dispatch.`;
 
-    return `https://wa.me/919876543210?text=${encodeURIComponent(message)}`;
+    return getWhatsAppLink(message);
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -259,89 +265,45 @@ ${includeCook ? '✓ Cook / Private Chef included' : '✗ No Cook'}
 
             {/* If Online QR selected: show active QR code loaded from backend */}
             {paymentMethod === 'qr' && (
-              <div className="p-5 rounded-2xl bg-neutral-950 border border-neutral-800 max-w-md mx-auto space-y-4 text-left">
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center gap-2 text-xs font-semibold text-amber-400 uppercase">
-                    <QrCode className="w-4 h-4" />
-                    <span>Active UPI QR Payment</span>
-                  </div>
-                  <span className="text-[10px] text-neutral-400 font-mono">
-                    ID: {paymentConfig?.upiId || 'shisharent@upi'}
-                  </span>
-                </div>
+              <div className="max-w-md mx-auto space-y-4 text-left">
+                <UpiQrShowcase paymentConfig={paymentConfig} />
 
-                {/* Actual QR Image Loaded from Persistent Storage */}
-                <div className="bg-white p-3 rounded-xl flex items-center justify-center mx-auto w-48 h-48 shadow-xl">
-                  {paymentConfig?.qrImageUrl ? (
-                    <img
-                      src={paymentConfig.qrImageUrl}
-                      alt="Active QR Code"
-                      className="w-full h-full object-contain"
-                    />
+                <div className="p-4 rounded-2xl bg-neutral-950 border border-neutral-800 space-y-3">
+                  {/* Upload proof form right here */}
+                  {!proofUploadedSuccess ? (
+                    <form onSubmit={handleUploadPaymentProof} className="space-y-2.5">
+                      <span className="text-xs font-semibold text-neutral-200 block">
+                        Attach Payment Proof / Screenshot:
+                      </span>
+                      <input
+                        type="text"
+                        placeholder="Enter 12-digit UPI UTR Ref..."
+                        value={txReference}
+                        onChange={(e) => setTxReference(e.target.value)}
+                        className="w-full px-3 py-2 rounded-lg bg-neutral-900 border border-neutral-800 text-xs text-white font-mono"
+                      />
+                      <input
+                        type="file"
+                        accept="image/*"
+                        onChange={(e) => {
+                          if (e.target.files?.[0]) setProofFile(e.target.files[0]);
+                        }}
+                        className="w-full text-xs text-neutral-400 file:mr-2 file:py-1.5 file:px-3 file:rounded-lg file:border-0 file:text-xs file:font-semibold file:bg-neutral-800 file:text-white hover:file:bg-neutral-700"
+                      />
+                      <button
+                        type="submit"
+                        disabled={proofUploading || (!txReference && !proofFile)}
+                        className="w-full py-2.5 rounded-xl bg-red-600 hover:bg-red-500 text-white text-xs font-bold disabled:opacity-50 cursor-pointer"
+                      >
+                        {proofUploading ? 'Uploading...' : 'Submit Payment Proof'}
+                      </button>
+                    </form>
                   ) : (
-                    /* Elegant high-res vector QR fallback if admin hasn't uploaded custom image yet */
-                    <svg viewBox="0 0 100 100" className="w-full h-full text-black">
-                      <rect width="100" height="100" fill="white" />
-                      <rect x="10" y="10" width="24" height="24" fill="black" />
-                      <rect x="14" y="14" width="16" height="16" fill="white" />
-                      <rect x="18" y="18" width="8" height="8" fill="black" />
-                      <rect x="66" y="10" width="24" height="24" fill="black" />
-                      <rect x="70" y="14" width="16" height="16" fill="white" />
-                      <rect x="74" y="18" width="8" height="8" fill="black" />
-                      <rect x="10" y="66" width="24" height="24" fill="black" />
-                      <rect x="14" y="70" width="16" height="16" fill="white" />
-                      <rect x="18" y="74" width="8" height="8" fill="black" />
-                      <rect x="42" y="15" width="8" height="8" fill="black" />
-                      <rect x="52" y="25" width="8" height="8" fill="black" />
-                      <rect x="42" y="42" width="16" height="16" fill="black" />
-                      <rect x="65" y="45" width="10" height="10" fill="black" />
-                      <rect x="45" y="70" width="14" height="8" fill="black" />
-                      <rect x="65" y="68" width="15" height="15" fill="black" />
-                      <rect x="25" y="45" width="8" height="12" fill="black" />
-                    </svg>
+                    <div className="p-3 rounded-xl bg-emerald-950/60 border border-emerald-800 text-xs text-emerald-300 text-center font-medium">
+                      ✓ Payment proof submitted for admin verification!
+                    </div>
                   )}
                 </div>
-
-                <div className="text-xs text-neutral-300 space-y-1">
-                  <p><strong className="text-white">Payee:</strong> {paymentConfig?.payeeName || 'Shisha Rent Kolkata'}</p>
-                  <p><strong className="text-white">UPI VPA:</strong> <span className="font-mono text-amber-300">{paymentConfig?.upiId || 'shisharent@upi'}</span></p>
-                  <p className="text-[11px] text-neutral-400">{paymentConfig?.instructions}</p>
-                </div>
-
-                {/* Upload proof form right here */}
-                {!proofUploadedSuccess ? (
-                  <form onSubmit={handleUploadPaymentProof} className="pt-3 border-t border-neutral-900 space-y-2">
-                    <span className="text-[11px] font-semibold text-neutral-300 block">
-                      Attach Payment Proof / Screenshot:
-                    </span>
-                    <input
-                      type="text"
-                      placeholder="Enter 12-digit UPI UTR Ref..."
-                      value={txReference}
-                      onChange={(e) => setTxReference(e.target.value)}
-                      className="w-full px-3 py-1.5 rounded-lg bg-neutral-900 border border-neutral-800 text-xs text-white"
-                    />
-                    <input
-                      type="file"
-                      accept="image/*"
-                      onChange={(e) => {
-                        if (e.target.files?.[0]) setProofFile(e.target.files[0]);
-                      }}
-                      className="w-full text-[11px] text-neutral-400"
-                    />
-                    <button
-                      type="submit"
-                      disabled={proofUploading || (!txReference && !proofFile)}
-                      className="w-full py-2 rounded-lg bg-red-600 hover:bg-red-500 text-white text-xs font-semibold disabled:opacity-50"
-                    >
-                      {proofUploading ? 'Uploading...' : 'Submit Payment Proof'}
-                    </button>
-                  </form>
-                ) : (
-                  <div className="p-2.5 rounded-lg bg-emerald-950/60 border border-emerald-800 text-xs text-emerald-300 text-center font-medium">
-                    ✓ Payment proof submitted for admin verification!
-                  </div>
-                )}
               </div>
             )}
 
@@ -354,7 +316,7 @@ ${includeCook ? '✓ Cook / Private Chef included' : '✗ No Cook'}
                 className="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 px-6 py-3 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-semibold text-xs shadow-lg shadow-emerald-900/40 transition-all"
               >
                 <MessageCircle className="w-4 h-4" />
-                <span>Confirm on WhatsApp ({CONTACT_INFO.phone})</span>
+                <span>Confirm on WhatsApp ({contactConfig.phone})</span>
               </a>
 
               {createdBookingId && onTrackOrder && (
@@ -528,7 +490,7 @@ ${includeCook ? '✓ Cook / Private Chef included' : '✗ No Cook'}
                     className="w-full px-2.5 py-2 rounded-lg bg-neutral-900 border border-neutral-700 text-xs text-neutral-200"
                   >
                     <option value="" disabled>+ Add an item...</option>
-                    {ALL_PRODUCTS.map((prod) => (
+                    {activeCatalog.map((prod) => (
                       <option key={prod.id} value={prod.id}>
                         {prod.name} ({prod.type})
                       </option>
@@ -624,6 +586,13 @@ ${includeCook ? '✓ Cook / Private Chef included' : '✗ No Cook'}
                   <span>Online UPI QR Code</span>
                 </button>
               </div>
+
+              {/* Instant Live QR Preview when Customer Selects Online UPI QR */}
+              {paymentMethod === 'qr' && (
+                <div className="mt-4 animate-in fade-in duration-150">
+                  <UpiQrShowcase paymentConfig={paymentConfig} compact />
+                </div>
+              )}
             </div>
 
             {/* Special Instructions */}

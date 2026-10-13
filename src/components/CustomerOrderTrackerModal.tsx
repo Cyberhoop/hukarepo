@@ -13,7 +13,8 @@ import {
   MessageCircle,
 } from 'lucide-react';
 import { api, Booking, PaymentConfig } from '../services/api';
-import { CONTACT_INFO } from '../data/productsData';
+import { useContact } from '../context/ContactContext';
+import { UpiQrShowcase } from './UpiQrShowcase';
 
 interface CustomerOrderTrackerModalProps {
   isOpen: boolean;
@@ -28,6 +29,7 @@ export const CustomerOrderTrackerModal: React.FC<CustomerOrderTrackerModalProps>
   initialBookingId,
   paymentConfig,
 }) => {
+  const { getWhatsAppLink } = useContact();
   const [searchId, setSearchId] = useState(initialBookingId || '');
   const [currentBooking, setCurrentBooking] = useState<Booking | null>(null);
   const [isLoading, setIsLoading] = useState(false);
@@ -77,7 +79,7 @@ export const CustomerOrderTrackerModal: React.FC<CustomerOrderTrackerModalProps>
     e.preventDefault();
     if (!currentBooking) return;
     if (!customerProofFile && !txRef) {
-      alert('Please provide transaction reference or select a screenshot file.');
+      setErrorMsg('Please provide transaction reference or select a screenshot file.');
       return;
     }
 
@@ -92,9 +94,11 @@ export const CustomerOrderTrackerModal: React.FC<CustomerOrderTrackerModalProps>
         setCurrentBooking(res.data);
         setUploadSuccess('Payment proof submitted successfully! Our manager will verify shortly.');
         setCustomerProofFile(null);
+      } else {
+        setErrorMsg(res.error || 'Upload failed');
       }
-    } catch (err) {
-      alert('Upload failed');
+    } catch {
+      setErrorMsg('Upload failed');
     }
   };
 
@@ -114,9 +118,11 @@ export const CustomerOrderTrackerModal: React.FC<CustomerOrderTrackerModalProps>
             ? 'Substitution approved! Your order has been updated with the replacement.'
             : 'Substitution declined. Our manager has been alerted to provide other options.'
         );
+      } else {
+        setErrorMsg(res.error || 'Failed to submit response');
       }
-    } catch (err) {
-      alert('Failed to submit response');
+    } catch {
+      setErrorMsg('Failed to submit response');
     }
   };
 
@@ -288,26 +294,8 @@ export const CustomerOrderTrackerModal: React.FC<CustomerOrderTrackerModalProps>
                     </span>
                   </div>
 
-                  {/* QR Image loaded from backend */}
-                  <div className="flex flex-col sm:flex-row items-center gap-4">
-                    <div className="w-36 h-36 bg-white rounded-xl p-2 shrink-0 border border-neutral-700 flex items-center justify-center">
-                      {paymentConfig?.qrImageUrl ? (
-                        <img
-                          src={paymentConfig.qrImageUrl}
-                          alt="Active Payment QR"
-                          className="w-full h-full object-contain"
-                        />
-                      ) : (
-                        <QrCode className="w-20 h-20 text-black" />
-                      )}
-                    </div>
-
-                    <div className="text-xs text-neutral-300 space-y-1.5 flex-1">
-                      <p><strong className="text-white">UPI ID:</strong> <span className="font-mono text-amber-300">{paymentConfig?.upiId || 'shisharent@upi'}</span></p>
-                      <p><strong className="text-white">Payee:</strong> {paymentConfig?.payeeName || 'Shisha Rent Kolkata'}</p>
-                      <p className="text-[11px] text-neutral-400">{paymentConfig?.instructions}</p>
-                    </div>
-                  </div>
+                  {/* Full-Aspect QR Showcase */}
+                  <UpiQrShowcase paymentConfig={paymentConfig} compact />
 
                   {/* Upload payment screenshot / reference */}
                   <form onSubmit={handleUploadProof} className="pt-2 border-t border-neutral-900 space-y-3">
@@ -355,7 +343,7 @@ export const CustomerOrderTrackerModal: React.FC<CustomerOrderTrackerModalProps>
               {/* Direct WhatsApp help button */}
               <div className="pt-2 text-center">
                 <a
-                  href={`https://wa.me/919876543210?text=Hi%20Shisha%20Rent%2C%20inquiry%20regarding%20booking%20${currentBooking.id}`}
+                  href={getWhatsAppLink(`Hi Shisha Rent, inquiry regarding booking ${currentBooking.id}`)}
                   target="_blank"
                   rel="noreferrer"
                   className="inline-flex items-center gap-2 text-xs text-emerald-400 hover:underline"

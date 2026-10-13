@@ -79,7 +79,7 @@ export const ProductsCatalogSection: React.FC<ProductsCatalogSectionProps> = ({
     }
 
     return list;
-  }, [selectedCategoryId, searchQuery, sortBy, filterQuick]);
+  }, [products, selectedCategoryId, searchQuery, sortBy, filterQuick]);
 
   const isSelected = (itemId: string) => {
     return selectedBookingItems.some((item) => item.id === itemId);

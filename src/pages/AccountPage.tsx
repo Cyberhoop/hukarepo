@@ -25,7 +25,8 @@ import {
 import { useAuth } from '../context/AuthContext';
 import { useNavigation } from '../context/NavigationContext';
 import { api, Booking, PaymentConfig, SavedAddress } from '../services/api';
-import { CONTACT_INFO, ProductItem } from '../data/productsData';
+import { ProductItem } from '../data/productsData';
+import { UpiQrShowcase } from '../components/UpiQrShowcase';
 
 interface AccountPageProps {
   paymentConfig: PaymentConfig | null;
@@ -447,11 +448,13 @@ export const AccountPage: React.FC<AccountPageProps> = ({
 
         {/* Online QR Payment Proof Upload (if QR & pending verification) */}
         {order.paymentMethod === 'qr' && order.paymentStatus === 'pending' && (
-          <div className="p-4 rounded-xl bg-neutral-950 border border-neutral-800 space-y-3">
-            <div className="flex items-center justify-between">
+          <div className="p-4 rounded-xl bg-neutral-950 border border-neutral-800 space-y-4">
+            <UpiQrShowcase paymentConfig={paymentConfig} compact />
+
+            <div className="flex items-center justify-between pt-2 border-t border-neutral-900">
               <span className="text-xs font-bold text-amber-400 flex items-center gap-1.5">
                 <QrCode className="w-4 h-4" />
-                <span>UPI QR Payment Verification ({paymentConfig?.upiId || 'shisharent@upi'})</span>
+                <span>Attach Payment Proof Screenshot ({paymentConfig?.upiId || 'shisharent@upi'})</span>
               </span>
               {order.paymentProofUrl && (
                 <span className="text-[11px] text-emerald-400 font-semibold">
@@ -467,7 +470,7 @@ export const AccountPage: React.FC<AccountPageProps> = ({
                 onChange={(e) =>
                   setUtrByOrder((prev) => ({ ...prev, [order.id]: e.target.value }))
                 }
-                className="px-3 py-2 rounded-lg bg-neutral-900 border border-neutral-800 text-xs text-white"
+                className="px-3 py-2 rounded-lg bg-neutral-900 border border-neutral-800 text-xs text-white font-mono"
               />
               <input
                 type="file"

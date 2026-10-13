@@ -1,7 +1,7 @@
 import React from 'react';
-import { Phone, Mail, MapPin, Clock, MessageCircle, Shield, Search } from 'lucide-react';
-import { CONTACT_INFO } from '../data/productsData';
+import { Phone, Mail, MapPin, Clock, MessageCircle, Shield, Search, ExternalLink } from 'lucide-react';
 import { useNavigation } from '../context/NavigationContext';
+import { useContact } from '../context/ContactContext';
 import { BrandLogo } from './BrandLogo';
 
 interface FooterProps {
@@ -17,6 +17,7 @@ export const Footer: React.FC<FooterProps> = ({
   onOpenAdmin,
 }) => {
   const { navigateTo } = useNavigation();
+  const { contactConfig, getWhatsAppLink } = useContact();
 
   return (
     <footer id="contact" className="bg-[#050508] border-t border-neutral-900 pt-14 sm:pt-16 pb-12 text-neutral-400 text-xs sm:text-sm">
@@ -39,16 +40,40 @@ export const Footer: React.FC<FooterProps> = ({
               Kolkata's premier luxury hookah rental and hospitality event provider. Supplying authentic flavour brands, crystal Bohemian hookahs, professional mixologists and gourmet chefs for private parties, birthdays, bachelors, and weddings.
             </p>
 
-            <div className="flex items-center gap-2 pt-1">
+            <div className="flex flex-wrap items-center gap-2 pt-1">
               <a
-                href={CONTACT_INFO.whatsappUrl}
+                href={getWhatsAppLink()}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-2 px-3.5 py-2 rounded-lg bg-emerald-950/60 border border-emerald-600/40 text-emerald-300 text-xs font-semibold hover:bg-emerald-900/50 transition-colors"
               >
                 <MessageCircle className="w-3.5 h-3.5 text-emerald-400" />
-                <span>WhatsApp: {CONTACT_INFO.phone}</span>
+                <span>WhatsApp: {contactConfig.whatsappNumber || contactConfig.phone}</span>
               </a>
+
+              {contactConfig.instagramUrl && (
+                <a
+                  href={contactConfig.instagramUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-1 px-2.5 py-2 rounded-lg bg-neutral-900 hover:bg-neutral-800 border border-neutral-800 text-neutral-300 text-xs"
+                >
+                  <span>Instagram</span>
+                  <ExternalLink className="w-3 h-3 text-red-400" />
+                </a>
+              )}
+
+              {contactConfig.facebookUrl && (
+                <a
+                  href={contactConfig.facebookUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-1 px-2.5 py-2 rounded-lg bg-neutral-900 hover:bg-neutral-800 border border-neutral-800 text-neutral-300 text-xs"
+                >
+                  <span>Facebook</span>
+                  <ExternalLink className="w-3 h-3 text-blue-400" />
+                </a>
+              )}
             </div>
           </div>
 
@@ -206,31 +231,53 @@ export const Footer: React.FC<FooterProps> = ({
           {/* Contact & Kolkata Coverage (col-span-3) */}
           <div className="lg:col-span-3 space-y-3 text-left">
             <h4 className="text-sm font-bold text-white uppercase tracking-wider font-heading">
-              Kolkata Service Hub
+              {contactConfig.city} Service Hub
             </h4>
             <div className="space-y-2.5 text-xs text-neutral-300">
               <div className="flex items-start gap-2.5">
                 <MapPin className="w-4 h-4 text-red-500 shrink-0 mt-0.5" />
-                <span className="text-neutral-400 leading-snug">
-                  {CONTACT_INFO.areasServed}
-                </span>
+                <div className="space-y-0.5">
+                  {contactConfig.address && (
+                    <div className="text-neutral-200 font-medium leading-snug">
+                      {contactConfig.address}
+                    </div>
+                  )}
+                  <span className="text-neutral-400 leading-snug block">
+                    {contactConfig.areasServed}
+                  </span>
+                </div>
               </div>
 
               <div className="flex items-center gap-2.5">
                 <Phone className="w-4 h-4 text-red-500 shrink-0" />
-                <a href={`tel:${CONTACT_INFO.phone}`} className="hover:text-white">
-                  {CONTACT_INFO.phone}
-                </a>
+                <div className="flex flex-wrap items-center gap-2">
+                  <a href={`tel:${contactConfig.phone.replace(/\s+/g, '')}`} className="hover:text-white tabular-nums">
+                    {contactConfig.phone}
+                  </a>
+                  {contactConfig.secondaryPhone && (
+                    <>
+                      <span className="text-neutral-600">/</span>
+                      <a
+                        href={`tel:${contactConfig.secondaryPhone.replace(/\s+/g, '')}`}
+                        className="hover:text-white tabular-nums text-neutral-400"
+                      >
+                        {contactConfig.secondaryPhone}
+                      </a>
+                    </>
+                  )}
+                </div>
               </div>
 
               <div className="flex items-center gap-2.5">
                 <Mail className="w-4 h-4 text-red-500 shrink-0" />
-                <span>{CONTACT_INFO.email}</span>
+                <a href={`mailto:${contactConfig.email}`} className="hover:text-white">
+                  {contactConfig.email}
+                </a>
               </div>
 
               <div className="flex items-center gap-2.5">
                 <Clock className="w-4 h-4 text-amber-400 shrink-0" />
-                <span className="text-amber-400/90">{CONTACT_INFO.hours}</span>
+                <span className="text-amber-400/90">{contactConfig.hours}</span>
               </div>
             </div>
           </div>

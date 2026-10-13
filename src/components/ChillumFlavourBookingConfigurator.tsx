@@ -11,8 +11,9 @@ import {
   ShieldCheck,
   ArrowRight,
 } from 'lucide-react';
-import { CONTACT_INFO, ProductItem } from '../data/productsData';
+import { ProductItem } from '../data/productsData';
 import { useCart } from '../context/CartContext';
+import { useContact } from '../context/ContactContext';
 
 interface ChillumFlavourBookingConfiguratorProps {
   onOpenBookingWithConfig: (configuredItem: {
@@ -99,6 +100,7 @@ export const ChillumFlavourBookingConfigurator: React.FC<
   ChillumFlavourBookingConfiguratorProps
 > = ({ onOpenBookingWithConfig }) => {
   const { addToCart, setIsCartOpen } = useCart();
+  const { getWhatsAppLink } = useContact();
   const [selectedFlavour, setSelectedFlavour] = useState<FlavourProfile>(
     FLAVOUR_PROFILES[0]
   );
@@ -578,9 +580,7 @@ Please confirm delivery slot for tonight!`;
               
               {/* WhatsApp Chat Button (Exact feature from screenshot) */}
               <a
-                href={`https://wa.me/91${CONTACT_INFO.phone.replace(/[^0-9]/g, '')}?text=${encodeURIComponent(
-                  waMessage
-                )}`}
+                href={getWhatsAppLink(waMessage)}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex-1 py-3.5 px-4 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs flex items-center justify-center gap-2 shadow-lg shadow-emerald-950/40 transition-all cursor-pointer"

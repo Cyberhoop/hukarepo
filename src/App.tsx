@@ -15,6 +15,8 @@ import { ProductDetailModal } from './components/ProductDetailModal';
 import { CartDrawer } from './components/CartDrawer';
 import { CustomerAuthModal } from './components/CustomerAuthModal';
 import { CookieConsentBanner } from './components/CookieConsentBanner';
+import { AgeVerificationModal } from './components/AgeVerificationModal';
+import { SEOHead } from './components/SEOHead';
 import { ProductItem } from './data/productsData';
 import { api, PaymentConfig } from './services/api';
 import { useCart } from './context/CartContext';
@@ -226,6 +228,12 @@ export default function App() {
 
   return (
     <div className="min-h-screen w-full max-w-[100vw] overflow-x-hidden bg-[#070709] text-neutral-100 flex flex-col selection:bg-red-600 selection:text-white pb-16 sm:pb-0">
+      {/* Dynamic WordPress/Yoast-Style SEO Meta Tag & Schema.org Head Manager */}
+      <SEOHead />
+
+      {/* Mandatory 18+ Age Verification Gate on Domain Open */}
+      <AgeVerificationModal />
+
       {/* Top Header Navigation */}
       <Header
         onOpenBooking={() => requestProtectedBookingOpen()}
