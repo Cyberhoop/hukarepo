@@ -9,7 +9,6 @@ import {
   ShoppingBag,
   User,
   Phone,
-  Globe,
   Sparkles,
 } from 'lucide-react';
 import { useCart } from '../context/CartContext';
@@ -64,44 +63,15 @@ export const Header: React.FC<HeaderProps> = ({
             </span>
           </div>
 
-          {/* Quick Call & Domain Switcher (.in and .com) */}
+          {/* Quick Call Helpline */}
           <div className="flex items-center gap-3">
             <a
               href={phoneCallUrl}
-              className="hidden sm:inline-flex items-center gap-1 text-[11px] font-bold text-amber-300 hover:text-white transition-colors"
+              className="inline-flex items-center gap-1.5 text-[11px] font-bold text-amber-300 hover:text-white transition-colors"
             >
               <Phone className="w-3 h-3 text-red-500" />
               <span>Call: {contactConfig.phone || '+91 98765 43210'}</span>
             </a>
-
-            <div className="flex items-center gap-1.5 bg-black/70 px-2 py-0.5 rounded-lg border border-neutral-800">
-              <Globe className="w-3 h-3 text-neutral-400" />
-              <button
-                type="button"
-                onClick={() => onSelectDomain && onSelectDomain('shisharent.in')}
-                className={`px-1.5 py-0.5 rounded text-[10px] font-bold font-mono transition-colors cursor-pointer ${
-                  (currentDomain || 'shisharent.in').includes('.in')
-                    ? 'bg-red-600 text-white'
-                    : 'text-neutral-400 hover:text-white'
-                }`}
-                title="India Local Domain"
-              >
-                .in (India)
-              </button>
-              <span className="text-neutral-600">/</span>
-              <button
-                type="button"
-                onClick={() => onSelectDomain && onSelectDomain('shisharent.com')}
-                className={`px-1.5 py-0.5 rounded text-[10px] font-bold font-mono transition-colors cursor-pointer ${
-                  (currentDomain || '').includes('.com')
-                    ? 'bg-amber-500 text-neutral-950 font-extrabold'
-                    : 'text-neutral-400 hover:text-white'
-                }`}
-                title="Global Event Concierge Domain"
-              >
-                .com (Global)
-              </button>
-            </div>
           </div>
         </div>
       </div>
