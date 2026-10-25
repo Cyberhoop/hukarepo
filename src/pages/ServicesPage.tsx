@@ -35,7 +35,7 @@ export const ServicesPage: React.FC<ServicesPageProps> = ({ onOpenBooking }) => 
       includes: [
         'Choice of 15+ authentic flavour tins (Al Fakher, Starbuzz, Afzal, SR Special)',
         '100% natural, odorless coconut shell briquettes (burns 90+ mins)',
-        'Individually sealed, autoclaved disposable mouth tips',
+        'Individually sealed disposable mouth tips for every guest',
         'High-wattage electric burner for rapid 3-min coal ignition',
         'Next-day doorstep collection — zero cleaning required by customer',
       ],
@@ -159,6 +159,83 @@ export const ServicesPage: React.FC<ServicesPageProps> = ({ onOpenBooking }) => 
           <p className="text-xs sm:text-sm text-neutral-400 max-w-md">
             From single-night shisha rentals in South Kolkata to full-scale wedding cocktail lounges in New Town with trained mixologists and chefs.
           </p>
+        </div>
+      </div>
+
+      {/* Royal Golden Service Bar Spotlight Banner */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="relative rounded-2xl sm:rounded-3xl overflow-hidden border-2 border-amber-500/50 bg-gradient-to-r from-[#1d1408] via-[#140e05] to-[#0c0803] p-6 sm:p-10 shadow-2xl shadow-amber-950/50">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+            <div className="lg:col-span-7 space-y-4 text-left">
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-500/20 border border-amber-500/40 text-amber-300 text-xs font-bold uppercase tracking-wider">
+                <Sparkles className="w-3.5 h-3.5 text-amber-400" />
+                <span>Kolkata's Official VIP Service Bar Setup</span>
+              </div>
+
+              <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-white tracking-tight font-heading leading-tight">
+                Royal Golden <span className="text-amber-400">Hospitality &amp; Mixology</span>
+              </h2>
+
+              <p className="text-sm sm:text-base text-neutral-300 leading-relaxed max-w-xl">
+                Elevate your private penthouse gatherings, rooftop celebrations, or wedding sangeet nights with certified flair mixologists, live charcoal barbecue chefs, and full-time shisha sommeliers.
+              </p>
+
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-2">
+                <div className="p-3 rounded-xl bg-black/60 border border-amber-500/30 text-left">
+                  <div className="text-xs font-bold text-amber-400">Smoked Cocktails</div>
+                  <div className="text-[11px] text-neutral-400">Dry ice mist &amp; craft syrups</div>
+                </div>
+                <div className="p-3 rounded-xl bg-black/60 border border-amber-500/30 text-left">
+                  <div className="text-xs font-bold text-amber-400">Live Kebab Grills</div>
+                  <div className="text-[11px] text-neutral-400">Fresh charcoal barbecue tandoor</div>
+                </div>
+                <div className="p-3 rounded-xl bg-black/60 border border-amber-500/30 text-left">
+                  <div className="text-xs font-bold text-amber-400">Coal Rotation</div>
+                  <div className="text-[11px] text-neutral-400">Zero host effort all night</div>
+                </div>
+              </div>
+
+              <div className="flex flex-wrap items-center gap-3 pt-2">
+                <button
+                  type="button"
+                  onClick={onOpenBooking}
+                  className="px-6 py-3 rounded-xl bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-neutral-950 font-bold text-xs sm:text-sm shadow-xl shadow-amber-950/60 transition-all cursor-pointer"
+                >
+                  Book Hospitality Crew
+                </button>
+                <a
+                  href={getWhatsAppLink('Hi Shisha Rent, I want to book the Golden VIP Service Bar for an event.')}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="px-5 py-3 rounded-xl bg-emerald-950/60 hover:bg-emerald-900 border border-emerald-500/40 text-emerald-300 font-semibold text-xs sm:text-sm flex items-center gap-1.5 transition-all cursor-pointer"
+                >
+                  <MessageCircle className="w-4 h-4 text-emerald-400" />
+                  <span>WhatsApp Inquiries</span>
+                </a>
+              </div>
+            </div>
+
+            {/* Right Column: DEDICATED Golden Colour Service Bar Image */}
+            <div className="lg:col-span-5 relative">
+              <div className="relative rounded-2xl overflow-hidden border-2 border-amber-500/40 shadow-2xl aspect-[4/3] group">
+                <img
+                  src="/src/assets/images/service_golden_bar_catering_1792919778409.jpg"
+                  alt="Royal Golden Cocktail Bar & VIP Event Shisha Catering Setup"
+                  referrerPolicy="no-referrer"
+                  className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-700"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-transparent to-transparent pointer-events-none" />
+                <div className="absolute bottom-3 left-3 right-3 text-left">
+                  <span className="text-[10px] uppercase font-bold tracking-wider px-2 py-0.5 rounded bg-amber-500 text-neutral-950">
+                    VIP Cocktail Lounge
+                  </span>
+                  <div className="text-xs font-bold text-white mt-1">
+                    Park Street · Alipore · Salt Lake · New Town
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
 

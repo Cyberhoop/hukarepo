@@ -24,17 +24,24 @@ import { useProducts } from '../context/ProductsContext';
 import { useContact } from '../context/ContactContext';
 import { ChillumFlavourBookingConfigurator } from '../components/ChillumFlavourBookingConfigurator';
 import { MasterCatalogSequenceSection } from '../components/MasterCatalogSequenceSection';
+import { HeroSlider } from '../components/HeroSlider';
+import { QuickServicesBar } from '../components/QuickServicesBar';
+import { WhiteHookahShowcase } from '../components/WhiteHookahShowcase';
+import { UpiQrShowcase } from '../components/UpiQrShowcase';
+import type { PaymentConfig } from '../services/api';
 
 interface HomePageProps {
   onOpenBooking: () => void;
   onOpenBookingWithConfig?: (config: any) => void;
   onOpenProductDetail: (product: ProductItem) => void;
+  paymentConfig?: PaymentConfig | null;
 }
 
 export const HomePage: React.FC<HomePageProps> = ({
   onOpenBooking,
   onOpenBookingWithConfig,
   onOpenProductDetail,
+  paymentConfig,
 }) => {
   const { navigateTo } = useNavigation();
   const { addToCart } = useCart();
@@ -147,7 +154,7 @@ export const HomePage: React.FC<HomePageProps> = ({
                   </div>
                   <div className="min-w-0">
                     <div className="text-xs font-semibold text-white truncate">100% Sanitized</div>
-                    <div className="text-[11px] text-neutral-400 truncate">Autoclaved Tips</div>
+                    <div className="text-[11px] text-neutral-400 truncate">Sealed Mouthpieces</div>
                   </div>
                 </div>
 
@@ -184,51 +191,35 @@ export const HomePage: React.FC<HomePageProps> = ({
 
             </div>
 
-            {/* Right Column: Hero Visual with Glow */}
+            {/* Right Column: Automated Luxury Hero Slider with Controls */}
             <div className="lg:col-span-6 relative min-w-0">
-              <div className="relative rounded-2xl overflow-hidden border border-neutral-800/80 bg-neutral-950 shadow-2xl shadow-black/80 group">
-                <div className="relative aspect-[16/11] w-full overflow-hidden">
-                  <img
-                    src="/src/assets/images/hero_luxury_hookah_1791648599431.jpg"
-                    alt="Luxury Hookah Lounge Setup with Red and Gold Ambience"
-                    referrerPolicy="no-referrer"
-                    className="w-full h-full object-cover object-center group-hover:scale-103 transition-transform duration-700"
-                  />
-
-                  {/* Scrim overlay */}
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/25 to-black/30 pointer-events-none" />
-
-                  {/* Good Vibes Floating Typography */}
-                  <div className="absolute top-4 right-4 sm:top-6 sm:right-6 pointer-events-none text-right">
-                    <span className="font-serif italic font-bold text-2xl sm:text-4xl text-transparent bg-clip-text bg-gradient-to-r from-red-500 via-rose-400 to-amber-300 drop-shadow-[0_2px_12px_rgba(220,38,38,0.8)] tracking-wide">
-                      Good Vibes
-                    </span>
-                    <div className="font-serif italic text-xl sm:text-3xl text-neutral-100 tracking-wider">
-                      Only
-                    </div>
-                  </div>
-
-                  {/* Bottom Strip */}
-                  <div className="absolute bottom-3 left-3 right-3 sm:bottom-4 sm:left-4 sm:right-4 flex items-center justify-between gap-2 bg-black/85 backdrop-blur-md px-3 sm:px-4 py-2 sm:py-2.5 rounded-xl border border-neutral-700/60 text-xs text-neutral-200">
-                    <div className="flex items-center gap-2 min-w-0">
-                      <Clock className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-red-500 shrink-0" />
-                      <span className="font-medium text-[11px] sm:text-xs leading-tight">
-                        Late Night Deliveries Available until 4:00 AM
-                      </span>
-                    </div>
-                    <button
-                      onClick={onOpenBooking}
-                      className="px-3 py-1.5 rounded-lg bg-red-600 hover:bg-red-500 text-white font-bold text-[11px] whitespace-nowrap shrink-0 transition-colors cursor-pointer"
-                    >
-                      Instant Book
-                    </button>
-                  </div>
-                </div>
-              </div>
+              <HeroSlider
+                onOpenBooking={onOpenBooking}
+                onNavigatePage={(page) => navigateTo(page)}
+              />
             </div>
 
           </div>
         </div>
+      </section>
+
+      {/* ================================================================ */}
+      {/* 2. OFFICIAL ROYAL GOLDEN SERVICE BAR (COMPLETE SETUP) */}
+      {/* ================================================================ */}
+      <section className="-mt-8 sm:-mt-12 mb-6">
+        <QuickServicesBar
+          onSelectService={() => navigateTo('services')}
+          onOpenBookingModal={onOpenBooking}
+        />
+      </section>
+
+      {/* ================================================================ */}
+      {/* 2B. SIGNATURE WHITE HOOKAH SHOWCASE (DEDICATED WHITE/PLATINUM SECTION) */}
+      {/* ================================================================ */}
+      <section className="mb-4">
+        <WhiteHookahShowcase
+          onOpenBooking={onOpenBooking}
+        />
       </section>
 
       {/* ================================================================ */}
@@ -338,7 +329,13 @@ export const HomePage: React.FC<HomePageProps> = ({
       </section>
 
       {/* ================================================================ */}
-      {/* 3. VISUAL CATEGORY EXPLORATION TILES */}
+      {/* 5. DEDICATED PRISTINE WHITE HOOKAH SIGNATURE SHOWCASE */}
+      {/* (SEPARATE FROM GOLDEN SERVICE BAR - PURE WHITE CERAMIC & GLASS) */}
+      {/* ================================================================ */}
+      <WhiteHookahShowcase onOpenBooking={onOpenBooking} />
+
+      {/* ================================================================ */}
+      {/* 6. VISUAL CATEGORY EXPLORATION TILES */}
       {/* ================================================================ */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-8">
@@ -627,10 +624,10 @@ export const HomePage: React.FC<HomePageProps> = ({
               <ShieldCheck className="w-5 h-5" />
             </div>
             <h3 className="text-base font-bold text-white font-heading">
-              Autoclaved & Ultrasonic Sanitization
+              100% Sanitized &amp; Sealed Gear
             </h3>
             <p className="text-xs text-neutral-400 leading-relaxed">
-              Every shisha stem, glass vase, and silicon hose undergoes deep ultrasonic cleaning after every single rental. All mouthpieces are 100% sealed and single-use for your safety.
+              Every shisha stem, glass vase, and silicon hose is thoroughly washed, sanitized, and inspected before delivery. All mouthpieces are 100% factory-sealed and single-use for your peace of mind.
             </p>
           </div>
 
@@ -766,7 +763,29 @@ export const HomePage: React.FC<HomePageProps> = ({
       </section>
 
       {/* ================================================================ */}
-      {/* 9. VIP WEEKEND BOOKING CTA */}
+      {/* 9. OFFICIAL UPI QR CODE SCANNER & INSTANT PAYMENT */}
+      {/* ================================================================ */}
+      <section className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="text-center max-w-xl mx-auto mb-6 space-y-2">
+          <div className="inline-flex items-center gap-2">
+            <span className="h-[2px] w-6 bg-amber-500"></span>
+            <span className="text-xs font-semibold tracking-[0.25em] uppercase text-amber-400">
+              OFFICIAL PAYMENT
+            </span>
+          </div>
+          <h2 className="text-2xl sm:text-3xl font-extrabold text-white font-heading">
+            Official <span className="text-amber-400">UPI QR Scanner</span> &amp; Priority Dispatch
+          </h2>
+          <p className="text-xs sm:text-sm text-neutral-400">
+            Scan with any UPI App (GPay, PhonePe, Paytm, BHIM) for instant booking verification and priority late-night delivery.
+          </p>
+        </div>
+
+        <UpiQrShowcase paymentConfig={paymentConfig || null} />
+      </section>
+
+      {/* ================================================================ */}
+      {/* 10. VIP WEEKEND BOOKING CTA */}
       {/* ================================================================ */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="relative rounded-2xl overflow-hidden border border-red-900/50 bg-gradient-to-r from-red-950 via-neutral-950 to-black p-8 sm:p-12 text-center space-y-5 shadow-2xl">

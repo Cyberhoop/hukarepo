@@ -561,10 +561,10 @@ function getInitialState(): DatabaseState {
     },
     paymentConfig: {
       id: 'active_config',
-      upiId: 'shisharent@upi',
-      payeeName: 'Shisha Rent Kolkata',
-      qrImageUrl: '',
-      qrStoragePath: '',
+      upiId: 'shisharent.kolkata@okhdfcbank',
+      payeeName: 'Shisha Rent Private Limited',
+      qrImageUrl: '/src/assets/images/shisha_rent_official_scanner_qr_1792919780261.jpg',
+      qrStoragePath: 'src/assets/images/shisha_rent_official_scanner_qr_1792919780261.jpg',
       isActive: true,
       codEnabled: true,
       instructions:

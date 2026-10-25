@@ -9,6 +9,33 @@ interface GalleryPageProps {
 
 const DEFAULT_FALLBACK_GALLERY: GalleryItem[] = [
   {
+    id: 'gal-penthouse',
+    title: 'VIP Penthouse Rooftop Shisha Lounge at Night',
+    subtitle: 'Park Street Penthouse Terrace overlooking Kolkata Skyline',
+    src: '/src/assets/images/luxury_penthouse_lounge_night_1792919780346.jpg',
+    category: 'parties',
+    createdAt: '2026-10-25T10:00:00.000Z',
+    updatedAt: '2026-10-25T10:00:00.000Z',
+  },
+  {
+    id: 'gal-golden-bar',
+    title: 'Royal Golden Cocktail Bar & Live Party Mixologists',
+    subtitle: 'Bespoke Smoked Cocktails & VIP Gala Catering in Alipore',
+    src: '/src/assets/images/service_golden_bar_catering_1792919778409.jpg',
+    category: 'cocktails',
+    createdAt: '2026-10-25T10:01:00.000Z',
+    updatedAt: '2026-10-25T10:01:00.000Z',
+  },
+  {
+    id: 'gal-white-hookah',
+    title: 'White Ceramic & Crystal Glass Shisha Setup',
+    subtitle: 'Handcrafted White Setup with Sealed Mouthpieces for Salt Lake Private Event',
+    src: '/src/assets/images/luxury_white_hookah_hero_1792919777843.jpg',
+    category: 'hookahs',
+    createdAt: '2026-10-25T10:02:00.000Z',
+    updatedAt: '2026-10-25T10:02:00.000Z',
+  },
+  {
     id: 'gal-1',
     title: 'VIP Lounge Setup with Exotic Fruit Garnishes',
     subtitle: 'Park Street Penthouse Terrace',

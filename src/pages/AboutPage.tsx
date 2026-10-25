@@ -101,15 +101,15 @@ export const AboutPage: React.FC<AboutPageProps> = ({ onOpenBooking }) => {
           <div className="lg:col-span-5">
             <div className="relative rounded-2xl overflow-hidden border border-neutral-800 shadow-2xl aspect-[4/3]">
               <img
-                src="/src/assets/images/hero_luxury_hookah_1791648599431.jpg"
-                alt="Shisha Rent Kolkata Craftsmanship"
+                src="/src/assets/images/luxury_white_hookah_hero_1792919777843.jpg"
+                alt="Pure White Ceramic and Crystal Glass Shisha Setup"
                 referrerPolicy="no-referrer"
                 className="w-full h-full object-cover"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-black/20" />
               <div className="absolute bottom-4 left-4 right-4 text-left">
-                <div className="text-xs font-bold text-white">Imported Hardware & Sealed Packaging</div>
-                <div className="text-[11px] text-neutral-300">Sanitized after every single booking</div>
+                <div className="text-xs font-bold text-white">Pure White Ceramic &amp; Crystal Glass</div>
+                <div className="text-[11px] text-cyan-300">Crystal-clear base with sealed mouthpieces for every booking</div>
               </div>
             </div>
           </div>
@@ -133,10 +133,10 @@ export const AboutPage: React.FC<AboutPageProps> = ({ onOpenBooking }) => {
               <ShieldCheck className="w-5 h-5" />
             </div>
             <h3 className="text-base font-bold text-white font-heading">
-              1. Medical-Grade Hygiene
+              1. Pure Hygiene &amp; Cleanliness
             </h3>
             <p className="text-xs text-neutral-400 leading-relaxed">
-              Stems and glass vases undergo ultrasonic cleaning after every return. Hoses are medical-grade washable silicone, and every booking includes sealed, single-use mouthpieces.
+              Stems and glass vases undergo deep cleaning after every return. Hoses are washable silicone, and every booking includes sealed, single-use mouthpieces.
             </p>
           </div>
 

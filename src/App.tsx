@@ -221,13 +221,14 @@ export default function App() {
             onOpenBooking={() => requestProtectedBookingOpen()}
             onOpenBookingWithConfig={handleOpenBookingWithConfig}
             onOpenProductDetail={handleOpenProductDetail}
+            paymentConfig={paymentConfig}
           />
         );
     }
   };
 
   return (
-    <div className="min-h-screen w-full max-w-[100vw] overflow-x-hidden bg-[#070709] text-neutral-100 flex flex-col selection:bg-red-600 selection:text-white pb-16 sm:pb-0">
+    <div className="min-h-screen w-full max-w-[100vw] overflow-x-hidden bg-[#070709] luxury-wallpaper text-neutral-100 flex flex-col selection:bg-red-600 selection:text-white pb-16 sm:pb-0">
       {/* Dynamic WordPress/Yoast-Style SEO Meta Tag & Schema.org Head Manager */}
       <SEOHead />
 
